@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h1 class="h4 mb-0">Formulario de Paciente</h1>
+                        </div>
+                        <div class="card-body p-4">
+
+                            <h3 th:if="${paciente.id_paciente == null}" class="text-center text-muted mb-4">Registrar
+                                Nuevo Paciente</h3>
+                            <h3 th:if="${paciente.id_paciente != null}" class="text-center text-muted mb-4">Editar Datos
+                                del Paciente</h3>
+
+                            <form th:action="@{/pacientes/guardar}" th:object="${paciente}" method="post">
+                                <input type="hidden" th:field="*{id_paciente}" />
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dni" class="form-label">DNI</label>
+                                        <input type="text" id="dni" class="form-control" th:field="*{dni}"
+                                            placeholder="Ingrese DNI" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="text" id="telefono" class="form-control" th:field="*{telefono}"
+                                            placeholder="Ej. 987654321" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombres" class="form-label">Nombres</label>
+                                        <input type="text" id="nombres" class="form-control" th:field="*{nombres}"
+                                            placeholder="Nombres completos" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="apellidos" class="form-label">Apellidos</label>
+                                        <input type="text" id="apellidos" class="form-control" th:field="*{apellidos}"
+                                            placeholder="Apellidos completos" required />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                        <input type="date" id="fecha_nacimiento" class="form-control"
+                                            th:field="*{fecha_nacimiento}" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="genero" class="form-label">Género</label>
+                                        <select id="genero" class="form-select" th:field="*{genero}" required>
+                                            <option value="" disabled selected>Seleccione una opción</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="distrito" class="form-label">Distrito</label>
+                                        <select id="distrito" class="form-select" th:field="*{distrito}" required>
+                                            <option value="" disabled selected>Seleccione un distrito</option>
+                                            <option value="Ancón">Ancón</option>
+                                            <option value="Ate">Ate</option>
+                                            <option value="Barranco">Barranco</option>
+                                            <option value="Breña">Breña</option>
+                                            <option value="Carabayllo">Carabayllo</option>
+                                            <option value="Chaclacayo">Chaclacayo</option>
+                                            <option value="Chorrillos">Chorrillos</option>
+                                            <option value="Cieneguilla">Cieneguilla</option>
+                                            <option value="Comas">Comas</option>
+                                            <option value="El Agustino">El Agustino</option>
+                                            <option value="Independencia">Independencia</option>
+                                            <option value="Jesús María">Jesús María</option>
+                                            <option value="La Molina">La Molina</option>
+                                            <option value="La Victoria">La Victoria</option>
+                                            <option value="Lima">Lima</option>
+                                            <option value="Lince">Lince</option>
+                                            <option value="Los Olivos">Los Olivos</option>
+                                            <option value="Lurigancho-Chosica">Lurigancho-Chosica</option>
+                                            <option value="Lurín">Lurín</option>
+                                            <option value="Magdalena del Mar">Magdalena del Mar</option>
+                                            <option value="Miraflores">Miraflores</option>
+                                            <option value="Pachacámac">Pachacámac</option>
+                                            <option value="Pucusana">Pucusana</option>
+                                            <option value="Pueblo Libre">Pueblo Libre</option>
+                                            <option value="Puente Piedra">Puente Piedra</option>
+                                            <option value="Punta Hermosa">Punta Hermosa</option>
+                                            <option value="Punta Negra">Punta Negra</option>
+                                            <option value="Rímac">Rímac</option>
+                                            <option value="San Bartolo">San Bartolo</option>
+                                            <option value="San Borja">San Borja</option>
+                                            <option value="San Isidro">San Isidro</option>
+                                            <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                                            <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                                            <option value="San Luis">San Luis</option>
+                                            <option value="San Martín de Porres">San Martín de Porres</option>
+                                            <option value="San Miguel">San Miguel</option>
+                                            <option value="Santa Anita">Santa Anita</option>
+                                            <option value="Santa María del Mar">Santa María del Mar</option>
+                                            <option value="Santa Rosa">Santa Rosa</option>
+                                            <option value="Santiago de Surco">Santiago de Surco</option>
+                                            <option value="Surquillo">Surquillo</option>
+                                            <option value="Villa El Salvador">Villa El Salvador</option>
+                                            <option value="Villa María del Triunfo">Villa María del Triunfo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="numero_seguro" class="form-label">N° Seguro</label>
+                                        <input type="text" id="numero_seguro" class="form-control"
+                                            th:field="*{numero_seguro}" placeholder="Número de seguro (opcional)" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" id="direccion" class="form-control" th:field="*{direccion}"
+                                        placeholder="Av. Ejemplo 123" />
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/pacientes}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary"
+                                        th:text="${paciente.id_paciente == null ? 'Guardar Paciente' : 'Aplicar Cambios'}">
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

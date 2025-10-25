@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(titulo, contenido)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} + ' - LifeCenter'"></title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+</head>
+
+<body>
+    <div class="d-flex min-vh-100">
+
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+            <a th:href="@{/dashboard}"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <i class="bi bi-heart-pulse me-2 fs-4"></i>
+                <span class="fs-4">LifeCenter</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link text-white"><i
+                            class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                <li><a th:href="@{/pacientes}" class="nav-link text-white"><i
+                            class="bi bi-person-badge me-2"></i>Pacientes</a></li>
+                <li><a th:href="@{/medicos}" class="nav-link text-white"><i
+                            class="bi bi-clipboard2-pulse me-2"></i>Médicos</a></li>
+                <li><a href="#" class="nav-link text-white"><i class="bi bi-calendar-event me-2"></i>Citas</a></li>
+                <li><a href="#" class="nav-link text-white"><i class="bi bi-journal-medical me-2"></i>Historias
+                        Clínicas</a></li>
+                <li><a href="#" class="nav-link text-white"><i class="bi bi-door-open me-2"></i>Habitaciones</a></li>
+                <li><a href="#" class="nav-link text-white"><i class="bi bi-box-arrow-in-right me-2"></i>Ingresos</a>
+                </li>
+            </ul>
+            <hr>
+            <div>
+                <a th:href="@{/}" class="d-flex align-items-center text-white text-decoration-none"><i
+                        class="bi bi-box-arrow-left me-2"></i><strong>Cerrar Sesión</strong></a>
+            </div>
+        </div>
+
+        <div class="flex-grow-1 p-4 bg-light">
+            <h1 class="mb-4" th:text="${titulo}"></h1>
+
+            <div th:replace="${contenido}"></div>
+        </div>
+
+    </div>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">Gestión de Pacientes</h1>
+                    <a th:href="@{/pacientes/nuevo}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i> Registrar Nuevo Paciente
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">F. Nacimiento</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Distrito</th>
+                                    <th scope="col" class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="paciente : ${pacientes}">
+                                    <td th:text="${paciente.id_paciente}"></td>
+                                    <td th:text="${paciente.dni}"></td>
+                                    <td th:text="${paciente.nombres}"></td>
+                                    <td th:text="${paciente.apellidos}"></td>
+                                    <td th:text="${#temporals.format(paciente.fecha_nacimiento, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${paciente.telefono}"></td>
+                                    <td th:text="${paciente.distrito}"></td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a th:href="@{/pacientes/editar/{id}(id=${paciente.id_paciente})}"
+                                                class="btn btn-warning btn-sm">Editar</a>
+                                            <a th:href="@{/pacientes/eliminar/{id}(id=${paciente.id_paciente})}"
+                                                class="btn btn-danger btn-sm">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(pacientes)}">
+                                    <td colspan="8" class="text-center text-muted">No hay pacientes registrados.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
