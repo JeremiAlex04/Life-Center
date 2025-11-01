@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -20,7 +17,11 @@ public class Medico {
     private String numero_colegiatura;
     private String telefono;
     private String email;
-    private String estado; 
-    private String turno;    
+    private String estado;
+    private String turno;
     private Integer anioEgreso;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<body>
+<section>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h1 class="h4 mb-0">Agendar Nueva Cita</h1>
+                    </div>
+                    <div class="card-body p-4">
+                        <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha de la Cita</label>
+                                <input type="date" id="fecha" class="form-control" th:field="*{fecha}" required />
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="medico" class="form-label">Médico de Preferencia</label>
+                                <select id="medico" class="form-select" th:field="*{medico.id_medico}" required>
+                                    <option value="" disabled selected>Seleccione un médico</option>
+                                    <option th:each="med : ${medicos}"
+                                            th:value="${med.id_medico}"
+                                            th:text="${med.nombres + ' ' + med.apellidos + ' - ' + med.especialidad}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="motivo" class="form-label">Motivo de la Cita</label>
+                                <textarea id="motivo" class="form-control" rows="3" th:field="*{motivo}" placeholder="Describa brevemente su motivo..." required></textarea>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a th:href="@{/paciente/dashboard}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Confirmar Cita</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

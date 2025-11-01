@@ -9,5 +9,7 @@ public class LifeCenterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LifeCenterApplication.class, args);
 	}
-
 }
+
+
+

@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -20,9 +17,11 @@ public class Paciente {
     private LocalDate fecha_nacimiento;
     private String genero;
     private String telefono;
-    private String distrito; 
-    private String direccion; 
+    private String distrito;
+    private String direccion;
     private String numero_seguro;
 
-   
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 }

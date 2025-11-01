@@ -29,4 +29,8 @@ public class MedicoService {
     public void deleteById(Long id) {
         medicoRepository.deleteById(id);
     }
+
+    public Medico findByUsername(String username) {
+        return medicoRepository.findByUsuarioUsername(username).orElse(null);
+    }
 }
