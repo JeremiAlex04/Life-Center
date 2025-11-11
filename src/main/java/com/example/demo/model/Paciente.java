@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Data
@@ -14,7 +15,10 @@ public class Paciente {
     private String dni;
     private String nombres;
     private String apellidos;
+    
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fecha_nacimiento;
+    
     private String genero;
     private String telefono;
     private String distrito;

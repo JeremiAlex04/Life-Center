@@ -6,6 +6,16 @@
     <title>Bienvenido a LifeCenter</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+    <style>
+        .card-medico {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+        .card-medico:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,7 +37,7 @@
                         <a class="nav-link" href="#">Nuestros Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Especialidades</a>
+                        <a class="nav-link" th:href="@{/especialidades}">Especialidades</a>
                     </li>
                      <li class="nav-item">
                         <a class="btn btn-primary ms-lg-3" th:href="@{/login}">Portal de Pacientes</a>
@@ -38,12 +48,39 @@
     </nav>
 
     <div class="container-fluid vh-100 p-0 d-flex align-items-center"
-         th:style="'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + @{/img/banner.jpg} + '); background-size: cover; background-position: center;'">
+         th:style="'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + @{/img/fondo_inicio.jpg} + '); background-size: cover; background-position: center;'">
         <div class="container text-white text-center">
             <h1 class="display-3 fw-bolder mb-3">LifeCenter</h1>
             <p class="fw-bold fs-2 text-shadow">Sistema de Gestión Hospitalaria</p>
             <p class="mt-4 lead">Cuidamos de tu salud con tecnología de vanguardia y un equipo humano excepcional.</p>
             <a th:href="@{/registro}" class="btn btn-primary btn-lg mt-3">Regístrate y Agenda tu Cita</a>
+        </div>
+    </div>
+
+    <!-- Sección de Médicos -->
+    <div class="container my-5">
+        <h2 class="text-center mb-5">Nuestro Staff de Médicos</h2>
+        <div th:if="${medicosPorEspecialidad == null or medicosPorEspecialidad.isEmpty()}">
+            <p class="text-center">No hay médicos registrados en este momento.</p>
+        </div>
+        <div th:unless="${medicosPorEspecialidad == null or medicosPorEspecialidad.isEmpty()}">
+            <div th:each="entry : ${medicosPorEspecialidad}">
+                <h3 class="mb-4" th:text="${entry.key}">Especialidad</h3>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4" th:each="medico : ${entry.value}">
+                        <div class="card text-center shadow-sm h-100 card-medico">
+                            <div class="card-header bg-light border-0 pt-4"> <!-- Added bg-light here -->
+                                <img th:if="${medico.fotoUrl != null}" th:src="@{${medico.fotoUrl}}" alt="Foto del Médico" class="rounded-circle img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img th:if="${medico.fotoUrl == null}" th:src="@{/img/default-avatar.svg}" alt="Foto por defecto" class="rounded-circle img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${medico.nombres + ' ' + medico.apellidos}"></h5>
+                                <p class="badge bg-info text-white rounded-pill px-3 py-2" th:text="${medico.especialidad}"></p> <!-- Changed badge style -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     

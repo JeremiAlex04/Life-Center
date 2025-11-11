@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestras Especialidades - LifeCenter</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+    <style>
+        .card-especialidad {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+        .card-especialidad:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+                <i class="bi bi-heart-pulse me-2 fs-4"></i>
+                <span class="fs-4">LifeCenter</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Nuestros Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/especialidades}">Especialidades</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3" th:href="@{/login}">Portal de Pacientes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5 pt-5"> <!-- Added pt-5 for spacing below fixed navbar -->
+        <h2 class="text-center mb-5">Nuestras Especialidades</h2>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4" th:each="spec : ${specialties}">
+                <div class="card text-center h-100 card-especialidad">
+                    <div class="card-body p-4">
+                        <img th:src="@{${spec.imageUrl}}" alt="Imagen de Especialidad" class="img-fluid rounded mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5 class="card-title" th:text="${spec.name}"></h5>
+                        <p class="card-text text-muted" th:text="${spec.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

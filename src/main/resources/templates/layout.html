@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="layout(titulo, contenido)">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="layout(title, content)">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${titulo} + ' - LifeCenter'"></title>
+    <title th:text="${title} + ' - LifeCenter'"></title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
@@ -45,8 +45,8 @@
                 </li>
                 
                 <div sec:authorize="hasRole('ADMIN')">
-                    <li><a th:href="@{/pacientes}" class="nav-link text-white"><i class="bi bi-person-badge me-2"></i>Pacientes</a></li>
-                    <li><a th:href="@{/medicos}" class="nav-link text-white"><i class="bi bi-clipboard2-pulse me-2"></i>Médicos</a></li>
+                    <li><a th:href="@{/admin/pacientes}" class="nav-link text-white"><i class="bi bi-person-badge me-2"></i>Pacientes</a></li>
+                    <li><a th:href="@{/admin/medicos}" class="nav-link text-white"><i class="bi bi-clipboard2-pulse me-2"></i>Médicos</a></li>
                 </div>
 
                 <div sec:authorize="hasRole('PACIENTE')">
@@ -70,8 +70,8 @@
         </div>
 
         <div class="flex-grow-1 p-4 bg-light">
-            <h1 class="mb-4" th:text="${titulo}"></h1>
-            <div th:replace="${contenido}"></div>
+            <h1 class="mb-4" th:text="${title}"></h1>
+            <div th:replace="${content}"></div>
         </div>
 
     </div>

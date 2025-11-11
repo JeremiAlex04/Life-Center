@@ -18,7 +18,7 @@
 
                             <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
 
-                            <form th:action="@{/medicos/guardar}" th:object="${medico}" method="post">
+                            <form th:action="@{/admin/medicos/guardar}" th:object="${medico}" method="post">
                                 <input type="hidden" th:field="*{id_medico}" />
 
                                 <div class="row">
@@ -58,10 +58,32 @@
                                             <option value="Ginecología">Ginecología</option>
                                             <option value="Pediatría">Pediatría</option>
                                             <option value="Traumatología">Traumatología</option>
+                                            <option value="Oftalmología">Oftalmología</option>
+                                            <option value="Neurología">Neurología</option>
+                                            <option value="Oncología">Oncología</option>
+                                            <option value="Urología">Urología</option>
+                                            <option value="Endocrinología">Endocrinología</option>
+                                            <option value="Gastroenterología">Gastroenterología</option>
+                                            <option value="Neumología">Neumología</option>
+                                            <option value="Reumatología">Reumatología</option>
+                                            <option value="Infectología">Infectología</option>
+                                            <option value="Nefrología">Nefrología</option>
+                                            <option value="Hematología">Hematología</option>
+                                            <option value="Psiquiatría">Psiquiatría</option>
+                                            <option value="Anestesiología">Anestesiología</option>
+                                            <option value="Radiología">Radiología</option>
+                                            <option value="Medicina Interna">Medicina Interna</option>
+                                            <option value="Cirugía General">Cirugía General</option>
+                                            <option value="Otorrinolaringología">Otorrinolaringología</option>
+                                            <option value="Fisiatría">Fisiatría</option>
+                                            <option value="Geriatría">Geriatría</option>
+                                            <option value="Nutrición">Nutrición</option>
+                                            <option value="Odontología">Odontología</option>
+                                            <option value="Psicología">Psicología</option>
                                             <option value="Otra">Otra</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-3" id="otraEspecialidadContainer" style="display: none;">
                                         <label for="otraEspecialidad" class="form-label">Especificar
                                             Especialidad</label>
                                         <input type="text" id="otraEspecialidad" name="otraEspecialidad"
@@ -79,6 +101,14 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" id="email" class="form-control" th:field="*{email}"
                                             placeholder="correo@ejemplo.com" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fotoUrl" class="form-label">Nombre del Archivo de la Foto (Opcional)</label>
+                                    <input type="text" id="fotoUrl" th:field="*{fotoUrl}" class="form-control" placeholder="Ej: mi-foto.jpg" />
+                                    <div class="form-text">
+                                        Coloque la imagen en la carpeta 'fotos-perfil/medicos' y escriba el nombre exacto del archivo aquí.
                                     </div>
                                 </div>
 
@@ -111,7 +141,7 @@
                                 <hr class="my-4">
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a th:href="@{/medicos}" class="btn btn-outline-secondary">Cancelar</a>
+                                    <a th:href="@{/admin/medicos}" class="btn btn-outline-secondary">Cancelar</a>
                                     <button type="submit" class="btn btn-success"
                                         th:text="${medico.id_medico == null ? 'Registrar Médico' : 'Aplicar Cambios'}">
                                     </button>
@@ -123,6 +153,26 @@
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const especialidadSelect = document.getElementById('especialidad');
+            const otraEspecialidadContainer = document.getElementById('otraEspecialidadContainer');
+
+            function toggleOtraEspecialidad() {
+                if (especialidadSelect.value === 'Otra') {
+                    otraEspecialidadContainer.style.display = 'block';
+                } else {
+                    otraEspecialidadContainer.style.display = 'none';
+                }
+            }
+
+            // Check on page load
+            toggleOtraEspecialidad();
+
+            // Add event listener
+            especialidadSelect.addEventListener('change', toggleOtraEspecialidad);
+        });
+    </script>
 </body>
 
 </html>

@@ -28,6 +28,11 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping("/login")
+    public String viewLoginPage() {
+        return "login";
+    }
+
     @GetMapping("/registro")
     public String viewRegistroPage(Model model) {
         if (!model.containsAttribute("paciente")) {

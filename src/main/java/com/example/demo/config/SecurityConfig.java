@@ -1,21 +1,26 @@
 package com.example.demo.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private AuthenticationSuccessHandler successHandler;
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -23,28 +28,54 @@ public class SecurityConfig {
     }
 
     @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/bootstrap-icons/**").permitAll()
-                .requestMatchers("/", "/login", "/registro").permitAll() // PERMITIR PÁGINA PÚBLICA
-                .requestMatchers("/admin/**", "/pacientes/**", "/medicos/**").hasRole("ADMIN")
+        http.authenticationProvider(authenticationProvider());
+
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/bootstrap-icons/**", "/login", "/registro", "/especialidades").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/medico/**").hasRole("MEDICO")
-                .requestMatchers("/paciente/**", "/citas/**").hasRole("PACIENTE") // PERMITIR ACCESO A CITAS
+                .requestMatchers("/paciente/**").hasRole("PACIENTE")
                 .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
+        );
+
+        http.formLogin(form -> form
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .successHandler(successHandler)
-                .failureUrl("/login?error=true")
+                .successHandler((request, response, authentication) -> {
+                    String redirectUrl = "/";
+                    var authorities = authentication.getAuthorities();
+                    for (var grantedAuthority : authorities) {
+                        if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                            redirectUrl = "/admin/dashboard";
+                            break;
+                        } else if (grantedAuthority.getAuthority().equals("ROLE_MEDICO")) {
+                            redirectUrl = "/medico/dashboard";
+                            break;
+                        } else if (grantedAuthority.getAuthority().equals("ROLE_PACIENTE")) {
+                            redirectUrl = "/paciente/dashboard";
+                            break;
+                        }
+                    }
+                    response.sendRedirect(redirectUrl);
+                })
                 .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true") // Puede ser "/" si prefieres la página pública
-                .permitAll()
-            );
+        );
+
+        http.logout(logout -> logout.permitAll());
+
         return http.build();
     }
 }

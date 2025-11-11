@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/pacientes")
+@RequestMapping("/admin/pacientes")
 public class PacienteController {
 
     @Autowired
@@ -33,6 +33,7 @@ public class PacienteController {
 
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
+        model.addAttribute("paciente", new Paciente());
         return "admin/pacientes/formulario";
     }
 
@@ -67,7 +68,7 @@ public class PacienteController {
         }
         
         pacienteService.save(paciente);
-        return "redirect:/pacientes";
+        return "redirect:/admin/pacientes";
     }
 
     @GetMapping("/editar/{id}")
@@ -75,12 +76,12 @@ public class PacienteController {
         Paciente paciente = pacienteService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Id de Paciente inválido:" + id));
         model.addAttribute("paciente", paciente);
-        return "pacientes/formulario";
+        return "admin/pacientes/formulario";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarPaciente(@PathVariable Long id) {
         pacienteService.deleteById(id);
-        return "redirect:/pacientes";
+        return "redirect:/admin/pacientes";
     }
 }

@@ -17,7 +17,7 @@
                             <h3 th:if="${paciente.id_paciente != null}" class="text-center text-muted mb-4">Editar Datos
                                 del Paciente</h3>
 
-                            <form th:action="@{/pacientes/guardar}" th:object="${paciente}" method="post">
+                            <form th:action="@{/admin/pacientes/guardar}" th:object="${paciente}" method="post">
                                 <input type="hidden" th:field="*{id_paciente}" />
 
                                 <div class="row">
@@ -129,7 +129,7 @@
                                 <hr class="my-4">
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a th:href="@{/pacientes}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                                    <a th:href="@{/admin/pacientes}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
                                     <button type="submit" class="btn btn-primary"
                                         th:text="${paciente.id_paciente == null ? 'Guardar Paciente' : 'Aplicar Cambios'}">
                                     </button>

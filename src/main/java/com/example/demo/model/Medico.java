@@ -20,6 +20,7 @@ public class Medico {
     private String estado;
     private String turno;
     private Integer anioEgreso;
+    private String fotoUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
