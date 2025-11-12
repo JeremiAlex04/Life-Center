@@ -37,6 +37,6 @@ public class MedicoPortalController {
             model.addAttribute("nombreMedico", medico.getNombres());
         }
 
-        return "portal/medico/dashboard"; // Busca el archivo en /templates/portal/medico/dashboard.html
+        return "portal/medico/dashboard"; 
     }
 }

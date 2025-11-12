@@ -20,15 +20,15 @@ public class CitaController {
     private CitaService citaService;
 
     @Autowired
-    private MedicoRepository medicoRepository; // Para listar médicos
+    private MedicoRepository medicoRepository; 
 
     @Autowired
-    private PacienteRepository pacienteRepository; // Para encontrar al paciente logueado
+    private PacienteRepository pacienteRepository; 
 
     @GetMapping("/nueva")
     public String mostrarFormularioNuevaCita(Model model) {
         model.addAttribute("cita", new Cita());
-        model.addAttribute("medicos", medicoRepository.findAll()); // Pasamos la lista de médicos al formulario
+        model.addAttribute("medicos", medicoRepository.findAll()); 
         return "portal/paciente/citas";
     }
 
@@ -45,6 +45,6 @@ public class CitaController {
         cita.setPaciente(paciente);
         
         citaService.save(cita);
-        return "redirect:/paciente/dashboard"; // Redirigir al dashboard del paciente
+        return "redirect:/paciente/dashboard"; 
     }
 }

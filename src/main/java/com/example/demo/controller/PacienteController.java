@@ -37,9 +37,6 @@ public class PacienteController {
         return "admin/pacientes/formulario";
     }
 
-    /**
-     * CORREGIDO: Ahora maneja la lógica de Usuario al crear o editar.
-     */
     @PostMapping("/guardar")
     public String guardarPaciente(@ModelAttribute("paciente") Paciente paciente) {
         
@@ -55,7 +52,7 @@ public class PacienteController {
                 usuario.setRol(Rol.ROLE_PACIENTE);
                 paciente.setUsuario(usuario);
             } else {
-                // Si ya tenía una cuenta, la asociamos
+                
                 paciente.setUsuario(usuarioExistente.get());
             }
 

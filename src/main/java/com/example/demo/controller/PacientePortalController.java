@@ -28,6 +28,6 @@ public class PacientePortalController {
         if (paciente != null) {
             model.addAttribute("nombrePaciente", paciente.getNombres());
         }
-        return "portal/paciente/dashboard"; // Busca el archivo en /templates/portal/paciente/dashboard.html
+        return "portal/paciente/dashboard"; 
     }
 }
