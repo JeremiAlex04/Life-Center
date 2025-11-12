@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.AppController.Especialidad;
 import com.example.demo.model.Medico;
 import com.example.demo.service.MedicoService;
 import lombok.AllArgsConstructor;
@@ -17,27 +18,28 @@ import java.util.stream.Collectors;
 @Controller
 public class AppController {
 
-    public static class Specialty {
-        private String name;
-        private String description;
-        private String imageUrl;
+    public static class Especialidad {
 
-        public Specialty(String name, String description, String imageUrl) {
-            this.name = name;
-            this.description = description;
-            this.imageUrl = imageUrl;
+        private String nombre;
+        private String descripcion;
+        private String urlImagen;
+
+        public Especialidad(String nombre, String descripcion, String urlImagen) {
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.urlImagen = urlImagen;
         }
 
-        public String getName() {
-            return name;
+        public String getNombre() {
+            return nombre;
         }
 
-        public String getDescription() {
-            return description;
+        public String getDescripcion() {
+            return descripcion;
         }
 
-        public String getImageUrl() {
-            return imageUrl;
+        public String getUrlImagen() {
+            return urlImagen;
         }
     }
 
@@ -54,29 +56,30 @@ public class AppController {
         Map<String, List<Medico>> medicosPorEspecialidad = medicos.stream()
                 .collect(Collectors.groupingBy(Medico::getEspecialidad));
         model.addAttribute("medicosPorEspecialidad", medicosPorEspecialidad);
-        return "index"; // Muestra templates/index.html
+        return "index";
     }
 
     /**
      * Mapea la página de especialidades.
      */
     @GetMapping("/especialidades")
-    public String viewEspecialidadesPage(Model model) {
-        List<Specialty> specialties = new ArrayList<>();
-        specialties.add(new Specialty("Cardiología", "Cuidado experto del corazón y sistema circulatorio.", "/img/especialidades/cardiologia.jpg"));
-        specialties.add(new Specialty("Dermatología", "Tratamiento integral de la piel, cabello y uñas.", "/img/especialidades/dermatologia.jpg"));
-        specialties.add(new Specialty("Pediatría", "Atención médica completa para niños y adolescentes.", "/img/especialidades/pediatria.jpg"));
-        specialties.add(new Specialty("Ginecología", "Salud integral de la mujer en todas las etapas de su vida.", "/img/especialidades/ginecologia.jpg"));
-        specialties.add(new Specialty("Traumatología", "Especialistas en lesiones del aparato locomotor.", "/img/especialidades/traumatologia.jpg"));
-        specialties.add(new Specialty("Neurología", "Estudio y tratamiento de los trastornos del sistema nervioso.", "/img/especialidades/neurologia.jpg"));
-        specialties.add(new Specialty("Oftalmología", "Salud visual y tratamiento de enfermedades oculares.", "/img/especialidades/oftalmologia.jpg"));
-        specialties.add(new Specialty("Oncología", "Diagnóstico y tratamiento del cáncer.", "/img/especialidades/oncologia.jpg"));
-        specialties.add(new Specialty("Urología", "Tratamiento del sistema urinario y reproductivo masculino.", "/img/especialidades/urologia.jpg"));
-        specialties.add(new Specialty("Medicina Interna", "Diagnóstico y tratamiento de enfermedades en adultos.", "/img/especialidades/medicina_interna.jpg"));
-        specialties.add(new Specialty("Cirugía General", "Procedimientos quirúrgicos para diversas afecciones.", "/img/especialidades/cirugia_general.jpg"));
-        specialties.add(new Specialty("Otorrinolaringología", "Tratamiento de oído, nariz y garganta.", "/img/especialidades/otorrinolaringologia.jpg"));
-        
-        model.addAttribute("specialties", specialties);
+    public String verPaginaEspecialidades(Model model) {
+        List<Especialidad> especialidades = new ArrayList<>();
+        especialidades.add(new Especialidad("Cardiología", "Cuidado experto del corazón y sistema circulatorio.", "/img/especialidades/cardiologia.jpg"));
+        especialidades.add(new Especialidad("Dermatología", "Tratamiento integral de la piel, cabello y uñas.", "/img/especialidades/dermatologia.jpg"));
+        especialidades.add(new Especialidad("Pediatría", "Atención médica completa para niños y adolescentes.", "/img/especialidades/pediatria.jpg"));
+        especialidades.add(new Especialidad("Ginecología", "Salud integral de la mujer en todas las etapas de su vida.", "/img/especialidades/ginecologia.jpg"));
+        especialidades.add(new Especialidad("Traumatología", "Especialistas en lesiones del aparato locomotor.", "/img/especialidades/traumatologia.jpg"));
+        especialidades.add(new Especialidad("Neurología", "Estudio y tratamiento de los trastornos del sistema nervioso.", "/img/especialidades/neurologia.jpg"));
+        especialidades.add(new Especialidad("Oftalmología", "Salud visual y tratamiento de enfermedades oculares.", "/img/especialidades/oftalmologia.jpg"));
+        especialidades.add(new Especialidad("Oncología", "Diagnóstico y tratamiento del cáncer.", "/img/especialidades/oncologia.jpg"));
+        especialidades.add(new Especialidad("Urología", "Tratamiento del sistema urinario y reproductivo masculino.", "/img/especialidades/urologia.jpg"));
+        especialidades.add(new Especialidad("Medicina Interna", "Diagnóstico y tratamiento de enfermedades en adultos.", "/img/especialidades/medicina_interna.jpg"));
+        especialidades.add(new Especialidad("Cirugía General", "Procedimientos quirúrgicos para diversas afecciones.", "/img/especialidades/cirugia_general.jpg"));
+        especialidades.add(new Especialidad("Otorrinolaringología", "Tratamiento de oído, nariz y garganta.", "/img/especialidades/otorrinolaringologia.jpg"));
+
+        model.addAttribute("especialidades", especialidades);
         return "especialidades";
     }
+
 }

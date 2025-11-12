@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestras Especialidades - LifeCenter</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
-    <style>
-        .card-especialidad {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #eee;
-        }
-        .card-especialidad:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-        }
-    </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
                 <i class="bi bi-heart-pulse me-2 fs-4"></i>
-                <span class="fs-4">LifeCenter</span>
+                <span class="fs-4 fw-bold">LifeCenter</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -33,34 +25,159 @@
                         <a class="nav-link" th:href="@{/}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nuestros Servicios</a>
+                        <a class="nav-link" th:href="@{/#servicios}">Servicios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" th:href="@{/especialidades}">Especialidades</a>
                     </li>
-                     <li class="nav-item">
-                        <a class="btn btn-primary ms-lg-3" th:href="@{/login}">Portal de Pacientes</a>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container my-5 pt-5"> <!-- Added pt-5 for spacing below fixed navbar -->
-        <h2 class="text-center mb-5">Nuestras Especialidades</h2>
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-4" th:each="spec : ${specialties}">
-                <div class="card text-center h-100 card-especialidad">
+    <!-- Hero Section -->
+    <div class="bg-primary text-white py-5 mt-5">
+        <div class="container text-center py-5">
+            <h1 class="display-3 fw-bold mb-3">Nuestras Especialidades Médicas</h1>
+            <p class="lead fs-5 mb-0">Atención especializada con los mejores profesionales de la salud</p>
+        </div>
+    </div>
+
+    <!-- Especialidades -->
+    <div class="container my-5 py-4">
+        <div class="text-center mb-5">
+            <p class="lead text-muted">Contamos con un amplio equipo de especialistas en diversas áreas de la medicina</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" th:each="esp : ${especialidades}">
+                <div class="card text-center h-100 shadow-sm border-0">
                     <div class="card-body p-4">
-                        <img th:src="@{${spec.imageUrl}}" alt="Imagen de Especialidad" class="img-fluid rounded mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h5 class="card-title" th:text="${spec.name}"></h5>
-                        <p class="card-text text-muted" th:text="${spec.description}"></p>
+                        <div class="mb-4">
+                            <img th:src="@{${esp.urlImagen}}" 
+                                 alt="Imagen de Especialidad" 
+                                 class="img-fluid rounded-circle border border-3 border-primary shadow" 
+                                 style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <h5 class="card-title fw-bold mb-3" th:text="${esp.nombre}"></h5>
+                        <p class="card-text text-muted" th:text="${esp.descripcion}"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- Sección de Beneficios -->
+    <div class="bg-light py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">¿Por Qué Confiar en Nuestros Especialistas?</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-mortarboard-fill fs-1 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Alta Capacitación</h5>
+                    <p class="text-muted px-3">Médicos certificados con estudios nacionales e internacionales</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-hospital-fill fs-1 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Equipamiento Moderno</h5>
+                    <p class="text-muted px-3">Tecnología de última generación para diagnósticos precisos</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-heart-fill fs-1 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Atención Personalizada</h5>
+                    <p class="text-muted px-3">Cuidado centrado en el paciente y su bienestar integral</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="container my-5 py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="border border-primary border-3 rounded p-5 shadow-sm">
+                    <i class="bi bi-calendar-heart fs-1 text-primary mb-3 d-block"></i>
+                    <h3 class="fw-bold mb-3">¿Necesitas Atención Médica Especializada?</h3>
+                    <p class="lead text-muted mb-4">Agenda tu cita con uno de nuestros especialistas y recibe la atención que mereces</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a th:href="@{/registro}" class="btn btn-primary btn-lg px-5 rounded-pill">
+                            <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+                        </a>
+                        <a th:href="@{/login}" class="btn btn-outline-primary btn-lg px-5 rounded-pill">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary">LifeCenter</h5>
+                    <p>Cuidando de tu salud con la mejor tecnología y un equipo de profesionales comprometidos.</p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold">Enlaces</h5>
+                    <p><a href="#" class="text-white" style="text-decoration: none;">Nuestros Servicios</a></p>
+                    <p><a th:href="@{/especialidades}" class="text-white"
+                            style="text-decoration: none;">Especialidades</a></p>
+                    <p><a th:href="@{/login}" class="text-white" style="text-decoration: none;">Portal de Pacientes</a>
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold">Contacto</h5>
+                    <p><i class="bi bi-geo-alt-fill me-3"></i>Av. Principal 123, Ciudad</p>
+                    <p><i class="bi bi-envelope-fill me-3"></i>info@lifecenter.com</p>
+                    <p><i class="bi bi-telephone-fill me-3"></i>+1 234 567 890</p>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8">
+                    <p>© 2025 LifeCenter. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-5 col-lg-4">
+                    <div class="text-center text-md-end">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i
+                                        class="bi bi-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i
+                                        class="bi bi-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i
+                                        class="bi bi-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>
