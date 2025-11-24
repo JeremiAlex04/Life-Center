@@ -1,0 +1,203 @@
+/* Estilos personalizados para la página de médicos */
+
+/* Eliminar espacio entre navbar y hero */
+.main-content {
+    margin-top: 56px;
+    min-height: 100vh;
+}
+
+/* Hero Section con imagen de fondo */
+.hero-section {
+    position: relative;
+    height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=2091');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.85) 0%, rgba(21, 101, 192, 0.9) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero-content h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-content p {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tarjetas de médicos con imagen de cuerpo completo */
+.medico-card-custom {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.medico-card-custom:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.25);
+}
+
+.medico-image-container {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    position: relative;
+}
+
+.medico-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.3) 100%);
+    z-index: 1;
+}
+
+.medico-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+}
+
+.medico-card-custom:hover .medico-image-container img {
+    transform: scale(1.05);
+}
+
+.medico-info-section {
+    padding: 1.75rem 1.5rem;
+    background: white;
+    position: relative;
+}
+
+.medico-info-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #2196F3, #1976D2);
+    border-radius: 2px;
+}
+
+.medico-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1565C0;
+    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
+    text-align: center;
+    letter-spacing: -0.3px;
+}
+
+.medico-specialty {
+    font-size: 0.95rem;
+    color: #546E7A;
+    text-align: center;
+    margin-bottom: 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.medico-specialty::before {
+    content: '•';
+    color: #2196F3;
+    font-size: 1.2rem;
+}
+
+/* Estilos de búsqueda y filtros */
+.filter-input-group {
+    border: 1px solid #dee2e6;
+    border-radius: 50px;
+    overflow: hidden;
+    background: white;
+}
+
+.filter-input-group .input-group-text {
+    border: none;
+    padding-left: 1.5rem;
+}
+
+.filter-input {
+    border: 1px solid #dee2e6;
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.filter-input:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+}
+
+.filter-input-group .filter-input {
+    border: none;
+    border-radius: 0;
+}
+
+.filter-input-group:focus-within {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+}
+
+.search-icon-custom {
+    color: #2196F3;
+    font-size: 1.2rem;
+}
+
+/* Select dropdown styling */
+select.filter-input {
+    cursor: pointer;
+    background-color: white;
+    padding-right: 2.5rem;
+}
+
+.filter-input-group select.filter-input {
+    border: none;
+    border-radius: 0;
+}

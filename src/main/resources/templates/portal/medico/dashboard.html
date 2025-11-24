@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:replace="~{layout :: layout(title='Dashboard del Médico', content=~{::section})}">
+        <section>
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="alert alert-success shadow-sm h-100 d-flex flex-column justify-content-center">
+                        <h1 class="display-6 fw-bold">Bienvenido, Dr. <span th:text="${medico.nombres}"></span></h1>
+                        <p class="lead mb-0">Este es su panel de control personalizado.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted mb-3"><i class="bi bi-person-badge me-2"></i>Mi Perfil</h5>
+                            <p class="mb-1"><strong>Especialidad:</strong> <span
+                                    th:text="${medico.especialidad}"></span></p>
+                            <p class="mb-1"><strong>Turno:</strong> <span th:text="${medico.turno}"></span></p>
+                            <p class="mb-0"><strong>Colegiatura:</strong> <span
+                                    th:text="${medico.numeroColegiatura}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-primary border-start border-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted text-uppercase mb-1">Citas Hoy</h6>
+                                    <h2 class="display-4 fw-bold text-primary mb-0" th:text="${citasHoyCount}">0</h2>
+                                </div>
+                                <i class="bi bi-calendar-day text-primary opacity-25" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-info border-start border-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted text-uppercase mb-1">Total Próximas</h6>
+                                    <h2 class="display-4 fw-bold text-info mb-0" th:text="${citasProximasCount}">0</h2>
+                                </div>
+                                <i class="bi bi-calendar-week text-info opacity-25" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-header">
+                    <h2 class="h5 mb-0"><i class="bi bi-calendar-check me-2"></i>Próximas Citas</h2>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(citas)}">
+                        <p class="text-center text-muted">No tiene citas próximas programadas.</p>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(citas)}">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Paciente</th>
+                                    <th>Motivo</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cita : ${citas}">
+                                    <td th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${#temporals.format(cita.hora, 'HH:mm')}"></td>
+                                    <td th:text="${cita.paciente.nombres + ' ' + cita.paciente.apellidos}"></td>
+                                    <td th:text="${cita.motivo}"></td>
+                                    <td>
+                                        <span th:class="'badge ' + 
+                                            (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' : 
+                                            (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' : 
+                                            (${cita.estado.name() == 'CANCELADA'} ? 'bg-danger' : 'bg-success')))"
+                                            th:text="${cita.estado}">
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group"
+                                            th:if="${cita.estado.name() == 'PENDIENTE'}">
+                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CONFIRMADA')}"
+                                                class="btn btn-outline-primary" title="Confirmar">
+                                                <i class="bi bi-check-lg"></i>
+                                            </a>
+                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CANCELADA')}"
+                                                class="btn btn-outline-danger" title="Cancelar">
+                                                <i class="bi bi-x-lg"></i>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm" role="group"
+                                            th:if="${cita.estado.name() == 'CONFIRMADA'}">
+                                            <a th:href="@{/medico/citas/{id}/atender(id=${cita.idCita})}"
+                                                class="btn btn-outline-success" title="Atender">
+                                                <i class="bi bi-clipboard-pulse"></i>
+                                            </a>
+                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CANCELADA')}"
+                                                class="btn btn-outline-danger" title="Cancelar">
+                                                <i class="bi bi-x-lg"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

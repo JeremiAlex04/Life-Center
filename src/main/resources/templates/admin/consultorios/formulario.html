@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-success text-white text-center">
+                            <h1 class="h4 mb-0">Formulario de Consultorio</h1>
+                        </div>
+                        <div class="card-body p-4">
+                            <h3 th:if="${consultorio.idConsultorio == null}" class="text-center text-muted mb-4">
+                                Registrar Nuevo Consultorio</h3>
+                            <h3 th:if="${consultorio.idConsultorio != null}" class="text-center text-muted mb-4">
+                                Editar Consultorio</h3>
+
+                            <form th:action="@{/admin/consultorios/guardar}" th:object="${consultorio}" method="post">
+                                <input type="hidden" th:field="*{idConsultorio}" />
+
+                                <div class="mb-3">
+                                    <label for="numero" class="form-label">Número de Consultorio</label>
+                                    <input type="text" id="numero" class="form-control" th:field="*{numero}"
+                                        placeholder="Ej: 301" required />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="piso" class="form-label">Piso</label>
+                                    <select id="piso" class="form-select" th:field="*{piso}" required>
+                                        <option value="" disabled>Seleccione un piso</option>
+                                        <option value="1">Piso 1</option>
+                                        <option value="2">Piso 2</option>
+                                        <option value="3">Piso 3</option>
+                                        <option value="4">Piso 4</option>
+                                        <option value="5">Piso 5</option>
+                                    </select>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/admin/consultorios}" class="btn btn-outline-secondary">Cancelar</a>
+                                    <button type="submit" class="btn btn-success"
+                                        th:text="${consultorio.idConsultorio == null ? 'Registrar Consultorio' : 'Aplicar Cambios'}">
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

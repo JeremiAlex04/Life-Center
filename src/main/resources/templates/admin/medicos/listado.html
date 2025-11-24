@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">Gestión de Médicos</h1>
+                    <a th:href="@{/admin/medicos/nuevo}" class="btn btn-success btn-sm">
+                        <i class="fas fa-plus me-1"></i> Registrar Nuevo Médico
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control"
+                                placeholder="Buscar médicos por nombre o DNI...">
+                            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                                <i class="bi bi-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Especialidad</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col" class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="medico : ${medicos}">
+                                    <td th:text="${medico.idMedico}"></td>
+                                    <td th:text="${medico.dni}"></td>
+                                    <td th:text="${medico.nombres}"></td>
+                                    <td th:text="${medico.apellidos}"></td>
+                                    <td th:text="${medico.especialidad}"></td>
+                                    <td th:text="${medico.estado}"></td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-info btn-sm text-white"
+                                                data-bs-toggle="modal" data-bs-target="#verMedicoModal"
+                                                th:data-dni="${medico.dni}" th:data-nombres="${medico.nombres}"
+                                                th:data-apellidos="${medico.apellidos}"
+                                                th:data-especialidad="${medico.especialidad}"
+                                                th:data-colegiatura="${medico.numeroColegiatura}"
+                                                th:data-telefono="${medico.telefono}" th:data-email="${medico.email}"
+                                                th:data-turno="${medico.turno}" th:data-estado="${medico.estado}"
+                                                th:data-anio-egreso="${medico.anioEgreso}"
+                                                th:data-consultorio="${medico.consultorio != null ? medico.consultorio.numero + ' - Piso ' + medico.consultorio.piso : 'Sin asignar'}"
+                                                th:data-username="${medico.usuario != null ? medico.usuario.username : 'Sin usuario'}"
+                                                onclick="cargarDatosMedico(this)">
+                                                <i class="bi bi-eye-fill"></i> Ver
+                                            </button>
+                                            <a th:href="@{/admin/medicos/editar/{id}(id=${medico.idMedico})}"
+                                                class="btn btn-warning btn-sm">Editar</a>
+                                            <a th:href="@{/admin/medicos/eliminar/{id}(id=${medico.idMedico})}"
+                                                class="btn btn-danger btn-sm">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(medicos)}">
+                                    <td colspan="7" class="text-center text-muted">No hay médicos registrados.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/admin-search.js}"></script>
+
+        <!-- Modal Ver Medico -->
+        <div class="modal fade" id="verMedicoModal" tabindex="-1" aria-labelledby="verMedicoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="verMedicoModalLabel">Detalles del Médico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2"><strong>DNI:</strong> <span id="modalDni"></span></div>
+                        <div class="mb-2"><strong>Nombres:</strong> <span id="modalNombres"></span></div>
+                        <div class="mb-2"><strong>Apellidos:</strong> <span id="modalApellidos"></span></div>
+                        <div class="mb-2"><strong>Especialidad:</strong> <span id="modalEspecialidad"></span></div>
+                        <div class="mb-2"><strong>N° Colegiatura:</strong> <span id="modalColegiatura"></span></div>
+                        <div class="mb-2"><strong>Año Egreso:</strong> <span id="modalAnioEgreso"></span></div>
+                        <div class="mb-2"><strong>Consultorio:</strong> <span id="modalConsultorio"
+                                class="badge bg-success"></span></div>
+                        <div class="mb-2"><strong>Teléfono:</strong> <span id="modalTelefono"></span></div>
+                        <div class="mb-2"><strong>Email:</strong> <span id="modalEmail"></span></div>
+                        <div class="mb-2"><strong>Turno:</strong> <span id="modalTurno"></span></div>
+                        <div class="mb-2"><strong>Estado:</strong> <span id="modalEstado"></span></div>
+                        <hr>
+                        <div class="mb-2"><strong>Usuario de Sistema:</strong> <span id="modalUsername"
+                                class="badge bg-secondary"></span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function cargarDatosMedico(button) {
+                document.getElementById('modalDni').textContent = button.getAttribute('data-dni');
+                document.getElementById('modalNombres').textContent = button.getAttribute('data-nombres');
+                document.getElementById('modalApellidos').textContent = button.getAttribute('data-apellidos');
+                document.getElementById('modalEspecialidad').textContent = button.getAttribute('data-especialidad');
+                document.getElementById('modalColegiatura').textContent = button.getAttribute('data-colegiatura');
+                document.getElementById('modalTelefono').textContent = button.getAttribute('data-telefono');
+                document.getElementById('modalEmail').textContent = button.getAttribute('data-email');
+                document.getElementById('modalTurno').textContent = button.getAttribute('data-turno');
+                document.getElementById('modalEstado').textContent = button.getAttribute('data-estado');
+                document.getElementById('modalAnioEgreso').textContent = button.getAttribute('data-anio-egreso');
+                document.getElementById('modalConsultorio').textContent = button.getAttribute('data-consultorio');
+                document.getElementById('modalUsername').textContent = button.getAttribute('data-username');
+            }
+        </script>
+    </section>
+</body>
+
+</html>

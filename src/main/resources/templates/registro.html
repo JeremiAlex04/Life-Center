@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Paciente - LifeCenter</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+</head>
+<body class="bg-light">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8"> <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
+                        <h1 class="h3 mb-3 fw-normal">Crear Cuenta de Paciente</h1>
+                        <p class="text-muted">Complete sus datos para acceder al portal.</p>
+                    </div>
+
+                    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+                    <form th:action="@{/registro}" th:object="${paciente}" method="post">
+                        <h5 class="mb-3">Datos Personales</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="nombres" th:field="*{nombres}" placeholder="Nombres" required>
+                                    <label for="nombres">Nombres</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="apellidos" th:field="*{apellidos}" placeholder="Apellidos" required>
+                                    <label for="apellidos">Apellidos</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" required>
+                                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <select id="genero" class="form-select" th:field="*{genero}" required>
+                                        <option value="" disabled selected>Seleccione Género</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                    <label for="genero">Género</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" placeholder="Teléfono" required>
+                                    <label for="telefono">Teléfono</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="numeroSeguro" th:field="*{numeroSeguro}" placeholder="N° de Seguro (Opcional)">
+                                    <label for="numeroSeguro">N° de Seguro (Opcional)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="direccion" th:field="*{direccion}" placeholder="Dirección" required>
+                                <label for="direccion">Dirección</label>
+                            </div>
+                        </div>
+                         <div class="mb-3">
+                            <div class="form-floating">
+                                <select id="distrito" class="form-select" th:field="*{distrito}" required>
+                                    <option value="" disabled selected>Seleccione un distrito</option>
+                                    <option value="Ancón">Ancón</option>
+                                    <option value="Ate">Ate</option>
+                                    <option value="Barranco">Barranco</option>
+                                    <option value="Breña">Breña</option>
+                                    <option value="Carabayllo">Carabayllo</option>
+                                    <option value="Lima">Lima</option>
+                                    <option value="Miraflores">Miraflores</option>
+                                    <option value="San Isidro">San Isidro</option>
+                                    <option value="Villa El Salvador">Villa El Salvador</option>
+                                </select>
+                                <label for="distrito">Distrito</label>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5 class="mb-3 mt-4">Datos de la Cuenta</h5>
+                        <p class="text-muted small">Su nombre de usuario será su DNI.</p>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="dni" th:field="*{dni}" placeholder="DNI (Será su usuario)" required>
+                            <label for="dni">DNI (Será su usuario)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
+                            <label for="password">Contraseña</label>
+                        </div>
+
+                        <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Registrarse</button>
+
+                        <div class="text-center mt-4">
+                            <p>¿Ya tienes una cuenta? <a th:href="@{/login}">Inicia Sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

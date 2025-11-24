@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">Gestión de Consultorios</h1>
+                    <a th:href="@{/admin/consultorios/nuevo}" class="btn btn-success btn-sm">
+                        <i class="fas fa-plus me-1"></i> Registrar Nuevo Consultorio
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <!-- Success/Error Messages -->
+                    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i><span th:text="${success}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i><span th:text="${error}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control"
+                                placeholder="Buscar consultorios por número o piso...">
+                            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                                <i class="bi bi-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Número</th>
+                                    <th scope="col">Piso</th>
+                                    <th scope="col">Médicos Asignados</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col" class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="consultorio : ${consultorios}">
+                                    <td th:text="${consultorio.idConsultorio}"></td>
+                                    <td th:text="${consultorio.numero}"></td>
+                                    <td th:text="${consultorio.piso}"></td>
+                                    <td>
+                                        <span class="badge bg-primary" th:text="${consultorio.doctorCount}">0</span>
+                                    </td>
+                                    <td>
+                                        <span th:if="${consultorio.doctorCount > 0}"
+                                            class="badge bg-danger">Ocupado</span>
+                                        <span th:if="${consultorio.doctorCount == 0}"
+                                            class="badge bg-success">Disponible</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a th:href="@{/admin/consultorios/ver/{id}(id=${consultorio.idConsultorio})}"
+                                                class="btn btn-info btn-sm text-white">
+                                                <i class="bi bi-eye-fill"></i> Ver
+                                            </a>
+                                            <a th:href="@{/admin/consultorios/editar/{id}(id=${consultorio.idConsultorio})}"
+                                                class="btn btn-warning btn-sm">Editar</a>
+                                            <a th:href="@{/admin/consultorios/eliminar/{id}(id=${consultorio.idConsultorio})}"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de eliminar este consultorio?')">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(consultorios)}">
+                                    <td colspan="6" class="text-center text-muted">No hay consultorios registrados.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/admin-search.js}"></script>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:replace="~{layout :: layout(title='Mis Pacientes', content=~{::section})}">
+        <section>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="h5 mb-0"><i class="bi bi-people me-2"></i>Listado de Pacientes</h2>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(pacientes)}">
+                        <p class="text-center text-muted">No ha atendido a ningún paciente aún.</p>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(pacientes)}">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Paciente</th>
+                                    <th>DNI</th>
+                                    <th>Edad</th>
+                                    <th>Género</th>
+                                    <th>Teléfono</th>
+                                    <th>Distrito</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="paciente : ${pacientes}">
+                                    <td th:text="${paciente.nombres + ' ' + paciente.apellidos}"></td>
+                                    <td th:text="${paciente.dni}"></td>
+                                    <td>
+                                        <span th:if="${paciente.fechaNacimiento != null}"
+                                            th:text="${T(java.time.Period).between(paciente.fechaNacimiento, T(java.time.LocalDate).now()).getYears()} + ' años'"></span>
+                                        <span th:unless="${paciente.fechaNacimiento != null}">-</span>
+                                    </td>
+                                    <td th:text="${paciente.genero}"></td>
+                                    <td th:text="${paciente.telefono}"></td>
+                                    <td th:text="${paciente.distrito}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-info"
+                                            th:onclick="'cargarHistorial(' + ${paciente.idPaciente} + ')'"
+                                            data-bs-toggle="modal" data-bs-target="#historialModal">
+                                            <i class="bi bi-clock-history me-1"></i>Historial
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Historial -->
+            <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Historial de Citas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="historialModalBody">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Cargando...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function cargarHistorial(pacienteId) {
+                    var modalBody = document.getElementById('historialModalBody');
+                    modalBody.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
+
+                    fetch('/medico/pacientes/' + pacienteId + '/historial')
+                        .then(response => response.text())
+                        .then(html => {
+                            modalBody.innerHTML = html;
+                        })
+                        .catch(error => {
+                            modalBody.innerHTML = '<p class="text-danger text-center">Error al cargar el historial.</p>';
+                            console.error('Error:', error);
+                        });
+                }
+            </script>
+        </section>
+    </div>
+</body>
+
+</html>

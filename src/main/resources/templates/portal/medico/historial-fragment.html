@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="historial">
+        <div th:if="${#lists.isEmpty(historial)}">
+            <p class="text-center text-muted">No hay historial de citas para este paciente.</p>
+        </div>
+        <div th:unless="${#lists.isEmpty(historial)}">
+            <table class="table table-sm table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="cita : ${historial}">
+                        <tr>
+                            <td th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${cita.motivo}"></td>
+                            <td>
+                                <span th:class="'badge ' + 
+                                    (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' : 
+                                    (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' : 
+                                    (${cita.estado.name() == 'CANCELADA'} ? 'bg-danger' : 'bg-success')))"
+                                    th:text="${cita.estado}">
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info" type="button" data-bs-toggle="collapse"
+                                    th:data-bs-target="'#collapse' + ${cita.idCita}" aria-expanded="false"
+                                    th:if="${cita.estado.name() == 'COMPLETADA'}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="collapse" th:id="'collapse' + ${cita.idCita}"
+                            th:if="${cita.estado.name() == 'COMPLETADA'}">
+                            <td colspan="4">
+                                <div class="card card-body bg-light">
+                                    <p class="mb-1"><strong>Diagnóstico:</strong> <span
+                                            th:text="${cita.diagnostico}"></span></p>
+                                    <p class="mb-1"><strong>Tratamiento:</strong> <span
+                                            th:text="${cita.tratamiento}"></span></p>
+                                    <p class="mb-0" th:if="${cita.observaciones}"><strong>Observaciones:</strong> <span
+                                            th:text="${cita.observaciones}"></span></p>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

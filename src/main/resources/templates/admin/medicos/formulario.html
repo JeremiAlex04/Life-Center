@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-success text-white text-center">
+                            <h1 class="h4 mb-0">Formulario de Médico</h1>
+                        </div>
+                        <div class="card-body p-4">
+                            <h3 th:if="${medico.idMedico == null}" class="text-center text-muted mb-4">Registrar Nuevo
+                                Médico</h3>
+                            <h3 th:if="${medico.idMedico != null}" class="text-center text-muted mb-4">Editar Datos del
+                                Médico</h3>
+
+                            <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+                            <form th:action="@{/admin/medicos/guardar}" th:object="${medico}" method="post">
+                                <input type="hidden" th:field="*{idMedico}" />
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombres" class="form-label">Nombres</label>
+                                        <input type="text" id="nombres" class="form-control" th:field="*{nombres}"
+                                            placeholder="Nombres completos" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="apellidos" class="form-label">Apellidos</label>
+                                        <input type="text" id="apellidos" class="form-control" th:field="*{apellidos}"
+                                            placeholder="Apellidos completos" required />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dni" class="form-label">DNI</label>
+                                        <input type="text" id="dni" class="form-control" th:field="*{dni}"
+                                            placeholder="Ingrese DNI" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="numeroColegiatura" class="form-label">N° Colegiatura</label>
+                                        <input type="text" id="numeroColegiatura" class="form-control"
+                                            th:field="*{numeroColegiatura}" placeholder="CMP" required />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="especialidad" class="form-label">Especialidad</label>
+                                        <select id="especialidad" class="form-select" th:field="*{especialidad}"
+                                            required>
+                                            <option value="" disabled>Seleccione una especialidad</option>
+                                            <option value="Cardiología">Cardiología</option>
+                                            <option value="Dermatología">Dermatología</option>
+                                            <option value="Ginecología">Ginecología</option>
+                                            <option value="Pediatría">Pediatría</option>
+                                            <option value="Traumatología">Traumatología</option>
+                                            <option value="Oftalmología">Oftalmología</option>
+                                            <option value="Neurología">Neurología</option>
+                                            <option value="Oncología">Oncología</option>
+                                            <option value="Urología">Urología</option>
+                                            <option value="Endocrinología">Endocrinología</option>
+                                            <option value="Gastroenterología">Gastroenterología</option>
+                                            <option value="Neumología">Neumología</option>
+                                            <option value="Reumatología">Reumatología</option>
+                                            <option value="Infectología">Infectología</option>
+                                            <option value="Nefrología">Nefrología</option>
+                                            <option value="Hematología">Hematología</option>
+                                            <option value="Psiquiatría">Psiquiatría</option>
+                                            <option value="Anestesiología">Anestesiología</option>
+                                            <option value="Radiología">Radiología</option>
+                                            <option value="Medicina Interna">Medicina Interna</option>
+                                            <option value="Cirugía General">Cirugía General</option>
+                                            <option value="Otorrinolaringología">Otorrinolaringología</option>
+                                            <option value="Fisiatría">Fisiatría</option>
+                                            <option value="Geriatría">Geriatría</option>
+                                            <option value="Nutrición">Nutrición</option>
+                                            <option value="Odontología">Odontología</option>
+                                            <option value="Psicología">Psicología</option>
+                                            <option value="Otra">Otra</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3" id="otraEspecialidadContainer" style="display: none;">
+                                        <label for="otraEspecialidad" class="form-label">Especificar
+                                            Especialidad</label>
+                                        <input type="text" id="otraEspecialidad" name="otraEspecialidad"
+                                            class="form-control" placeholder="Llenar solo si eligió 'Otra'" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="text" id="telefono" class="form-control" th:field="*{telefono}"
+                                            placeholder="Ej. 987654321" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" id="email" class="form-control" th:field="*{email}"
+                                            placeholder="correo@ejemplo.com" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fotoUrl" class="form-label">Nombre del Archivo de la Foto
+                                        (Opcional)</label>
+                                    <input type="text" id="fotoUrl" th:field="*{fotoUrl}" class="form-control"
+                                        placeholder="Ej: mi-foto.jpg" />
+                                    <div class="form-text">
+                                        Coloque la imagen en la carpeta 'fotos-perfil/medicos' y escriba el nombre
+                                        exacto del archivo aquí.
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="turno" class="form-label">Turno</label>
+                                        <select id="turno" class="form-select" th:field="*{turno}" required>
+                                            <option value="" disabled>Seleccione un turno</option>
+                                            <option value="Mañana">Mañana</option>
+                                            <option value="Tarde">Tarde</option>
+                                            <option value="Noche">Noche</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="anioEgreso" class="form-label">Año de Egreso</label>
+                                        <input type="number" id="anioEgreso" class="form-control"
+                                            th:field="*{anioEgreso}" placeholder="Ej. 2015" required />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select id="estado" class="form-select" th:field="*{estado}" required>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
+                                        <option value="Licencia">Con Licencia</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="consultorio" class="form-label">Consultorio</label>
+                                    <select id="consultorio" name="consultorio" class="form-select" required>
+                                        <option value="" disabled>Seleccione un consultorio</option>
+                                        <option th:each="c : ${consultorios}" th:value="${c.idConsultorio}"
+                                            th:text="${c.numero + ' - Piso ' + c.piso}"
+                                            th:selected="${medico.consultorio != null and medico.consultorio.idConsultorio == c.idConsultorio}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/admin/medicos}" class="btn btn-outline-secondary">Cancelar</a>
+                                    <button type="submit" class="btn btn-success"
+                                        th:text="${medico.idMedico == null ? 'Registrar Médico' : 'Aplicar Cambios'}">
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const especialidadSelect = document.getElementById('especialidad');
+            const otraEspecialidadContainer = document.getElementById('otraEspecialidadContainer');
+
+            function toggleOtraEspecialidad() {
+                if (especialidadSelect.value === 'Otra') {
+                    otraEspecialidadContainer.style.display = 'block';
+                } else {
+                    otraEspecialidadContainer.style.display = 'none';
+                }
+            }
+
+            // Check on page load
+            toggleOtraEspecialidad();
+
+            // Add event listener
+            especialidadSelect.addEventListener('change', toggleOtraEspecialidad);
+        });
+    </script>
+</body>
+
+</html>

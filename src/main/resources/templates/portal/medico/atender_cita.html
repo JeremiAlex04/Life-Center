@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:replace="~{layout :: layout(title='Atender Cita', content=~{::section})}">
+        <section>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="bi bi-clipboard-pulse me-2"></i>Atención de Cita</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-light border mb-4">
+                                    <h5 class="alert-heading text-primary">Información del Paciente</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Paciente:</strong> <span
+                                                    th:text="${cita.paciente.nombres + ' ' + cita.paciente.apellidos}"></span>
+                                            </p>
+                                            <p><strong>Edad:</strong>
+                                                <span th:if="${cita.paciente.fechaNacimiento != null}"
+                                                    th:text="${T(java.time.Period).between(cita.paciente.fechaNacimiento, T(java.time.LocalDate).now()).getYears()} + ' años'"></span>
+                                                <span th:unless="${cita.paciente.fechaNacimiento != null}"
+                                                    class="text-muted">No registrada</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong>Fecha:</strong> <span
+                                                    th:text="${#temporals.format(cita.fecha, 'dd/MM/yyyy')}"></span></p>
+                                            <p><strong>Motivo de Consulta:</strong> <span
+                                                    th:text="${cita.motivo}"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:action="@{/medico/citas/{id}/finalizar(id=${cita.idCita})}" method="post">
+                                    <div class="mb-3">
+                                        <label for="diagnostico" class="form-label fw-bold">Diagnóstico</label>
+                                        <textarea class="form-control" id="diagnostico" name="diagnostico" rows="3"
+                                            required placeholder="Ingrese el diagnóstico del paciente..."></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="tratamiento" class="form-label fw-bold">Tratamiento / Receta</label>
+                                        <textarea class="form-control" id="tratamiento" name="tratamiento" rows="3"
+                                            required
+                                            placeholder="Detalle el tratamiento o medicamentos recetados..."></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="observaciones" class="form-label fw-bold">Observaciones
+                                            Adicionales</label>
+                                        <textarea class="form-control" id="observaciones" name="observaciones" rows="2"
+                                            placeholder="Notas adicionales (opcional)..."></textarea>
+                                    </div>
+
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a th:href="@{/medico/dashboard}" class="btn btn-secondary me-md-2">Cancelar</a>
+                                        <button type="submit" class="btn btn-success"><i
+                                                class="bi bi-check-circle me-2"></i>Finalizar Consulta</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

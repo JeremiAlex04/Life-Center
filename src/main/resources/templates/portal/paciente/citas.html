@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h1 class="h4 mb-0">Agendar Nueva Cita</h1>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Mensaje de Error -->
+                            <div th:if="${error}" class="alert alert-danger" role="alert">
+                                <span th:text="${error}"></span>
+                            </div>
+
+                            <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+                                <div class="mb-3">
+                                    <label for="medico" class="form-label">Médico</label>
+                                    <select class="form-select" id="medico" th:field="*{medico}" required>
+                                        <option value="" active selected>Seleccione un médico</option>
+                                        <option th:each="medico : ${medicos}" th:value="${medico.idMedico}"
+                                            th:text="${medico.nombres + ' ' + medico.apellidos + ' - ' + medico.especialidad}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fecha" class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="hora" class="form-label">Hora</label>
+                                    <input type="time" class="form-control" id="hora" th:field="*{hora}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="motivo" class="form-label">Motivo de la consulta</label>
+                                    <textarea class="form-control" id="motivo" rows="3" th:field="*{motivo}"
+                                        required></textarea>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/paciente/dashboard}"
+                                        class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary">Confirmar Cita</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

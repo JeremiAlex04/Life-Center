@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Historial Clínico</title>
+</head>
+
+<body>
+    <div th:replace="~{layout :: layout('Historial Clínico de ' + ${nombrePaciente}, ~{::content})}">
+        <div th:fragment="content">
+            <div class="container mt-4">
+                <div th:if="${historiales.empty}" class="alert alert-info" role="alert">
+                    No hay registros en su historial clínico.
+                </div>
+
+                <div th:unless="${historiales.empty}">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Diagnóstico</th>
+                                <th>Tratamiento</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="registro : ${historiales}">
+                                <td th:text="${registro.fecha}"></td>
+                                <td th:text="${registro.diagnostico}"></td>
+                                <td th:text="${registro.tratamiento}"></td>
+                                <td th:text="${registro.observaciones}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

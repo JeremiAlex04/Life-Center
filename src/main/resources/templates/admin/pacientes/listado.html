@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">Gestión de Pacientes</h1>
+                    <a th:href="@{/admin/pacientes/nuevo}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i> Registrar Nuevo Paciente
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control"
+                                placeholder="Buscar pacientes por nombre o DNI...">
+                            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                                <i class="bi bi-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">F. Nacimiento</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Distrito</th>
+                                    <th scope="col" class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="paciente : ${pacientes}">
+                                    <td th:text="${paciente.idPaciente}"></td>
+                                    <td th:text="${paciente.dni}"></td>
+                                    <td th:text="${paciente.nombres}"></td>
+                                    <td th:text="${paciente.apellidos}"></td>
+                                    <td th:text="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${paciente.telefono}"></td>
+                                    <td th:text="${paciente.distrito}"></td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-info btn-sm text-white"
+                                                data-bs-toggle="modal" data-bs-target="#verPacienteModal"
+                                                th:data-dni="${paciente.dni}" th:data-nombres="${paciente.nombres}"
+                                                th:data-apellidos="${paciente.apellidos}"
+                                                th:data-fecha="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')}"
+                                                th:data-fecha-raw="${paciente.fechaNacimiento}"
+                                                th:data-telefono="${paciente.telefono}"
+                                                th:data-distrito="${paciente.distrito}"
+                                                th:data-direccion="${paciente.direccion}"
+                                                th:data-seguro="${paciente.numeroSeguro}"
+                                                th:data-genero="${paciente.genero}"
+                                                th:data-username="${paciente.usuario != null ? paciente.usuario.username : 'Sin usuario'}"
+                                                onclick="cargarDatosPaciente(this)">
+                                                <i class="bi bi-eye-fill"></i> Ver
+                                            </button>
+                                            <a th:href="@{/admin/pacientes/editar/{id}(id=${paciente.idPaciente})}"
+                                                class="btn btn-warning btn-sm">Editar</a>
+                                            <a th:href="@{/admin/pacientes/eliminar/{id}(id=${paciente.idPaciente})}"
+                                                class="btn btn-danger btn-sm">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(pacientes)}">
+                                    <td colspan="8" class="text-center text-muted">No hay pacientes registrados.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/admin-search.js}"></script>
+
+        <!-- Modal Ver Paciente -->
+        <div class="modal fade" id="verPacienteModal" tabindex="-1" aria-labelledby="verPacienteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="verPacienteModalLabel">Detalles del Paciente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2"><strong>DNI:</strong> <span id="modalDni"></span></div>
+                        <div class="mb-2"><strong>Nombres:</strong> <span id="modalNombres"></span></div>
+                        <div class="mb-2"><strong>Apellidos:</strong> <span id="modalApellidos"></span></div>
+                        <div class="mb-2"><strong>F. Nacimiento:</strong> <span id="modalFecha"></span> (<span
+                                id="modalEdad"></span> años)</div>
+                        <div class="mb-2"><strong>Género:</strong> <span id="modalGenero"></span></div>
+                        <div class="mb-2"><strong>Teléfono:</strong> <span id="modalTelefono"></span></div>
+                        <div class="mb-2"><strong>Distrito:</strong> <span id="modalDistrito"></span></div>
+                        <div class="mb-2"><strong>Dirección:</strong> <span id="modalDireccion"></span></div>
+                        <div class="mb-2"><strong>N° Seguro:</strong> <span id="modalSeguro"></span></div>
+                        <hr>
+                        <div class="mb-2"><strong>Usuario de Sistema:</strong> <span id="modalUsername"
+                                class="badge bg-secondary"></span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function cargarDatosPaciente(button) {
+                document.getElementById('modalDni').textContent = button.getAttribute('data-dni');
+                document.getElementById('modalNombres').textContent = button.getAttribute('data-nombres');
+                document.getElementById('modalApellidos').textContent = button.getAttribute('data-apellidos');
+                document.getElementById('modalFecha').textContent = button.getAttribute('data-fecha');
+                document.getElementById('modalGenero').textContent = button.getAttribute('data-genero');
+                document.getElementById('modalTelefono').textContent = button.getAttribute('data-telefono');
+                document.getElementById('modalDistrito').textContent = button.getAttribute('data-distrito');
+                document.getElementById('modalDireccion').textContent = button.getAttribute('data-direccion');
+                document.getElementById('modalSeguro').textContent = button.getAttribute('data-seguro');
+                document.getElementById('modalUsername').textContent = button.getAttribute('data-username');
+
+                // Calcular edad
+                const fechaNacimiento = new Date(button.getAttribute('data-fecha-raw'));
+                const hoy = new Date();
+                let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+                const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+                if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                    edad--;
+                }
+                document.getElementById('modalEdad').textContent = edad;
+            }
+        </script>
+    </section>
+</body>
+
+</html>
