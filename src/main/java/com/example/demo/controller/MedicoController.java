@@ -69,7 +69,6 @@ public class MedicoController {
             usuario.setRol(Rol.ROLE_MEDICO);
             medico.setUsuario(usuario);
         } else {
-            // --- Es un médico EXISTENTE (EDICIÓN) ---
             Medico medicoExistente = medicoService.findById(medico.getIdMedico())
                     .orElseThrow(() -> new IllegalArgumentException("Id de Médico inválido:" + medico.getIdMedico()));
             medico.setUsuario(medicoExistente.getUsuario());

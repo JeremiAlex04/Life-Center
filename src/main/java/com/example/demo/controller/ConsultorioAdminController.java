@@ -32,12 +32,10 @@ public class ConsultorioAdminController {
         return "admin/consultorios"; // Esta será nuestra única página: admin/consultorios.html
     }
 
-    // Endpoint REST para obtener todos los consultorios
     @GetMapping("/api")
-    @ResponseBody // Para devolver JSON
+    @ResponseBody
     public List<Consultorio> getAllConsultoriosApi() {
         List<Consultorio> consultorios = consultorioService.findAll();
-        // Añadir el doctorCount para cada consultorio antes de devolver
         consultorios.forEach(c -> {
             long count = consultorioService.countAssignedDoctors(c.getIdConsultorio());
             c.setDoctorCount(count);
@@ -45,7 +43,6 @@ public class ConsultorioAdminController {
         return consultorios;
     }
 
-    // Endpoint REST para obtener un consultorio por ID
     @GetMapping("/api/{id}")
     @ResponseBody
     public ResponseEntity<Consultorio> getConsultorioByIdApi(@PathVariable Long id) {
@@ -57,7 +54,6 @@ public class ConsultorioAdminController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint REST para crear un nuevo consultorio
     @PostMapping("/api")
     @ResponseBody
     public ResponseEntity<Consultorio> createConsultorioApi(@RequestBody Consultorio consultorio) {
@@ -65,7 +61,6 @@ public class ConsultorioAdminController {
         return new ResponseEntity<>(savedConsultorio, HttpStatus.CREATED);
     }
 
-    // Endpoint REST para actualizar un consultorio existente
     @PutMapping("/api/{id}")
     @ResponseBody
     public ResponseEntity<Consultorio> updateConsultorioApi(@PathVariable Long id, @RequestBody Consultorio consultorioDetails) {
@@ -79,7 +74,6 @@ public class ConsultorioAdminController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint REST para eliminar un consultorio
     @DeleteMapping("/api/{id}")
     @ResponseBody
     public ResponseEntity<String> deleteConsultorioApi(@PathVariable Long id) {
@@ -90,7 +84,6 @@ public class ConsultorioAdminController {
         return new ResponseEntity<>("Consultorio eliminado exitosamente", HttpStatus.NO_CONTENT);
     }
 
-    // Opcional: Endpoint para obtener los médicos asignados a un consultorio, si es necesario para el detalle en el frontend
     @GetMapping("/api/{id}/medicos")
     @ResponseBody
     public List<Medico> getMedicosByConsultorioApi(@PathVariable Long id) {

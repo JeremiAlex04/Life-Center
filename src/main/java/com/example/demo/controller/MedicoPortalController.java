@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/medico") // Mapeo base para el rol de médico
+@RequestMapping("/medico") 
 public class MedicoPortalController {
 
     @Autowired

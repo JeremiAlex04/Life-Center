@@ -18,7 +18,6 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-    // --- AÑADIDOS PARA MANEJAR USUARIOS ---
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -41,7 +40,6 @@ public class PacienteController {
     public String guardarPaciente(@ModelAttribute("paciente") Paciente paciente) {
         
         if (paciente.getIdPaciente() == null) {
-            // --- Es un paciente NUEVO creado por el Admin ---
             var usuarioExistente = usuarioRepository.findByUsername(paciente.getDni());
             
             if (usuarioExistente.isEmpty()) {
@@ -57,7 +55,6 @@ public class PacienteController {
             }
 
         } else {
-            // --- Es un paciente EXISTENTE (EDICIÓN) ---
             // Recuperamos el paciente de la BD para obtener su usuario
             Paciente pacienteExistente = pacienteService.findById(paciente.getIdPaciente())
                     .orElseThrow(() -> new IllegalArgumentException("Id de Paciente inválido:" + paciente.getIdPaciente()));

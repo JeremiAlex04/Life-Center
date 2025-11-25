@@ -20,40 +20,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
 @Controller
 
-@RequestMapping("/paciente") // Mapeo base para el rol de paciente
+@RequestMapping("/paciente")
 
 public class PacientePortalController {
-
-
 
     @Autowired
 
     private PacienteService pacienteService;
 
-
-
     @Autowired
 
     private CitaService citaService;
-
-
 
     @Autowired // Inyectar HistorialClinicoService
 
     private HistorialClinicoService historialClinicoService;
 
-
-
     /**
-
+     * 
      * Maneja la solicitud GET para el dashboard del paciente.
-
+     * 
      * Esta es la página a la que son redirigidos después de iniciar sesión.
-
+     * 
      */
 
     @GetMapping("/dashboard")
@@ -63,8 +53,6 @@ public class PacientePortalController {
         String username = authentication.getName();
 
         Paciente paciente = pacienteService.findByUsername(username);
-
-
 
         if (paciente != null) {
 
@@ -78,12 +66,10 @@ public class PacientePortalController {
 
     }
 
-
-
     /**
-
+     * 
      * Maneja la solicitud GET para el historial clínico del paciente.
-
+     * 
      */
 
     @GetMapping("/historia_clinica")
@@ -94,13 +80,12 @@ public class PacientePortalController {
 
         Paciente paciente = pacienteService.findByUsername(username);
 
-
-
         if (paciente != null) {
 
             model.addAttribute("nombrePaciente", paciente.getNombres());
 
-            model.addAttribute("historiales", historialClinicoService.findByPaciente(paciente)); // Añadir historiales al modelo
+            model.addAttribute("historiales", historialClinicoService.findByPaciente(paciente)); // Añadir historiales
+                                                                                                 // al modelo
 
         }
 

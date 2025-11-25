@@ -50,7 +50,6 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         // 10 medico inicializados
-        // Crear consultorios si no existen
         if (consultorioRepository.count() == 0) {
             for (int i = 1; i <= 10; i++) {
                 Consultorio consultorio = new Consultorio();

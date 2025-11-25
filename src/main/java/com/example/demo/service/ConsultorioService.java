@@ -35,7 +35,6 @@ public class ConsultorioService {
     }
 
     public boolean canDelete(Long id) {
-        // Check if any doctors are assigned to this consultorio
         Consultorio consultorio = consultorioRepository.findById(id).orElse(null);
         if (consultorio == null)
             return false;

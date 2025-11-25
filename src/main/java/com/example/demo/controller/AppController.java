@@ -41,10 +41,6 @@ public class AppController {
         @Autowired
         private MedicoService medicoService;
 
-        /**
-         * Mapea la raíz del sitio ("/") para mostrar la página pública principal.
-         * Carga la lista de médicos y los agrupa por especialidad.
-         */
         @GetMapping("/")
         public String viewHomePage(Model model) {
                 List<Medico> medicos = medicoService.findAll();
