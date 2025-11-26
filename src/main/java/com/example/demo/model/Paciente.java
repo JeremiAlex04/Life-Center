@@ -15,14 +15,17 @@ public class Paciente {
     private String dni;
     private String nombres;
     private String apellidos;
-    
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
-    
+
     private String genero;
     private String telefono;
     private String distrito;
     private String direccion;
+
+    @Column(unique = true)
+    private String email;
     private String numeroSeguro;
 
     @OneToOne(cascade = CascadeType.ALL)

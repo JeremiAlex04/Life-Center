@@ -26,6 +26,8 @@ public class Cita {
 
     private java.time.LocalTime hora;
 
+    private Integer duracionMinutos = 30; // Duración estimada de la cita en minutos
+
     @Enumerated(EnumType.STRING)
     private EstadoCita estado = EstadoCita.PENDIENTE;
 

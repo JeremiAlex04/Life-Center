@@ -65,16 +65,18 @@
                                             <i class="bi bi-eye-fill"></i>
                                         </button>
                                     </div>
+                                    <div class="text-end mt-2">
+                                        <a th:href="@{/forgot-password}" class="text-decoration-none small">¿Olvidaste
+                                            tu contraseña?</a>
+                                    </div>
                                 </div>
-                                <div class="d-grid">
-                                    <button type="submit"
-                                        class="btn btn-primary btn-lg fw-semibold py-2">Acceder</button>
+                                <button class="w-100 btn btn-primary btn-lg fw-semibold py-2" type="submit">Iniciar
+                                    Sesión</button>
+                                <div class="text-center mt-4">
+                                    <p class="mb-0">¿Eres un paciente nuevo?</p>
+                                    <a th:href="@{/registro}" class="text-decoration-none">Crea tu cuenta aquí</a>
                                 </div>
                             </form>
-                            <div class="text-center mt-4">
-                                <p class="mb-0">¿Eres un paciente nuevo?</p>
-                                <a th:href="@{/registro}" class="text-decoration-none">Crea tu cuenta aquí</a>
-                            </div>
                         </div>
                     </div>
                     <div class="text-center mt-4">

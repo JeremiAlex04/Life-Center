@@ -6,6 +6,7 @@ import com.example.demo.repository.CitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -14,7 +15,7 @@ public class CitaService {
     private CitaRepository citaRepository;
 
     @Autowired
-    private HistorialClinicoService historialClinicoService; // Inyectar HistorialClinicoService
+    private HistorialClinicoService historialClinicoService;
 
     public List<Cita> findAll() {
         return citaRepository.findAll();
@@ -33,22 +34,49 @@ public class CitaService {
             throw new IllegalArgumentException("No se pueden agendar citas en fechas pasadas.");
         }
 
-        if (citaRepository.existeCitaMedico(cita.getMedico().getIdMedico(), cita.getFecha(),
-                cita.getHora())) {
-            throw new IllegalArgumentException("El médico ya tiene una cita agendada en ese horario.");
+        // Validar solapamiento de citas considerando la duración
+        LocalTime horaInicio = cita.getHora();
+        int duracion = (cita.getDuracionMinutos() != null) ? cita.getDuracionMinutos() : 30;
+        LocalTime horaFin = horaInicio.plusMinutes(duracion);
+
+        // Obtener todas las citas del médico en esa fecha
+        List<Cita> citasExistentes = citaRepository.findCitasParaValidarSolapamiento(
+                cita.getMedico().getIdMedico(),
+                cita.getFecha());
+
+        // Validar solapamiento en Java
+        for (Cita citaExistente : citasExistentes) {
+            // Ignorar la misma cita si estamos editando
+            if (cita.getIdCita() != null && cita.getIdCita().equals(citaExistente.getIdCita())) {
+                continue;
+            }
+
+            LocalTime horaExistenteInicio = citaExistente.getHora();
+            int duracionExistente = (citaExistente.getDuracionMinutos() != null) ? citaExistente.getDuracionMinutos()
+                    : 30;
+            LocalTime horaExistenteFin = horaExistenteInicio.plusMinutes(duracionExistente);
+
+            // Verificar solapamiento: las citas se solapan si:
+            // horaInicio < horaExistenteFin AND horaFin > horaExistenteInicio
+            if (horaInicio.isBefore(horaExistenteFin) && horaFin.isAfter(horaExistenteInicio)) {
+                throw new IllegalArgumentException(
+                        String.format("Ya existe una cita que se solapa con este horario. " +
+                                "Cita existente: %s - %s. Por favor, elija otro horario.",
+                                horaExistenteInicio, horaExistenteFin));
+            }
         }
 
         // Validar que la hora de la cita corresponda al turno del médico
         String turno = cita.getMedico().getTurno();
-        java.time.LocalTime hora = cita.getHora();
+        LocalTime hora = cita.getHora();
 
         if (turno != null) {
             if (turno.equalsIgnoreCase("Mañana")) {
-                if (hora.isBefore(java.time.LocalTime.of(7, 0)) || hora.isAfter(java.time.LocalTime.of(13, 0))) {
+                if (hora.isBefore(LocalTime.of(7, 0)) || hora.isAfter(LocalTime.of(13, 0))) {
                     throw new IllegalArgumentException("El médico solo atiende en el turno Mañana (07:00 - 13:00).");
                 }
             } else if (turno.equalsIgnoreCase("Tarde")) {
-                if (hora.isBefore(java.time.LocalTime.of(14, 0)) || hora.isAfter(java.time.LocalTime.of(20, 0))) {
+                if (hora.isBefore(LocalTime.of(14, 0)) || hora.isAfter(LocalTime.of(20, 0))) {
                     throw new IllegalArgumentException("El médico solo atiende en el turno Tarde (14:00 - 20:00).");
                 }
             }
@@ -98,7 +126,7 @@ public class CitaService {
         // Crear y guardar el registro en el historial clínico
         HistorialClinico historial = new HistorialClinico();
         historial.setPaciente(cita.getPaciente());
-        historial.setFecha(cita.getFecha()); // O LocalDate.now() si prefieres la fecha de finalización
+        historial.setFecha(cita.getFecha());
         historial.setDiagnostico(diagnostico);
         historial.setTratamiento(tratamiento);
         historial.setObservaciones(observaciones);
