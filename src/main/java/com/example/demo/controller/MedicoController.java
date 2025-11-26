@@ -48,9 +48,14 @@ public class MedicoController {
             medico.setEspecialidad(otraEspecialidad.trim());
         }
 
-        // Asignar consultorio desde el ID
+        // Asignar consultorio desde el ID y Sincronizar Tipo
         if (consultorioId != null) {
-            consultorioRepository.findById(consultorioId).ifPresent(medico::setConsultorio);
+            consultorioRepository.findById(consultorioId).ifPresent(c -> {
+                medico.setConsultorio(c);
+                // Sincronizar el Tipo del Consultorio con la Especialidad del Médico
+                c.setTipo(medico.getEspecialidad());
+                consultorioRepository.save(c);
+            });
         }
 
         String fotoFileName = medico.getFotoUrl();

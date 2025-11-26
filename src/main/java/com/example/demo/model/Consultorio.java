@@ -12,6 +12,8 @@ public class Consultorio {
 
     private String numero;
     private String piso;
+    private String estado; // DISPONIBLE, MANTENIMIENTO, LIMPIEZA, FUERA_SERVICIO
+    private String tipo; // GENERAL, DENTAL, GINECOLOGIA, PEDIATRIA
 
     @Transient
     private long doctorCount;

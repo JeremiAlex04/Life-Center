@@ -38,6 +38,22 @@ public class CitaService {
             throw new IllegalArgumentException("El médico ya tiene una cita agendada en ese horario.");
         }
 
+        // Validar que la hora de la cita corresponda al turno del médico
+        String turno = cita.getMedico().getTurno();
+        java.time.LocalTime hora = cita.getHora();
+
+        if (turno != null) {
+            if (turno.equalsIgnoreCase("Mañana")) {
+                if (hora.isBefore(java.time.LocalTime.of(7, 0)) || hora.isAfter(java.time.LocalTime.of(13, 0))) {
+                    throw new IllegalArgumentException("El médico solo atiende en el turno Mañana (07:00 - 13:00).");
+                }
+            } else if (turno.equalsIgnoreCase("Tarde")) {
+                if (hora.isBefore(java.time.LocalTime.of(14, 0)) || hora.isAfter(java.time.LocalTime.of(20, 0))) {
+                    throw new IllegalArgumentException("El médico solo atiende en el turno Tarde (14:00 - 20:00).");
+                }
+            }
+        }
+
         return citaRepository.save(cita);
     }
 

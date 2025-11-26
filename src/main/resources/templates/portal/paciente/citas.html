@@ -19,12 +19,17 @@
                             <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
                                 <div class="mb-3">
                                     <label for="medico" class="form-label">Médico</label>
-                                    <select class="form-select" id="medico" th:field="*{medico}" required>
+                                    <select class="form-select" id="medico" th:field="*{medico}" required
+                                        onchange="actualizarHorario()">
                                         <option value="" active selected>Seleccione un médico</option>
                                         <option th:each="medico : ${medicos}" th:value="${medico.idMedico}"
-                                            th:text="${medico.nombres + ' ' + medico.apellidos + ' - ' + medico.especialidad}">
+                                            th:data-turno="${medico.turno}"
+                                            th:text="${medico.nombres + ' ' + medico.apellidos + ' - ' + medico.especialidad + ' (' + medico.turno + ')'}">
                                         </option>
                                     </select>
+                                    <div id="horarioHelp" class="form-text text-info fw-bold" style="display: none;">
+                                        <i class="bi bi-clock"></i> Horario de atención: <span id="rangoHorario"></span>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -35,6 +40,7 @@
                                 <div class="mb-3">
                                     <label for="hora" class="form-label">Hora</label>
                                     <input type="time" class="form-control" id="hora" th:field="*{hora}" required>
+                                    <div class="form-text">Seleccione una hora dentro del turno del médico.</div>
                                 </div>
 
                                 <div class="mb-3">
@@ -56,6 +62,32 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function actualizarHorario() {
+                const medicoSelect = document.getElementById('medico');
+                const horarioHelp = document.getElementById('horarioHelp');
+                const rangoHorario = document.getElementById('rangoHorario');
+                const selectedOption = medicoSelect.options[medicoSelect.selectedIndex];
+                const turno = selectedOption.getAttribute('data-turno');
+
+                if (turno) {
+                    let horarioTexto = "";
+                    if (turno.toLowerCase() === 'mañana') {
+                        horarioTexto = "07:00 AM - 01:00 PM";
+                    } else if (turno.toLowerCase() === 'tarde') {
+                        horarioTexto = "02:00 PM - 08:00 PM";
+                    } else {
+                        horarioTexto = "Consultar con administración";
+                    }
+
+                    rangoHorario.textContent = horarioTexto;
+                    horarioHelp.style.display = 'block';
+                } else {
+                    horarioHelp.style.display = 'none';
+                }
+            }
+        </script>
     </section>
 </body>
 

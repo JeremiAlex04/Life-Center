@@ -54,6 +54,8 @@ public class DataInitializer implements CommandLineRunner {
                                 Consultorio consultorio = new Consultorio();
                                 consultorio.setNumero(String.valueOf(300 + i));
                                 consultorio.setPiso("3");
+                                consultorio.setEstado("DISPONIBLE");
+                                consultorio.setTipo("GENERAL");
                                 consultorioRepository.save(consultorio);
                         }
                         // Piso 4: 401-405
@@ -61,12 +63,16 @@ public class DataInitializer implements CommandLineRunner {
                                 Consultorio consultorio = new Consultorio();
                                 consultorio.setNumero(String.valueOf(400 + i));
                                 consultorio.setPiso("4");
+                                consultorio.setEstado("DISPONIBLE");
+                                consultorio.setTipo("GENERAL");
                                 consultorioRepository.save(consultorio);
                         }
                 } else {
-                        // Corregir datos existentes si no cumplen la regla
+                        // Corregir datos existentes si no cumplen la regla y asignar valores por
+                        // defecto a nuevos campos
                         List<Consultorio> consultorios = consultorioRepository.findAll();
                         for (Consultorio c : consultorios) {
+                                boolean changed = false;
                                 try {
                                         int numero = Integer.parseInt(c.getNumero());
                                         String piso = c.getPiso();
@@ -75,12 +81,26 @@ public class DataInitializer implements CommandLineRunner {
                                         if (piso.equals("4") && numero >= 306 && numero <= 310) {
                                                 int nuevoNumero = 400 + (numero - 305); // 306->401, 310->405
                                                 c.setNumero(String.valueOf(nuevoNumero));
-                                                consultorioRepository.save(c);
+                                                changed = true;
                                                 System.out.println("Corregido consultorio: " + numero + " -> "
                                                                 + nuevoNumero);
                                         }
                                 } catch (NumberFormatException e) {
                                         // Ignorar
+                                }
+
+                                // Asignar valores por defecto si son nulos (migración)
+                                if (c.getEstado() == null) {
+                                        c.setEstado("DISPONIBLE");
+                                        changed = true;
+                                }
+                                if (c.getTipo() == null) {
+                                        c.setTipo("GENERAL");
+                                        changed = true;
+                                }
+
+                                if (changed) {
+                                        consultorioRepository.save(c);
                                 }
                         }
                 }
@@ -149,7 +169,13 @@ public class DataInitializer implements CommandLineRunner {
 
                                 // Asignar consultorio
                                 if (consultorioIndex < consultorios.size()) {
-                                        medico.setConsultorio(consultorios.get(consultorioIndex));
+                                        Consultorio consultorioAsignado = consultorios.get(consultorioIndex);
+                                        medico.setConsultorio(consultorioAsignado);
+
+                                        // Sincronizar el Tipo del Consultorio con la Especialidad del Médico
+                                        consultorioAsignado.setTipo(data[3]); // data[3] es la Especialidad
+                                        consultorioRepository.save(consultorioAsignado);
+
                                         consultorioIndex++;
                                 }
 
@@ -228,5 +254,24 @@ public class DataInitializer implements CommandLineRunner {
                         }
                 }
 
+                // Sincronización final: Asegurar que los consultorios tengan el tipo de su
+                // médico asignado (Corrección para datos existentes)
+                List<Consultorio> allConsultorios = consultorioRepository.findAll();
+                for (Consultorio c : allConsultorios) {
+                        List<Medico> medicos = medicoRepository.findByConsultorio(c);
+                        if (!medicos.isEmpty()) {
+                                // Tomamos la especialidad del primer médico asignado
+                                String especialidad = medicos.get(0).getEspecialidad();
+
+                                // Si el tipo es GENERAL o nulo, o diferente a la especialidad, lo actualizamos
+                                if (c.getTipo() == null || c.getTipo().equals("GENERAL")
+                                                || !c.getTipo().equals(especialidad)) {
+                                        c.setTipo(especialidad);
+                                        consultorioRepository.save(c);
+                                        System.out.println("Sincronizado Consultorio " + c.getNumero() + " a Tipo: "
+                                                        + especialidad);
+                                }
+                        }
+                }
         }
 }

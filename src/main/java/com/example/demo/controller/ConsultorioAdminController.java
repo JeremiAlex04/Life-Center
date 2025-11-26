@@ -42,7 +42,7 @@ public class ConsultorioAdminController {
 
             List<Medico> medicos = medicoRepository.findByConsultorio(c);
             List<String> names = medicos.stream()
-                    .map(m -> m.getNombres() + " " + m.getApellidos())
+                    .map(m -> m.getNombres() + " " + m.getApellidos() + " (" + m.getTurno() + ")")
                     .collect(Collectors.toList());
             c.setDoctorNames(names);
         });
@@ -58,7 +58,7 @@ public class ConsultorioAdminController {
 
                     List<Medico> medicos = medicoRepository.findByConsultorio(consultorio);
                     List<String> names = medicos.stream()
-                            .map(m -> m.getNombres() + " " + m.getApellidos())
+                            .map(m -> m.getNombres() + " " + m.getApellidos() + " (" + m.getTurno() + ")")
                             .collect(Collectors.toList());
                     consultorio.setDoctorNames(names);
 
@@ -82,6 +82,8 @@ public class ConsultorioAdminController {
                 .map(consultorio -> {
                     consultorio.setNumero(consultorioDetails.getNumero());
                     consultorio.setPiso(consultorioDetails.getPiso());
+                    consultorio.setEstado(consultorioDetails.getEstado());
+                    consultorio.setTipo(consultorioDetails.getTipo());
                     Consultorio updatedConsultorio = consultorioService.save(consultorio);
                     return new ResponseEntity<>(updatedConsultorio, HttpStatus.OK);
                 })

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const consultorioIdInput = document.getElementById('consultorioId');
     const numeroSelect = document.getElementById('numero');
     const pisoSelect = document.getElementById('piso');
+    const tipoSelect = document.getElementById('tipo');
+    const estadoSelect = document.getElementById('estado');
     const noConsultoriosMessage = document.getElementById('noConsultoriosMessage');
 
     // Variables para búsqueda y filtrado
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         } catch (error) {
             console.error('Error:', error);
-            consultoriosTableBody.innerHTML = `<tr><td colspan="6" class="text-danger">Error al cargar los consultorios.</td></tr>`;
+            consultoriosTableBody.innerHTML = `<tr><td colspan="8" class="text-danger">Error al cargar los consultorios.</td></tr>`;
             noConsultoriosMessage.style.display = 'none';
             consultoriosTableBody.style.display = 'table-row-group';
         }
@@ -73,10 +75,23 @@ document.addEventListener('DOMContentLoaded', function () {
             consultorios.forEach(consultorio => {
                 const row = consultoriosTableBody.insertRow();
                 const doctorNames = consultorio.doctorNames ? consultorio.doctorNames.join(', ') : 'Ninguno';
+
+                // Badge para estado
+                let estadoBadge = '';
+                switch (consultorio.estado) {
+                    case 'DISPONIBLE': estadoBadge = '<span class="badge bg-success">Disponible</span>'; break;
+                    case 'MANTENIMIENTO': estadoBadge = '<span class="badge bg-warning text-dark">Mantenimiento</span>'; break;
+                    case 'LIMPIEZA': estadoBadge = '<span class="badge bg-info text-dark">Limpieza</span>'; break;
+                    case 'FUERA_SERVICIO': estadoBadge = '<span class="badge bg-danger">Fuera de Servicio</span>'; break;
+                    default: estadoBadge = `<span class="badge bg-secondary">${consultorio.estado || 'N/A'}</span>`;
+                }
+
                 row.innerHTML = `
                     <td>${consultorio.idConsultorio}</td>
                     <td>${consultorio.numero}</td>
                     <td>${consultorio.piso}</td>
+                    <td>${consultorio.tipo || 'General'}</td>
+                    <td>${estadoBadge}</td>
                     <td>${consultorio.doctorCount}</td>
                     <td>${doctorNames}</td>
                     <td>
@@ -164,6 +179,9 @@ document.addEventListener('DOMContentLoaded', function () {
         consultorioModalLabel.textContent = 'Agregar Consultorio';
         numeroSelect.disabled = true; // Deshabilitar número al inicio
         numeroSelect.innerHTML = '<option value="" selected disabled>Seleccione un piso primero</option>';
+        // Valores por defecto
+        tipoSelect.value = 'GENERAL';
+        estadoSelect.value = 'DISPONIBLE';
         consultorioModal.show();
     });
 
@@ -177,7 +195,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const consultorioData = {
             idConsultorio: idConsultorio ? parseInt(idConsultorio) : null,
             numero: numeroSelect.value,
-            piso: pisoSelect.value
+            piso: pisoSelect.value,
+            tipo: tipoSelect.value,
+            estado: estadoSelect.value
         };
 
         try {
@@ -207,6 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const verConsultorioModal = new bootstrap.Modal(document.getElementById('verConsultorioModal'));
     const verNumero = document.getElementById('verNumero');
     const verPiso = document.getElementById('verPiso');
+    const verTipo = document.getElementById('verTipo');
+    const verEstado = document.getElementById('verEstado');
     const verListaMedicos = document.getElementById('verListaMedicos');
 
     consultoriosTableBody.addEventListener('click', async function (event) {
@@ -221,6 +243,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 verNumero.textContent = consultorio.numero;
                 verPiso.textContent = consultorio.piso;
+                verTipo.textContent = consultorio.tipo || 'General';
+                verEstado.textContent = consultorio.estado || 'Disponible';
 
                 verListaMedicos.innerHTML = '';
                 if (consultorio.doctorNames && consultorio.doctorNames.length > 0) {
@@ -255,8 +279,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const consultorio = await response.json();
                 consultorioIdInput.value = consultorio.idConsultorio;
 
-                // Establecer piso primero
+                // Establecer valores
                 pisoSelect.value = consultorio.piso;
+                tipoSelect.value = consultorio.tipo || 'GENERAL';
+                estadoSelect.value = consultorio.estado || 'DISPONIBLE';
 
                 // Poblar opciones de número basadas en el piso y seleccionar el correcto
                 populateNumeroOptions(consultorio.piso, consultorio.numero);

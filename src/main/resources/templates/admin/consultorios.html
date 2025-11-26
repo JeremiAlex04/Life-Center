@@ -45,6 +45,8 @@
                             <th>ID</th>
                             <th>Número</th>
                             <th>Piso</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
                             <th>Médicos Asignados</th>
                             <th>Médicos</th>
                             <th>Acciones</th>
@@ -75,12 +77,6 @@
                         <form id="consultorioForm">
                             <input type="hidden" id="consultorioId" name="idConsultorio">
                             <div class="mb-3">
-                                <label for="numero" class="form-label">Número</label>
-                                <select class="form-select" id="numero" name="numero" required disabled>
-                                    <option value="" selected disabled>Seleccione un piso primero</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
                                 <label for="piso" class="form-label">Piso</label>
                                 <select class="form-select" id="piso" name="piso" required>
                                     <option value="" selected disabled>Seleccione un piso</option>
@@ -89,6 +85,38 @@
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <select class="form-select" id="numero" name="numero" required disabled>
+                                    <option value="" selected disabled>Seleccione un piso primero</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo</label>
+                                <select class="form-select" id="tipo" name="tipo" required>
+                                    <option value="GENERAL">General</option>
+                                    <option value="Cardiología">Cardiología</option>
+                                    <option value="Pediatría">Pediatría</option>
+                                    <option value="Dermatología">Dermatología</option>
+                                    <option value="Neurología">Neurología</option>
+                                    <option value="Ginecología">Ginecología</option>
+                                    <option value="Traumatología">Traumatología</option>
+                                    <option value="Oftalmología">Oftalmología</option>
+                                    <option value="Psiquiatría">Psiquiatría</option>
+                                    <option value="Urología">Urología</option>
+                                    <option value="Endocrinología">Endocrinología</option>
+                                    <option value="Odontología">Odontología</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select class="form-select" id="estado" name="estado" required>
+                                    <option value="DISPONIBLE">Disponible</option>
+                                    <option value="MANTENIMIENTO">En Mantenimiento</option>
+                                    <option value="LIMPIEZA">Limpieza</option>
+                                    <option value="FUERA_SERVICIO">Fuera de Servicio</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -112,6 +140,8 @@
                     <div class="modal-body">
                         <p><strong>Número:</strong> <span id="verNumero"></span></p>
                         <p><strong>Piso:</strong> <span id="verPiso"></span></p>
+                        <p><strong>Tipo:</strong> <span id="verTipo"></span></p>
+                        <p><strong>Estado:</strong> <span id="verEstado"></span></p>
                         <hr>
                         <h6>Médicos Asignados:</h6>
                         <ul id="verListaMedicos" class="list-group">
