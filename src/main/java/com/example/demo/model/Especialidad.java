@@ -24,7 +24,7 @@ public class Especialidad {
     @Column(nullable = false, length = 20)
     private String estado = "ACTIVA";
 
-    @OneToMany(mappedBy = "especialidad")
+    @OneToMany(mappedBy = "especialidadObj")
     private List<Medico> medicos;
 
     // Constructors

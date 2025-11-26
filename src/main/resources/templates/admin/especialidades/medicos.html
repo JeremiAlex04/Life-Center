@@ -34,9 +34,6 @@
                     <div th:if="${medicos == null or medicos.isEmpty()}" class="text-center py-5">
                         <i class="bi bi-person-x display-1 text-muted"></i>
                         <p class="mt-3 text-muted">No hay médicos asignados a esta especialidad.</p>
-                        <a th:href="@{/admin/medicos/nuevo}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-2"></i>Agregar Médico
-                        </a>
                     </div>
 
                     <div th:unless="${medicos == null or medicos.isEmpty()}">
@@ -49,7 +46,6 @@
                                         <th>Teléfono</th>
                                         <th>Turno</th>
                                         <th>Estado</th>
-                                        <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,12 +67,6 @@
                                                 class="badge bg-danger">Inactivo</span>
                                             <span th:if="${medico.estado == 'LICENCIA'}"
                                                 class="badge bg-warning">Licencia</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a th:href="@{/admin/medicos/editar/{id}(id=${medico.idMedico})}"
-                                                class="btn btn-sm btn-warning" title="Editar Médico">
-                                                <i class="bi bi-pencil-fill"></i>
-                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

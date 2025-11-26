@@ -41,7 +41,6 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th class="text-center">N° Médicos</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
@@ -55,9 +54,6 @@
                                             <span th:text="${#strings.abbreviate(esp.descripcion, 80)}">
                                                 Descripción de la especialidad...
                                             </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-info" th:text="${esp.cantidadMedicos}">0</span>
                                         </td>
                                         <td class="text-center">
                                             <span th:if="${esp.estado == 'ACTIVA'}"
