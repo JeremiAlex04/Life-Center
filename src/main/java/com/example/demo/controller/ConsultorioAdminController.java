@@ -63,7 +63,8 @@ public class ConsultorioAdminController {
 
     @PutMapping("/api/{id}")
     @ResponseBody
-    public ResponseEntity<Consultorio> updateConsultorioApi(@PathVariable Long id, @RequestBody Consultorio consultorioDetails) {
+    public ResponseEntity<Consultorio> updateConsultorioApi(@PathVariable Long id,
+            @RequestBody Consultorio consultorioDetails) {
         return consultorioService.findById(id)
                 .map(consultorio -> {
                     consultorio.setNumero(consultorioDetails.getNumero());
@@ -78,7 +79,8 @@ public class ConsultorioAdminController {
     @ResponseBody
     public ResponseEntity<String> deleteConsultorioApi(@PathVariable Long id) {
         if (!consultorioService.canDelete(id)) {
-            return new ResponseEntity<>("No se puede eliminar el consultorio porque tiene médicos asignados", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("No se puede eliminar el consultorio porque tiene médicos asignados",
+                    HttpStatus.CONFLICT);
         }
         consultorioService.deleteById(id);
         return new ResponseEntity<>("Consultorio eliminado exitosamente", HttpStatus.NO_CONTENT);

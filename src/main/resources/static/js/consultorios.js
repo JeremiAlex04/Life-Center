@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const consultoriosTableBody = document.getElementById('consultoriosTableBody');
     const consultorioModal = new bootstrap.Modal(document.getElementById('consultorioModal'));
     const consultorioForm = document.getElementById('consultorioForm');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const consultorios = await response.json();
             consultoriosTableBody.innerHTML = ''; // Limpiar tabla
-            
+
             if (consultorios.length === 0) {
                 noConsultoriosMessage.style.display = 'block';
                 consultoriosTableBody.style.display = 'none';
@@ -54,16 +54,17 @@ document.addEventListener('DOMContentLoaded', function() {
     loadConsultorios();
 
     // Evento para abrir el modal para un nuevo consultorio
-    document.getElementById('btnAbrirNuevoConsultorioModal').addEventListener('click', function() {
+    document.getElementById('btnAbrirNuevoConsultorioModal').addEventListener('click', function () {
         consultorioForm.reset(); // Limpiar el formulario
         consultorioIdInput.value = ''; // Asegurarse de que el ID esté vacío
         consultorioModalLabel.textContent = 'Agregar Consultorio';
+        consultorioModal.show();
     });
 
     // Evento para enviar el formulario (agregar/editar)
-    consultorioForm.addEventListener('submit', async function(event) {
+    consultorioForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-        
+
         const idConsultorio = consultorioIdInput.value;
         const url = idConsultorio ? `/admin/consultorios/api/${idConsultorio}` : '/admin/consultorios/api';
         const method = idConsultorio ? 'PUT' : 'POST';
@@ -78,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch(url, {
                 method: method,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    [document.querySelector('meta[name="_csrf_header"]').content]: document.querySelector('meta[name="_csrf"]').content
                 },
                 body: JSON.stringify(consultorioData)
             });
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Evento para editar o eliminar (delegación de eventos)
-    consultoriosTableBody.addEventListener('click', async function(event) {
+    consultoriosTableBody.addEventListener('click', async function (event) {
         if (event.target.classList.contains('btn-editar') || event.target.closest('.btn-editar')) {
             const button = event.target.classList.contains('btn-editar') ? event.target : event.target.closest('.btn-editar');
             const id = button.dataset.id;

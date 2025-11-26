@@ -9,6 +9,10 @@
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+
+    <!-- CSRF Token -->
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 
 <body>
@@ -62,7 +66,8 @@
                 <div sec:authorize="hasRole('PACIENTE')">
                     <li><a th:href="@{/citas/nueva}" class="nav-link text-white"><i
                                 class="bi bi-calendar-event me-2"></i>Agendar Cita</a></li>
-                    <li><a th:href="@{/paciente/historia_clinica}" class="nav-link text-white"><i class="bi bi-journal-medical me-2"></i>Mi Historia
+                    <li><a th:href="@{/paciente/historia_clinica}" class="nav-link text-white"><i
+                                class="bi bi-journal-medical me-2"></i>Mi Historia
                             Clínica</a></li>
                 </div>
 
