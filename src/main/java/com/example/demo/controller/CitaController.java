@@ -29,6 +29,7 @@ public class CitaController {
     public String mostrarFormularioNuevaCita(Model model) {
         model.addAttribute("cita", new Cita());
         model.addAttribute("medicos", medicoRepository.findAll());
+        model.addAttribute("especialidades", medicoRepository.findDistinctEspecialidades());
         return "portal/paciente/citas";
     }
 
@@ -50,6 +51,7 @@ public class CitaController {
             // Si hay error de validación, volvemos al formulario con el mensaje de error
             model.addAttribute("error", e.getMessage());
             model.addAttribute("medicos", medicoRepository.findAll());
+            model.addAttribute("especialidades", medicoRepository.findDistinctEspecialidades());
             return "portal/paciente/citas";
         }
 

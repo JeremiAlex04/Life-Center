@@ -19,4 +19,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findByConsultorio(com.example.demo.model.Consultorio consultorio);
 
     long countByConsultorio(com.example.demo.model.Consultorio consultorio);
+
+    @Query("SELECT DISTINCT m.especialidad FROM Medico m")
+    List<String> findDistinctEspecialidades();
 }

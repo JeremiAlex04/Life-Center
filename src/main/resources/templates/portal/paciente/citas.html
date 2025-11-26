@@ -17,6 +17,16 @@
                             </div>
 
                             <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+
+                                <div class="mb-3">
+                                    <label for="especialidad" class="form-label">Especialidad</label>
+                                    <select class="form-select" id="especialidad" onchange="filtrarMedicos()">
+                                        <option value="" selected>Todas las especialidades</option>
+                                        <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}">
+                                        </option>
+                                    </select>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="medico" class="form-label">Médico</label>
                                     <select class="form-select" id="medico" th:field="*{medico}" required
@@ -24,6 +34,7 @@
                                         <option value="" active selected>Seleccione un médico</option>
                                         <option th:each="medico : ${medicos}" th:value="${medico.idMedico}"
                                             th:data-turno="${medico.turno}"
+                                            th:data-especialidad="${medico.especialidad}"
                                             th:text="${medico.nombres + ' ' + medico.apellidos + ' - ' + medico.especialidad + ' (' + medico.turno + ')'}">
                                         </option>
                                     </select>
@@ -64,6 +75,33 @@
         </div>
 
         <script>
+            function filtrarMedicos() {
+                const especialidadSelect = document.getElementById('especialidad');
+                const medicoSelect = document.getElementById('medico');
+                const selectedEspecialidad = especialidadSelect.value;
+                const options = medicoSelect.options;
+
+                // Resetear selección de médico
+                medicoSelect.value = "";
+                document.getElementById('horarioHelp').style.display = 'none';
+
+                for (let i = 0; i < options.length; i++) {
+                    const option = options[i];
+                    const medicoEspecialidad = option.getAttribute('data-especialidad');
+
+                    if (option.value === "") {
+                        option.style.display = "block"; // Siempre mostrar la opción por defecto
+                        continue;
+                    }
+
+                    if (selectedEspecialidad === "" || medicoEspecialidad === selectedEspecialidad) {
+                        option.style.display = "block";
+                    } else {
+                        option.style.display = "none";
+                    }
+                }
+            }
+
             function actualizarHorario() {
                 const medicoSelect = document.getElementById('medico');
                 const horarioHelp = document.getElementById('horarioHelp');
