@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin") 
+@RequestMapping("/admin")
 public class DashboardController {
 
     @Autowired
@@ -18,17 +18,22 @@ public class DashboardController {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private com.example.demo.repository.ConsultorioRepository consultorioRepository;
+
     @GetMapping("/dashboard")
     public String viewAdminDashboard(Model model) {
         long totalPacientes = pacienteRepository.count();
         long totalMedicos = medicoRepository.count();
+        long totalConsultorios = consultorioRepository.count();
 
         model.addAttribute("totalPacientes", totalPacientes);
         model.addAttribute("totalMedicos", totalMedicos);
-        
-        model.addAttribute("totalCitas", 0); 
+        model.addAttribute("totalConsultorios", totalConsultorios);
+
+        model.addAttribute("totalCitas", 0);
         model.addAttribute("totalHabitaciones", 0);
 
-        return "admin/dashboard"; 
+        return "admin/dashboard";
     }
 }
