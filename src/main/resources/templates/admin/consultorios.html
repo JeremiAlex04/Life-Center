@@ -12,6 +12,32 @@
                 </button>
             </div>
 
+            <!-- Buscador y Filtros -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="busquedaNumero"
+                                    placeholder="Buscar por número de consultorio...">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="filtroPiso">
+                                <option value="">Todos los pisos</option>
+                                <!-- Se llenará dinámicamente -->
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-secondary w-100" id="btnBuscar">
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead>

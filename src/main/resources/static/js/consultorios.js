@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const pisoInput = document.getElementById('piso');
     const noConsultoriosMessage = document.getElementById('noConsultoriosMessage');
 
+    // Variables para búsqueda y filtrado
+    let allConsultorios = [];
+    const busquedaNumeroInput = document.getElementById('busquedaNumero');
+    const filtroPisoSelect = document.getElementById('filtroPiso');
+    const btnBuscar = document.getElementById('btnBuscar');
+
     // Función para cargar los consultorios
     async function loadConsultorios() {
         try {
@@ -15,38 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) {
                 throw new Error('Error al cargar consultorios: ' + response.statusText);
             }
-            const consultorios = await response.json();
-            consultoriosTableBody.innerHTML = ''; // Limpiar tabla
+            allConsultorios = await response.json();
 
-            if (consultorios.length === 0) {
-                noConsultoriosMessage.style.display = 'block';
-                consultoriosTableBody.style.display = 'none';
-            } else {
-                noConsultoriosMessage.style.display = 'none';
-                consultoriosTableBody.style.display = 'table-row-group'; // Restaurar display por defecto
-                consultorios.forEach(consultorio => {
-                    const row = consultoriosTableBody.insertRow();
-                    const doctorNames = consultorio.doctorNames ? consultorio.doctorNames.join(', ') : 'Ninguno';
-                    row.innerHTML = `
-                        <td>${consultorio.idConsultorio}</td>
-                        <td>${consultorio.numero}</td>
-                        <td>${consultorio.piso}</td>
-                        <td>${consultorio.doctorCount}</td>
-                        <td>${doctorNames}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary btn-ver" data-id="${consultorio.idConsultorio}">
-                                <i class="bi bi-eye"></i> Ver
-                            </button>
-                            <button class="btn btn-sm btn-info btn-editar" data-id="${consultorio.idConsultorio}">
-                                <i class="bi bi-pencil"></i> Editar
-                            </button>
-                            <button class="btn btn-sm btn-danger btn-eliminar" data-id="${consultorio.idConsultorio}">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </td>
-                    `;
-                });
-            }
+            populatePisoFilter();
+            renderTable(allConsultorios);
+
         } catch (error) {
             console.error('Error:', error);
             consultoriosTableBody.innerHTML = `<tr><td colspan="6" class="text-danger">Error al cargar los consultorios.</td></tr>`;
@@ -54,6 +33,93 @@ document.addEventListener('DOMContentLoaded', function () {
             consultoriosTableBody.style.display = 'table-row-group';
         }
     }
+
+    // Función para poblar el filtro de pisos
+    function populatePisoFilter() {
+        const pisos = [...new Set(allConsultorios.map(c => c.piso))].sort();
+        // Guardar selección actual si existe
+        const currentSelection = filtroPisoSelect.value;
+
+        filtroPisoSelect.innerHTML = '<option value="">Todos los pisos</option>';
+        pisos.forEach(piso => {
+            const option = document.createElement('option');
+            option.value = piso;
+            option.textContent = piso;
+            filtroPisoSelect.appendChild(option);
+        });
+
+        // Restaurar selección si es posible
+        if (currentSelection && pisos.includes(currentSelection)) {
+            filtroPisoSelect.value = currentSelection;
+        }
+    }
+
+    // Función para renderizar la tabla
+    function renderTable(consultorios) {
+        consultoriosTableBody.innerHTML = ''; // Limpiar tabla
+
+        if (consultorios.length === 0) {
+            noConsultoriosMessage.style.display = 'block';
+            consultoriosTableBody.style.display = 'none';
+            // Si hay consultorios en total pero el filtro no devuelve nada, mostrar mensaje diferente?
+            // Por ahora usamos el mismo mensaje genérico o podríamos ajustar.
+            if (allConsultorios.length > 0) {
+                noConsultoriosMessage.textContent = 'No se encontraron consultorios con los criterios de búsqueda.';
+            } else {
+                noConsultoriosMessage.textContent = 'No hay consultorios registrados.';
+            }
+        } else {
+            noConsultoriosMessage.style.display = 'none';
+            consultoriosTableBody.style.display = 'table-row-group';
+
+            consultorios.forEach(consultorio => {
+                const row = consultoriosTableBody.insertRow();
+                const doctorNames = consultorio.doctorNames ? consultorio.doctorNames.join(', ') : 'Ninguno';
+                row.innerHTML = `
+                    <td>${consultorio.idConsultorio}</td>
+                    <td>${consultorio.numero}</td>
+                    <td>${consultorio.piso}</td>
+                    <td>${consultorio.doctorCount}</td>
+                    <td>${doctorNames}</td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary btn-ver" data-id="${consultorio.idConsultorio}">
+                            <i class="bi bi-eye"></i> Ver
+                        </button>
+                        <button class="btn btn-sm btn-info btn-editar" data-id="${consultorio.idConsultorio}">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-eliminar" data-id="${consultorio.idConsultorio}">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                `;
+            });
+        }
+    }
+
+    // Evento de búsqueda
+    btnBuscar.addEventListener('click', function () {
+        const numeroBusqueda = busquedaNumeroInput.value.toLowerCase().trim();
+        const pisoFiltro = filtroPisoSelect.value;
+
+        const filtered = allConsultorios.filter(c => {
+            const matchNumero = c.numero.toLowerCase().includes(numeroBusqueda);
+            // Comparación laxa (==) para permitir que string "1" coincida con number 1 si fuera el caso, 
+            // aunque c.piso suele ser string.
+            const matchPiso = pisoFiltro === '' || c.piso == pisoFiltro;
+            return matchNumero && matchPiso;
+        });
+
+        renderTable(filtered);
+    });
+
+    // Permitir buscar al presionar Enter en el input
+    busquedaNumeroInput.addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') {
+            btnBuscar.click();
+        }
+    });
+
 
     // Cargar consultorios al iniciar la página
     loadConsultorios();
