@@ -39,6 +39,12 @@ public class ConsultorioAdminController {
         consultorios.forEach(c -> {
             long count = consultorioService.countAssignedDoctors(c.getIdConsultorio());
             c.setDoctorCount(count);
+
+            List<Medico> medicos = medicoRepository.findByConsultorio(c);
+            List<String> names = medicos.stream()
+                    .map(m -> m.getNombres() + " " + m.getApellidos())
+                    .collect(Collectors.toList());
+            c.setDoctorNames(names);
         });
         return consultorios;
     }
@@ -49,6 +55,13 @@ public class ConsultorioAdminController {
         return consultorioService.findById(id)
                 .map(consultorio -> {
                     consultorio.setDoctorCount(consultorioService.countAssignedDoctors(consultorio.getIdConsultorio()));
+
+                    List<Medico> medicos = medicoRepository.findByConsultorio(consultorio);
+                    List<String> names = medicos.stream()
+                            .map(m -> m.getNombres() + " " + m.getApellidos())
+                            .collect(Collectors.toList());
+                    consultorio.setDoctorNames(names);
+
                     return new ResponseEntity<>(consultorio, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

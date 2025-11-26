@@ -15,4 +15,7 @@ public class Consultorio {
 
     @Transient
     private long doctorCount;
+
+    @Transient
+    private java.util.List<String> doctorNames;
 }

@@ -20,6 +20,7 @@
                             <th>Número</th>
                             <th>Piso</th>
                             <th>Médicos Asignados</th>
+                            <th>Médicos</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -58,6 +59,32 @@
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Ver Detalles -->
+        <div class="modal fade" id="verConsultorioModal" tabindex="-1" aria-labelledby="verConsultorioModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="verConsultorioModalLabel">Detalles del Consultorio</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Número:</strong> <span id="verNumero"></span></p>
+                        <p><strong>Piso:</strong> <span id="verPiso"></span></p>
+                        <hr>
+                        <h6>Médicos Asignados:</h6>
+                        <ul id="verListaMedicos" class="list-group">
+                            <!-- Lista de médicos se cargará aquí -->
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
