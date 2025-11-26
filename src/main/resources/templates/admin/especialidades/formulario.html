@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<body>
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h1 class="h4 mb-0">
+                                <span th:if="${esNuevo}">Nueva Especialidad</span>
+                                <span th:unless="${esNuevo}">Editar Especialidad</span>
+                            </h1>
+                        </div>
+                        <div class="card-body p-4">
+                            <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+                            <form th:action="@{/admin/especialidades/guardar}" th:object="${especialidad}"
+                                method="post">
+                                <input type="hidden" th:field="*{idEspecialidad}" />
+
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre de la Especialidad *</label>
+                                    <input type="text" id="nombre" class="form-control" th:field="*{nombre}"
+                                        placeholder="Ej: Cardiología" required maxlength="100" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <textarea id="descripcion" class="form-control" th:field="*{descripcion}" rows="4"
+                                        placeholder="Descripción de la especialidad médica..."
+                                        maxlength="500"></textarea>
+                                    <div class="form-text">Máximo 500 caracteres</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="urlImagen" class="form-label">URL de Imagen</label>
+                                    <input type="text" id="urlImagen" class="form-control" th:field="*{urlImagen}"
+                                        placeholder="/img/especialidades/nombre.jpg" />
+                                    <div class="form-text">Ruta de la imagen de la especialidad</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado *</label>
+                                    <select id="estado" class="form-select" th:field="*{estado}" required>
+                                        <option value="ACTIVA">Activa</option>
+                                        <option value="INACTIVA">Inactiva</option>
+                                    </select>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/admin/especialidades}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-x-circle me-2"></i>Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-2"></i>
+                                        <span th:if="${esNuevo}">Crear Especialidad</span>
+                                        <span th:unless="${esNuevo}">Guardar Cambios</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -13,7 +13,10 @@ public class Medico {
     private String dni;
     private String nombres;
     private String apellidos;
+
+    // Mantener temporalmente para compatibilidad durante migración
     private String especialidad;
+
     private String numeroColegiatura;
     private String telefono;
     private String email;
@@ -29,4 +32,16 @@ public class Medico {
     @ManyToOne
     @JoinColumn(name = "id_consultorio", nullable = false)
     private Consultorio consultorio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_especialidad")
+    private Especialidad especialidadObj;
+
+    // Helper method para obtener nombre de especialidad
+    public String getEspecialidadNombre() {
+        if (especialidadObj != null) {
+            return especialidadObj.getNombre();
+        }
+        return especialidad;
+    }
 }
