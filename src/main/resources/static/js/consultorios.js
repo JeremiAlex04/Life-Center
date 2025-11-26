@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const consultorioForm = document.getElementById('consultorioForm');
     const consultorioModalLabel = document.getElementById('consultorioModalLabel');
     const consultorioIdInput = document.getElementById('consultorioId');
-    const numeroInput = document.getElementById('numero');
-    const pisoInput = document.getElementById('piso');
+    const numeroSelect = document.getElementById('numero');
+    const pisoSelect = document.getElementById('piso');
     const noConsultoriosMessage = document.getElementById('noConsultoriosMessage');
 
     // Variables para búsqueda y filtrado
@@ -61,8 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (consultorios.length === 0) {
             noConsultoriosMessage.style.display = 'block';
             consultoriosTableBody.style.display = 'none';
-            // Si hay consultorios en total pero el filtro no devuelve nada, mostrar mensaje diferente?
-            // Por ahora usamos el mismo mensaje genérico o podríamos ajustar.
             if (allConsultorios.length > 0) {
                 noConsultoriosMessage.textContent = 'No se encontraron consultorios con los criterios de búsqueda.';
             } else {
@@ -97,6 +95,47 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Lógica para poblar números de consultorio según el piso
+    function populateNumeroOptions(piso, selectedNumero = null) {
+        numeroSelect.innerHTML = '<option value="" selected disabled>Seleccione un número</option>';
+
+        if (!piso) {
+            numeroSelect.disabled = true;
+            return;
+        }
+
+        numeroSelect.disabled = false;
+        const start = parseInt(piso) * 100 + 1; // Ej: Piso 1 -> 101
+        const end = start + 4; // Ej: 101 al 105 (5 consultorios por piso)
+
+        let foundSelected = false;
+
+        for (let i = start; i <= end; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            if (selectedNumero && i == selectedNumero) {
+                option.selected = true;
+                foundSelected = true;
+            }
+            numeroSelect.appendChild(option);
+        }
+
+        // Si el número seleccionado no está en el rango estándar (ej. datos antiguos), agregarlo
+        if (selectedNumero && !foundSelected) {
+            const option = document.createElement('option');
+            option.value = selectedNumero;
+            option.textContent = selectedNumero + ' (Actual)';
+            option.selected = true;
+            numeroSelect.appendChild(option);
+        }
+    }
+
+    // Evento cambio de piso
+    pisoSelect.addEventListener('change', function () {
+        populateNumeroOptions(this.value);
+    });
+
     // Evento de búsqueda
     btnBuscar.addEventListener('click', function () {
         const numeroBusqueda = busquedaNumeroInput.value.toLowerCase().trim();
@@ -104,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const filtered = allConsultorios.filter(c => {
             const matchNumero = c.numero.toLowerCase().includes(numeroBusqueda);
-            // Comparación laxa (==) para permitir que string "1" coincida con number 1 si fuera el caso, 
-            // aunque c.piso suele ser string.
             const matchPiso = pisoFiltro === '' || c.piso == pisoFiltro;
             return matchNumero && matchPiso;
         });
@@ -113,26 +150,23 @@ document.addEventListener('DOMContentLoaded', function () {
         renderTable(filtered);
     });
 
-    // Permitir buscar al presionar Enter en el input
     busquedaNumeroInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {
             btnBuscar.click();
         }
     });
 
-
-    // Cargar consultorios al iniciar la página
     loadConsultorios();
 
-    // Evento para abrir el modal para un nuevo consultorio
     document.getElementById('btnAbrirNuevoConsultorioModal').addEventListener('click', function () {
-        consultorioForm.reset(); // Limpiar el formulario
-        consultorioIdInput.value = ''; // Asegurarse de que el ID esté vacío
+        consultorioForm.reset();
+        consultorioIdInput.value = '';
         consultorioModalLabel.textContent = 'Agregar Consultorio';
+        numeroSelect.disabled = true; // Deshabilitar número al inicio
+        numeroSelect.innerHTML = '<option value="" selected disabled>Seleccione un piso primero</option>';
         consultorioModal.show();
     });
 
-    // Evento para enviar el formulario (agregar/editar)
     consultorioForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
@@ -142,8 +176,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const consultorioData = {
             idConsultorio: idConsultorio ? parseInt(idConsultorio) : null,
-            numero: numeroInput.value,
-            piso: pisoInput.value
+            numero: numeroSelect.value,
+            piso: pisoSelect.value
         };
 
         try {
@@ -162,11 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             consultorioModal.hide();
-            loadConsultorios(); // Recargar la lista de consultorios
-            // Mostrar mensaje de éxito (opcional)
+            loadConsultorios();
         } catch (error) {
             console.error('Error al guardar el consultorio:', error);
-            alert(error.message); // Mostrar el error al usuario
+            alert(error.message);
         }
     });
 
@@ -176,14 +209,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const verPiso = document.getElementById('verPiso');
     const verListaMedicos = document.getElementById('verListaMedicos');
 
-    // Evento para editar, eliminar o ver (delegación de eventos)
     consultoriosTableBody.addEventListener('click', async function (event) {
         if (event.target.classList.contains('btn-ver') || event.target.closest('.btn-ver')) {
             const button = event.target.classList.contains('btn-ver') ? event.target : event.target.closest('.btn-ver');
             const id = button.dataset.id;
 
             try {
-                // Obtener datos del consultorio
                 const response = await fetch(`/admin/consultorios/api/${id}`);
                 if (!response.ok) throw new Error('Error al cargar consultorio');
                 const consultorio = await response.json();
@@ -191,9 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 verNumero.textContent = consultorio.numero;
                 verPiso.textContent = consultorio.piso;
 
-                // Limpiar lista
                 verListaMedicos.innerHTML = '';
-
                 if (consultorio.doctorNames && consultorio.doctorNames.length > 0) {
                     consultorio.doctorNames.forEach(name => {
                         const li = document.createElement('li');
@@ -225,8 +254,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 const consultorio = await response.json();
                 consultorioIdInput.value = consultorio.idConsultorio;
-                numeroInput.value = consultorio.numero;
-                pisoInput.value = consultorio.piso;
+
+                // Establecer piso primero
+                pisoSelect.value = consultorio.piso;
+
+                // Poblar opciones de número basadas en el piso y seleccionar el correcto
+                populateNumeroOptions(consultorio.piso, consultorio.numero);
+
                 consultorioModal.show();
             } catch (error) {
                 console.error('Error al obtener consultorio:', error);
@@ -245,14 +279,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                    if (response.status === 409) { // HTTP CONFLICT para médicos asignados
+                    if (response.status === 409) {
                         const errorMsg = await response.text();
                         alert(errorMsg);
                     } else if (!response.ok) {
                         throw new Error('Error al eliminar consultorio: ' + response.statusText);
                     } else {
-                        loadConsultorios(); // Recargar la lista
-                        // Mostrar mensaje de éxito (opcional)
+                        loadConsultorios();
                     }
                 } catch (error) {
                     console.error('Error al eliminar consultorio:', error);

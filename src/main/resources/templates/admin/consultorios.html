@@ -76,11 +76,20 @@
                             <input type="hidden" id="consultorioId" name="idConsultorio">
                             <div class="mb-3">
                                 <label for="numero" class="form-label">Número</label>
-                                <input type="text" class="form-control" id="numero" name="numero" required>
+                                <select class="form-select" id="numero" name="numero" required disabled>
+                                    <option value="" selected disabled>Seleccione un piso primero</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="piso" class="form-label">Piso</label>
-                                <input type="text" class="form-control" id="piso" name="piso" required>
+                                <select class="form-select" id="piso" name="piso" required>
+                                    <option value="" selected disabled>Seleccione un piso</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
