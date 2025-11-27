@@ -1,0 +1,219 @@
+// ============================================
+// LifeCenter - Componente: Formularios
+// Estilos personalizados para inputs y forms
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Form Control Base ===
+.form-control,
+.form-select {
+    border: 2px solid $lc-neutral-200;
+    border-radius: $lc-radius;
+    padding: 0.75rem 1rem;
+    font-size: $lc-font-size-base;
+    @include transition(all);
+
+    &:focus {
+        border-color: $lc-primary;
+        box-shadow: 0 0 0 3px rgba($lc-primary, 0.1);
+        outline: none;
+    }
+
+    &::placeholder {
+        color: $lc-neutral-400;
+        @include transition(opacity);
+    }
+
+    &:focus::placeholder {
+        opacity: 0.5;
+    }
+}
+
+// === Input Groups ===
+.input-group {
+    .input-group-text {
+        border: 2px solid $lc-neutral-200;
+        background-color: $lc-neutral-50;
+        @include transition(all);
+    }
+
+    .form-control:focus~.input-group-text,
+    .form-control:focus+.input-group-text {
+        border-color: $lc-primary;
+        background-color: rgba($lc-primary, 0.05);
+    }
+}
+
+// === Grupos de Input Personalizados (Filtros) ===
+.filter-input-group {
+    @include shadow('sm');
+    border-radius: $lc-radius-lg;
+    overflow: hidden;
+    @include transition(all);
+
+    &:focus-within {
+        @include shadow('md');
+        transform: translateY(-2px);
+    }
+
+    .input-group-text {
+        background: white;
+        border: none;
+        border-right: 1px solid $lc-neutral-200;
+    }
+
+    .form-control,
+    .form-select {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+.filter-input {
+    padding: 0.875rem 1rem;
+    font-size: $lc-font-size-base;
+
+    &:focus {
+        border-color: transparent;
+    }
+}
+
+.search-icon-custom {
+    color: $lc-primary;
+    font-size: 1.1rem;
+}
+
+// === Validación de Formularios ===
+.form-control,
+.form-select {
+    &.is-valid {
+        border-color: $lc-success;
+
+        &:focus {
+            border-color: $lc-success;
+            box-shadow: 0 0 0 3px rgba($lc-success, 0.1);
+        }
+    }
+
+    &.is-invalid {
+        border-color: $lc-error;
+
+        &:focus {
+            border-color: $lc-error;
+            box-shadow: 0 0 0 3px rgba($lc-error, 0.1);
+        }
+    }
+}
+
+.valid-feedback {
+    color: $lc-success;
+    font-size: $lc-font-size-sm;
+    margin-top: 0.25rem;
+}
+
+.invalid-feedback {
+    color: $lc-error;
+    font-size: $lc-font-size-sm;
+    margin-top: 0.25rem;
+}
+
+// === Checkboxes y Radios Personalizados ===
+.form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $lc-neutral-300;
+    @include transition(all);
+
+    &:checked {
+        background-color: $lc-primary;
+        border-color: $lc-primary;
+    }
+
+    &:focus {
+        border-color: $lc-primary;
+        box-shadow: 0 0 0 3px rgba($lc-primary, 0.1);
+    }
+}
+
+// === Labels ===
+.form-label {
+    font-weight: $lc-font-weight-medium;
+    color: $lc-neutral-700;
+    margin-bottom: 0.5rem;
+}
+
+// === Textarea ===
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+// === Select Personalizado ===
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232563EB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    cursor: pointer;
+}
+
+// === Floating Labels ===
+.form-floating {
+
+    >.form-control,
+    >.form-select {
+
+        &:focus~label,
+        &:not(:placeholder-shown)~label {
+            color: $lc-primary;
+        }
+    }
+
+    >label {
+        color: $lc-neutral-500;
+    }
+}
+
+// === Input con Icono ===
+.input-icon {
+    position: relative;
+
+    i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $lc-neutral-400;
+        @include transition(color);
+    }
+
+    .form-control {
+        padding-left: 2.75rem;
+    }
+
+    &:focus-within i {
+        color: $lc-primary;
+    }
+}
+
+// === Animación de Placeholder ===
+@keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.form-control-loading {
+    background: linear-gradient(to right, $lc-neutral-100 8%, $lc-neutral-200 18%, $lc-neutral-100 33%);
+    background-size: 800px 104px;
+    animation: placeholderShimmer 2s linear infinite;
+}

@@ -1,0 +1,197 @@
+// ============================================
+// LifeCenter - Componente: Botones
+// Estilos personalizados para botones
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Botón Base ===
+.btn {
+    @include button-base;
+    @include transition(all);
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+// === Botón Primario ===
+.btn-primary {
+    @include gradient-primary;
+    color: white;
+    border: none;
+    @include shadow('sm');
+
+    &:hover,
+    &:focus {
+        @include gradient-primary;
+        color: white;
+        transform: translateY(-2px);
+        @include shadow('md');
+        filter: brightness(1.1);
+    }
+
+    &:active {
+        transform: translateY(0) scale(0.98);
+    }
+}
+
+// === Botón Secundario ===
+.btn-secondary {
+    @include gradient-secondary;
+    color: white;
+    border: none;
+    @include shadow('sm');
+
+    &:hover,
+    &:focus {
+        @include gradient-secondary;
+        color: white;
+        transform: translateY(-2px);
+        @include shadow('md');
+        filter: brightness(1.1);
+    }
+}
+
+// === Botón Accent ===
+.btn-accent {
+    @include gradient-accent;
+    color: white;
+    border: none;
+    @include shadow('sm');
+
+    &:hover,
+    &:focus {
+        @include gradient-accent;
+        color: white;
+        transform: translateY(-2px);
+        @include shadow('md');
+        filter: brightness(1.1);
+    }
+}
+
+// === Botones Outline ===
+.btn-outline-primary {
+    color: $lc-primary;
+    border: 2px solid $lc-primary;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+        @include gradient-primary;
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+    }
+}
+
+.btn-outline-secondary {
+    color: $lc-secondary;
+    border: 2px solid $lc-secondary;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+        @include gradient-secondary;
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+    }
+}
+
+.btn-outline-light {
+    color: white;
+    border: 2px solid white;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+        background: white;
+        color: $lc-primary;
+        border-color: white;
+        transform: translateY(-2px);
+    }
+}
+
+// === Tamaños de Botones ===
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: $lc-font-size-sm;
+}
+
+.btn-lg {
+    padding: 0.8rem 2rem;
+    font-size: $lc-font-size-lg;
+    font-weight: $lc-font-weight-bold;
+}
+
+// === Botones Redondeados ===
+.rounded-pill {
+    border-radius: $lc-radius-full;
+}
+
+// === Botón con Icono ===
+.btn {
+    i {
+        transition: transform $lc-transition;
+    }
+
+    &:hover i {
+        transform: translateX(3px);
+    }
+}
+
+// === Botón de Contacto (Específico para Cards de Médicos) ===
+.btn-contact {
+    @include gradient-primary;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: $lc-radius-full;
+    font-weight: $lc-font-weight-semibold;
+    @include transition(all);
+    margin-top: 1rem;
+    @include shadow('sm');
+
+    &:hover {
+        transform: translateY(-2px);
+        @include shadow('lg');
+        color: white;
+        filter: brightness(1.1);
+    }
+}
+
+// === Estado Disabled ===
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+
+    &:hover {
+        transform: none !important;
+    }
+}
+
+// === Efecto de Carga ===
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid white;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: rotate 0.6s linear infinite;
+    }
+}

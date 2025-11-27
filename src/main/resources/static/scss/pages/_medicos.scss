@@ -1,0 +1,214 @@
+// ============================================
+// LifeCenter - Página: Médicos (medicos.html)
+// Estilos específicos para la página de médicos
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Main Content ===
+.main-content {
+    padding-top: 56px; // Altura del navbar fijo
+}
+
+// === Hero Section ===
+.hero-section {
+    position: relative;
+    min-height: 400px;
+    background-image: url("../img/Fondo_SecMedico.jpg");
+    text-align: center;
+    padding: $lc-spacing-2xl 0;
+
+    h1 {
+        @include animate-in(fadeInDown, 0.8s);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+        @include animate-in(fadeInUp, 0.8s, 0.2s);
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+// === Filtros y Búsqueda ===
+.filter-input-group {
+    @include shadow('sm');
+    border-radius: $lc-radius-lg;
+    overflow: hidden;
+    @include transition(all);
+
+    &:focus-within {
+        @include shadow('md');
+        transform: translateY(-2px);
+    }
+
+    .input-group-text {
+        background: white;
+        border: none;
+        border-right: 1px solid $lc-neutral-200;
+    }
+
+    .form-control,
+    .form-select {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+.filter-input {
+    padding: 0.875rem 1rem;
+    font-size: $lc-font-size-base;
+
+    &:focus {
+        border-color: transparent;
+    }
+}
+
+.search-icon-custom {
+    color: $lc-primary;
+    font-size: 1.1rem;
+}
+
+// === Grid de Médicos ===
+#medicosGrid {
+    .medico-card {
+        @include animate-in(fadeInUp, 0.6s);
+
+        @for $i from 1 through 12 {
+            &:nth-child(#{$i}) {
+                animation-delay: #{$i * 0.05}s;
+            }
+        }
+    }
+}
+
+// === Tarjeta de Médico Personalizada ===
+.medico-card-custom {
+    @include transition(all, 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    position: relative;
+
+    // Barra superior animada
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        @include gradient-primary;
+        transform: scaleX(0);
+        @include transition(transform, 0.4s);
+        z-index: 10;
+    }
+
+    &:hover::before {
+        transform: scaleX(1);
+    }
+
+    &:hover {
+        transform: translateY(-15px) scale(1.02);
+        @include shadow('2xl');
+
+        .medico-image-container img {
+            transform: scale(1.05);
+        }
+
+        .medico-specialty {
+            color: $lc-primary;
+        }
+    }
+}
+
+// === Contenedor de Imagen ===
+.medico-image-container {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba($lc-primary, 0.05), rgba($lc-secondary, 0.05));
+    @include center-flex;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        @include transition(transform, 0.4s);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+    }
+}
+
+// === Información del Médico ===
+.medico-info-section {
+    padding: $lc-spacing-md;
+    text-align: center;
+}
+
+.medico-name {
+    font-size: 1.25rem;
+    font-weight: $lc-font-weight-bold;
+    color: $lc-neutral-900;
+    margin-bottom: 0.5rem;
+    @include transition(color);
+}
+
+.medico-specialty {
+    color: $lc-secondary;
+    font-weight: $lc-font-weight-semibold;
+    font-size: $lc-font-size-base;
+    @include transition(color);
+}
+
+// === Mensaje de No Resultados ===
+#noResults {
+    @include animate-in(fadeIn, 0.5s);
+
+    i {
+        opacity: 0.3;
+    }
+}
+
+// === Contador de Resultados ===
+#resultsCount {
+    font-weight: $lc-font-weight-bold;
+    color: $lc-primary;
+}
+
+// === Responsive ===
+@include respond-to('xs') {
+    .hero-section {
+        min-height: 300px;
+    }
+
+    .hero-content {
+        padding: $lc-spacing-xl 0;
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+
+    .medico-image-container {
+        height: 300px;
+    }
+}
+
+@include respond-to('md') {
+    .medico-card-custom {
+        margin-bottom: 2rem;
+    }
+}

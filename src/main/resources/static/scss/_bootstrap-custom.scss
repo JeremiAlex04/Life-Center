@@ -1,0 +1,137 @@
+// ============================================
+// LifeCenter - Bootstrap 5 Personalizado
+// Sobrescritura de variables de Bootstrap
+// ============================================
+
+@import 'variables';
+
+// === Sobrescribir Variables de Bootstrap ===
+$primary: $lc-primary;
+$secondary: $lc-secondary;
+$success: $lc-success;
+$info: $lc-info;
+$warning: $lc-warning;
+$danger: $lc-error;
+
+$body-bg: #ffffff;
+$body-color: $lc-neutral-800;
+
+$font-family-base: $lc-font-family-base;
+$font-size-base: $lc-font-size-base;
+
+$border-radius: $lc-radius;
+$border-radius-sm: $lc-radius-sm;
+$border-radius-lg: $lc-radius-lg;
+
+$box-shadow: $lc-shadow;
+$box-shadow-sm: $lc-shadow-sm;
+$box-shadow-lg: $lc-shadow-lg;
+
+// === Importar Bootstrap desde node_modules o CDN ===
+// Nota: Si Bootstrap está instalado via npm, usar:
+// @import '~bootstrap/scss/bootstrap';
+
+// === Extensiones de Bootstrap ===
+
+// Cards personalizadas
+.card-lc {
+    border: 1px solid $lc-neutral-200;
+    border-radius: $lc-radius-lg;
+    box-shadow: $lc-shadow-sm;
+    transition: all $lc-transition;
+
+    &:hover {
+        box-shadow: $lc-shadow-lg;
+        transform: translateY(-4px);
+    }
+}
+
+.card-lc-primary {
+    border-top: 4px solid $lc-primary;
+}
+
+.card-lc-secondary {
+    border-top: 4px solid $lc-secondary;
+}
+
+.card-lc-accent {
+    border-top: 4px solid $lc-accent;
+}
+
+// Badges personalizados
+.badge-lc-primary {
+    background-color: $lc-primary;
+    color: white;
+}
+
+.badge-lc-secondary {
+    background-color: $lc-secondary;
+    color: white;
+}
+
+.badge-lc-accent {
+    background-color: $lc-accent;
+    color: white;
+}
+
+// Utilidades de color
+.bg-lc-primary {
+    background-color: $lc-primary !important;
+}
+
+.bg-lc-primary-dark {
+    background-color: $lc-primary-dark !important;
+}
+
+.bg-lc-primary-light {
+    background-color: $lc-primary-light !important;
+}
+
+.bg-lc-secondary {
+    background-color: $lc-secondary !important;
+}
+
+.bg-lc-secondary-dark {
+    background-color: $lc-secondary-dark !important;
+}
+
+.bg-lc-accent {
+    background-color: $lc-accent !important;
+}
+
+.text-lc-primary {
+    color: $lc-primary !important;
+}
+
+.text-lc-secondary {
+    color: $lc-secondary !important;
+}
+
+.text-lc-accent {
+    color: $lc-accent !important;
+}
+
+.border-lc-primary {
+    border-color: $lc-primary !important;
+}
+
+.border-lc-secondary {
+    border-color: $lc-secondary !important;
+}
+
+// Utilidades de gradiente
+.gradient-lc-primary {
+    @include gradient-primary;
+}
+
+.gradient-lc-secondary {
+    @include gradient-secondary;
+}
+
+.gradient-lc-accent {
+    @include gradient-accent;
+}
+
+.gradient-lc-hero {
+    @include gradient-hero;
+}

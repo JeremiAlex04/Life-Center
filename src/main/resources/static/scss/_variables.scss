@@ -1,0 +1,102 @@
+// ============================================
+// LifeCenter - Variables Personalizadas
+// Colores, tipografía, espaciados y más
+// ============================================
+
+// === Colores Primarios ===
+$lc-primary: #2563EB;
+$lc-primary-dark: #1E40AF;
+$lc-primary-light: #DBEAFE;
+$lc-primary-hover: #1D4ED8;
+
+// === Colores Secundarios ===
+$lc-secondary: #10B981;
+$lc-secondary-dark: #059669;
+$lc-secondary-light: #D1FAE5;
+$lc-secondary-hover: #0D9488;
+
+// === Colores de Acento ===
+$lc-accent: #F97316;
+$lc-accent-hover: #EA580C;
+$lc-accent-light: #FED7AA;
+
+// === Colores Neutrales ===
+$lc-neutral-50: #F9FAFB;
+$lc-neutral-100: #F3F4F6;
+$lc-neutral-200: #E5E7EB;
+$lc-neutral-300: #D1D5DB;
+$lc-neutral-400: #9CA3AF;
+$lc-neutral-500: #6B7280;
+$lc-neutral-600: #4B5563;
+$lc-neutral-700: #374151;
+$lc-neutral-800: #1F2937;
+$lc-neutral-900: #111827;
+
+// === Colores de Estado ===
+$lc-success: #10B981;
+$lc-warning: #F59E0B;
+$lc-error: #EF4444;
+$lc-info: #3B82F6;
+
+// === Tipografía ===
+$lc-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$lc-font-family-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+$lc-font-size-base: 1rem;
+$lc-font-size-sm: 0.875rem;
+$lc-font-size-lg: 1.125rem;
+$lc-font-size-xl: 1.25rem;
+
+$lc-font-weight-light: 300;
+$lc-font-weight-normal: 400;
+$lc-font-weight-medium: 500;
+$lc-font-weight-semibold: 600;
+$lc-font-weight-bold: 700;
+
+// === Espaciados ===
+$lc-spacing-xs: 0.5rem;
+$lc-spacing-sm: 1rem;
+$lc-spacing-md: 1.5rem;
+$lc-spacing-lg: 2rem;
+$lc-spacing-xl: 3rem;
+$lc-spacing-2xl: 4rem;
+$lc-spacing-3xl: 6rem;
+
+// === Border Radius ===
+$lc-radius-sm: 0.375rem;
+$lc-radius: 0.5rem;
+$lc-radius-md: 0.75rem;
+$lc-radius-lg: 1rem;
+$lc-radius-xl: 1.5rem;
+$lc-radius-2xl: 2rem;
+$lc-radius-full: 9999px;
+
+// === Sombras ===
+$lc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$lc-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$lc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$lc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$lc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$lc-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+// === Transiciones ===
+$lc-transition-fast: 150ms ease-in-out;
+$lc-transition: 300ms ease-in-out;
+$lc-transition-slow: 500ms ease-in-out;
+
+// === Breakpoints ===
+$lc-breakpoint-xs: 0;
+$lc-breakpoint-sm: 576px;
+$lc-breakpoint-md: 768px;
+$lc-breakpoint-lg: 992px;
+$lc-breakpoint-xl: 1200px;
+$lc-breakpoint-xxl: 1400px;
+
+// === Z-Index ===
+$lc-z-dropdown: 1000;
+$lc-z-sticky: 1020;
+$lc-z-fixed: 1030;
+$lc-z-modal-backdrop: 1040;
+$lc-z-modal: 1050;
+$lc-z-popover: 1060;
+$lc-z-tooltip: 1070;

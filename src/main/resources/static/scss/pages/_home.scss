@@ -1,0 +1,151 @@
+// ============================================
+// LifeCenter - Página: Home (index.html)
+// Estilos específicos para la página principal
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Global Styles ===
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+// === Section Divider ===
+.section-divider {
+    height: 2px;
+    background: $lc-neutral-200;
+    margin: 0;
+}
+
+// === Hero Section ===
+.min-vh-100 {
+    min-height: 100vh;
+
+    &.pt-5 {
+        padding-top: 3rem !important;
+    }
+}
+
+// === Estadísticas Section ===
+#stats-section {
+    .stat-item {
+        @include transition(transform);
+
+        &:hover {
+            transform: translateY(-10px);
+        }
+
+        i {
+            opacity: 0.8;
+        }
+    }
+
+    .counter {
+        display: inline-block;
+
+        &.counting {
+            animation: pulse 0.5s ease;
+        }
+    }
+}
+
+// === How It Works Section ===
+.how-it-works-section {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: $lc-neutral-800;
+}
+
+// === Médicos Section ===
+.medicos-section {
+    background-image: url("../img/Fondo_SecMedico.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(30, 64, 175, 0.05);
+        z-index: -1;
+    }
+}
+
+// === Services Section ===
+.services-section {
+    background-color: $lc-primary;
+}
+
+// === Testimonials Section ===
+.testimonials-section {
+    background: white;
+}
+
+// === Section Title ===
+.section-title {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        @include gradient-primary;
+        border-radius: 2px;
+    }
+}
+
+// === CTA Section ===
+.bg-lc-accent {
+    background-color: $lc-accent !important;
+}
+
+// === Responsive Design ===
+@include respond-to('xs') {
+
+    .step-card,
+    .service-card,
+    .card-medico {
+        margin-bottom: 1rem;
+    }
+
+    .display-1 {
+        font-size: 3rem;
+    }
+
+    .display-3 {
+        font-size: 2.5rem;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+@include respond-to('md') {
+    .card-medico {
+        margin-bottom: 2rem;
+    }
+}

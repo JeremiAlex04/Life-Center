@@ -1,3 +1,9 @@
+/* ============================================
+   LifeCenter Home Page Styles
+   Updated with new color scheme
+   ============================================ */
+
+/* === Animations === */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -22,6 +28,117 @@
     }
 }
 
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === Global Styles === */
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* === Section Divider === */
+.section-divider {
+    height: 2px;
+    background: #e9ecef;
+    margin: 0;
+}
+
+/* === How It Works Section === */
+.how-it-works-section {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: #1F2937;
+}
+
+.step-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid var(--lc-neutral-200);
+    height: 100%;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+    border-color: var(--lc-primary);
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lc-primary), var(--lc-primary-dark));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    color: var(--lc-primary);
+    margin-bottom: 1rem;
+}
+
+/* === Services Section === */
+.services-section {
+    background-color: var(--lc-primary);
+}
+
+.service-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 2px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-color: var(--lc-secondary);
+}
+
+.service-icon-wrapper {
+    background: linear-gradient(135deg, var(--lc-secondary), var(--lc-secondary-dark));
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+/* === Médicos Section === */
 .medicos-section {
     background-image: url("../img/Fondo_SecMedico.jpg");
     background-size: cover;
@@ -37,7 +154,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(30, 64, 175, 0.50);
     z-index: -1;
 }
 
@@ -74,7 +191,7 @@
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+    background: linear-gradient(90deg, var(--lc-primary), var(--lc-secondary));
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -85,7 +202,7 @@
 
 .card-medico:hover {
     transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(13, 110, 253, 0.2) !important;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2) !important;
 }
 
 .card-medico:hover .doctor-image {
@@ -95,7 +212,7 @@
 .doctor-image-container {
     position: relative;
     padding: 2rem 0 1rem 0;
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(108, 117, 125, 0.05));
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(16, 185, 129, 0.05));
     overflow: hidden;
 }
 
@@ -106,7 +223,7 @@
     left: 50%;
     width: 140px;
     height: 140px;
-    background: radial-gradient(circle, rgba(13, 110, 253, 0.1), transparent);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
@@ -120,20 +237,20 @@
 }
 
 .specialty-badge {
-    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    background: linear-gradient(135deg, var(--lc-secondary), var(--lc-secondary-dark));
     color: white;
     padding: 0.5rem 1.2rem;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.85rem;
     display: inline-block;
-    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
     transition: all 0.3s ease;
 }
 
 .card-medico:hover .specialty-badge {
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.4);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
 }
 
 .doctor-info {
@@ -166,11 +283,11 @@
 }
 
 .doctor-detail-item i {
-    color: #0d6efd;
+    color: var(--lc-primary);
 }
 
 .btn-contact {
-    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    background: linear-gradient(135deg, var(--lc-primary), var(--lc-primary-dark));
     border: none;
     color: white;
     padding: 0.6rem 1.5rem;
@@ -178,15 +295,16 @@
     font-weight: 600;
     transition: all 0.3s ease;
     margin-top: 1rem;
-    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
 }
 
 .btn-contact:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     color: white;
 }
 
+/* === Section Title === */
 .section-title {
     position: relative;
     display: inline-block;
@@ -200,10 +318,47 @@
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+    background: linear-gradient(90deg, var(--lc-primary), var(--lc-secondary));
     border-radius: 2px;
 }
 
+/* === Testimonials Section === */
+.testimonials-section {
+    background: white;
+}
+
+.testimonial-card {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* === Stats Section === */
+.stat-item {
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+}
+
+.stat-item i {
+    opacity: 0.8;
+}
+
+.counter {
+    display: inline-block;
+}
+
+.counter.counting {
+    animation: pulse 0.5s ease;
+}
+
+/* === Shine Effect === */
 .shine-effect {
     position: relative;
     overflow: hidden;
@@ -225,323 +380,7 @@
     left: 100%;
 }
 
-.stat-item {
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-10px);
-}
-
-.stat-item i {
-    opacity: 0.8;
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.counter {
-    display: inline-block;
-}
-
-.counter.counting {
-    animation: pulse 0.5s ease;
-}
-
-html {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-}
-
-.bg-light-custom {
-    background-color: #f8f9fa;
-}
-
-.bg-pattern {
-    background-color: #ffffff;
-}
-
-.section-divider {
-    height: 2px;
-    background: #e9ecef;
-    margin: 0;
-}
-
-.how-it-works-section {
-    position: relative;
-    overflow: hidden;
-}
-
-.step-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 2px solid #e9ecef;
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
-    border-color: #0d6efd;
-}
-
-.step-number {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #0d6efd;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 auto 1.5rem;
-}
-
-.step-icon {
-    font-size: 2.5rem;
-    color: #0d6efd;
-    margin-bottom: 1rem;
-}
-
-.services-section {
-    background-color: #f8f9fa;
-}
-
-.service-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid #e9ecef;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
-    border-color: #0d6efd;
-}
-
-.service-icon-wrapper {
-    background: #0d6efd;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.testimonials-section {
-    background: white;
-}
-
-.testimonial-card {
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Ensure content above footer doesn't shrink and footer stays at bottom */
-
-
-.shine-effect {
-    position: relative;
-    overflow: hidden;
-}
-
-.shine-effect::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s ease;
-}
-
-.card-medico:hover .shine-effect::after {
-    left: 100%;
-}
-
-.stat-item {
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-10px);
-}
-
-.stat-item i {
-    opacity: 0.8;
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.counter {
-    display: inline-block;
-}
-
-.counter.counting {
-    animation: pulse 0.5s ease;
-}
-
-html {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-}
-
-.bg-light-custom {
-    background-color: #f8f9fa;
-}
-
-.bg-pattern {
-    background-color: #ffffff;
-}
-
-.section-divider {
-    height: 2px;
-    background: #e9ecef;
-    margin: 0;
-}
-
-.how-it-works-section {
-    position: relative;
-    overflow: hidden;
-}
-
-.step-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 2px solid #e9ecef;
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
-    border-color: #0d6efd;
-}
-
-.step-number {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #0d6efd;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 auto 1.5rem;
-}
-
-.step-icon {
-    font-size: 2.5rem;
-    color: #0d6efd;
-    margin-bottom: 1rem;
-}
-
-.services-section {
-    background-color: #f8f9fa;
-}
-
-.service-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid #e9ecef;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
-    border-color: #0d6efd;
-}
-
-.service-icon-wrapper {
-    background: #0d6efd;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.testimonials-section {
-    background: white;
-}
-
-.testimonial-card {
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Ensure content above footer doesn't shrink and footer stays at bottom */
+/* === Footer === */
 footer {
     margin-top: auto !important;
     margin-bottom: 0 !important;
@@ -555,335 +394,17 @@ footer * {
     margin-bottom: 0 !important;
 }
 
-.shine-effect::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s ease;
-}
-
-.card-medico:hover .shine-effect::after {
-    left: 100%;
-}
-
-.stat-item {
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-10px);
-}
-
-.stat-item i {
-    opacity: 0.8;
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    .step-card {
+        margin-bottom: 1rem;
     }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.counter {
-    display: inline-block;
-}
-
-.counter.counting {
-    animation: pulse 0.5s ease;
-}
-
-html {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-}
-
-.bg-light-custom {
-    background-color: #f8f9fa;
-}
-
-.bg-pattern {
-    background-color: #ffffff;
-}
-
-.section-divider {
-    height: 2px;
-    background: #e9ecef;
-    margin: 0;
-}
-
-.how-it-works-section {
-    position: relative;
-    overflow: hidden;
-}
-
-.step-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 2px solid #e9ecef;
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
-    border-color: #0d6efd;
-}
-
-.step-number {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #0d6efd;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 auto 1.5rem;
-}
-
-.step-icon {
-    font-size: 2.5rem;
-    color: #0d6efd;
-    margin-bottom: 1rem;
-}
-
-.services-section {
-    background-color: #f8f9fa;
-}
-
-.service-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid #e9ecef;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
-    border-color: #0d6efd;
-}
-
-.service-icon-wrapper {
-    background: #0d6efd;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.testimonials-section {
-    background: white;
-}
-
-.stat-item {
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-10px);
-}
-
-.stat-item i {
-    opacity: 0.8;
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
+    .service-card {
+        margin-bottom: 1rem;
     }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
+    .card-medico {
+        margin-bottom: 2rem;
     }
-}
-
-.counter {
-    display: inline-block;
-}
-
-.counter.counting {
-    animation: pulse 0.5s ease;
-}
-
-html {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-}
-
-.bg-light-custom {
-    background-color: #f8f9fa;
-}
-
-.bg-pattern {
-    background-color: #ffffff;
-}
-
-.section-divider {
-    height: 2px;
-    background: #e9ecef;
-    margin: 0;
-}
-
-.how-it-works-section {
-    position: relative;
-    overflow: hidden;
-}
-
-.step-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 2px solid #e9ecef;
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
-    border-color: #0d6efd;
-}
-
-.step-number {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #0d6efd;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 auto 1.5rem;
-}
-
-.step-icon {
-    font-size: 2.5rem;
-    color: #0d6efd;
-    margin-bottom: 1rem;
-}
-
-.services-section {
-    background-color: #f8f9fa;
-}
-
-.service-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid #e9ecef;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
-    border-color: #0d6efd;
-}
-
-.service-icon-wrapper {
-    background: #0d6efd;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.testimonials-section {
-    background: white;
-}
-
-.testimonial-card {
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Ensure content above footer doesn't shrink and footer stays at bottom */
-footer {
-    margin-top: auto !important;
-    margin-bottom: 0 !important;
-    padding-top: 3rem !important;
-    padding-bottom: 2rem !important;
-    width: 100%;
-    flex-shrink: 0;
-}
-
-footer * {
-    margin-bottom: 0 !important;
-}
-
-footer .container {
-    margin-bottom: 0 !important;
-}
-
-body>*:last-child {
-    margin-bottom: 0 !important;
-}
-
-.bg-hero-specialties {
-    background-color: #0d6efd;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Fondo_SecMedico.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    min-height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }

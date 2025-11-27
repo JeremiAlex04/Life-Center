@@ -1,0 +1,192 @@
+// ============================================
+// LifeCenter - Mixins Reutilizables
+// Funciones y mixins para estilos comunes
+// ============================================
+
+@import 'variables';
+
+// === Mixin para Gradientes ===
+@mixin gradient-primary {
+    background: linear-gradient(135deg, $lc-primary, $lc-primary-dark);
+}
+
+@mixin gradient-secondary {
+    background: linear-gradient(135deg, $lc-secondary, $lc-secondary-dark);
+}
+
+@mixin gradient-accent {
+    background: linear-gradient(135deg, $lc-accent, $lc-accent-hover);
+}
+
+@mixin gradient-hero {
+    background: linear-gradient(135deg, rgba($lc-primary, 0.9), rgba($lc-primary-dark, 0.9));
+}
+
+// === Mixin para Sombras ===
+@mixin shadow($level: 'md') {
+    @if $level =='sm' {
+        box-shadow: $lc-shadow-sm;
+    }
+
+    @else if $level =='md' {
+        box-shadow: $lc-shadow-md;
+    }
+
+    @else if $level =='lg' {
+        box-shadow: $lc-shadow-lg;
+    }
+
+    @else if $level =='xl' {
+        box-shadow: $lc-shadow-xl;
+    }
+
+    @else if $level =='2xl' {
+        box-shadow: $lc-shadow-2xl;
+    }
+
+    @else {
+        box-shadow: $lc-shadow;
+    }
+}
+
+// === Mixin para Transiciones ===
+@mixin transition($property: all, $duration: $lc-transition) {
+    transition: $property $duration;
+}
+
+@mixin transition-fast($property: all) {
+    transition: $property $lc-transition-fast;
+}
+
+@mixin transition-slow($property: all) {
+    transition: $property $lc-transition-slow;
+}
+
+// === Mixin para Hover con Elevación ===
+@mixin hover-lift($translate: -5px, $shadow: 'lg') {
+    @include transition(all);
+
+    &:hover {
+        transform: translateY($translate);
+        @include shadow($shadow);
+    }
+}
+
+// === Mixin para Efectos de Focus ===
+@mixin focus-ring($color: $lc-primary) {
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($color, 0.25);
+    }
+}
+
+// === Mixin para Responsive Breakpoints ===
+@mixin respond-to($breakpoint) {
+    @if $breakpoint =='xs' {
+        @media (max-width: #{$lc-breakpoint-sm - 1px}) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint =='sm' {
+        @media (min-width: $lc-breakpoint-sm) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint =='md' {
+        @media (min-width: $lc-breakpoint-md) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint =='lg' {
+        @media (min-width: $lc-breakpoint-lg) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint =='xl' {
+        @media (min-width: $lc-breakpoint-xl) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint =='xxl' {
+        @media (min-width: $lc-breakpoint-xxl) {
+            @content;
+        }
+    }
+}
+
+// === Mixin para Centrar Elementos ===
+@mixin center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// === Mixin para Texto Truncado ===
+@mixin text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// === Mixin para Glassmorphism ===
+@mixin glassmorphism($opacity: 0.1) {
+    background: rgba(255, 255, 255, $opacity);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+// === Mixin para Overlay ===
+@mixin overlay($color: #000, $opacity: 0.5) {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($color, $opacity);
+        z-index: 1;
+    }
+}
+
+// === Mixin para Animación de Entrada ===
+@mixin animate-in($animation: fadeInUp, $duration: 0.6s, $delay: 0s) {
+    animation: $animation $duration ease-out $delay backwards;
+}
+
+// === Mixin para Botón Base ===
+@mixin button-base {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    border-radius: $lc-radius-full;
+    font-weight: $lc-font-weight-semibold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    @include transition(all);
+
+    &:focus {
+        outline: none;
+    }
+}
+
+// === Mixin para Card Base ===
+@mixin card-base {
+    background: white;
+    border-radius: $lc-radius-lg;
+    @include shadow('sm');
+    @include transition(all);
+
+    &:hover {
+        @include shadow('lg');
+        transform: translateY(-4px);
+    }
+}

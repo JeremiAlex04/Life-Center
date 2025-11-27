@@ -1,12 +1,15 @@
-/* Estilos personalizados para la página de médicos */
+/* ============================================
+   Estilos Personalizados - Página Médicos
+   Actualizado con nueva paleta de colores
+   ============================================ */
 
-/* Eliminar espacio entre navbar y hero */
+/* === Layout Principal === */
 .main-content {
     margin-top: 56px;
     min-height: 100vh;
 }
 
-/* Hero Section con imagen de fondo */
+/* === Hero Section === */
 .hero-section {
     position: relative;
     height: 400px;
@@ -26,7 +29,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(33, 150, 243, 0.85) 0%, rgba(21, 101, 192, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.85) 0%, rgba(30, 64, 175, 0.9) 100%);
 }
 
 .hero-content {
@@ -51,13 +54,14 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Tarjetas de médicos con imagen de cuerpo completo */
+/* === Tarjetas de Médicos === */
 .medico-card-custom {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -70,14 +74,14 @@
 
 .medico-card-custom:hover {
     transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.25);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25);
 }
 
 .medico-image-container {
     width: 100%;
     height: 380px;
     overflow: hidden;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 50%, #93C5FD 100%);
     position: relative;
 }
 
@@ -88,7 +92,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.3) 100%);
+    background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.3) 100%);
     z-index: 1;
 }
 
@@ -118,14 +122,14 @@
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: linear-gradient(90deg, #2196F3, #1976D2);
+    background: linear-gradient(90deg, var(--lc-primary), var(--lc-primary-dark));
     border-radius: 2px;
 }
 
 .medico-name {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #1565C0;
+    color: var(--lc-primary-dark);
     margin-bottom: 0.5rem;
     margin-top: 0.75rem;
     text-align: center;
@@ -134,7 +138,7 @@
 
 .medico-specialty {
     font-size: 0.95rem;
-    color: #546E7A;
+    color: var(--lc-neutral-600);
     text-align: center;
     margin-bottom: 0;
     font-weight: 500;
@@ -146,13 +150,13 @@
 
 .medico-specialty::before {
     content: '•';
-    color: #2196F3;
+    color: var(--lc-secondary);
     font-size: 1.2rem;
 }
 
-/* Estilos de búsqueda y filtros */
+/* === Estilos de Búsqueda y Filtros === */
 .filter-input-group {
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--lc-neutral-200);
     border-radius: 50px;
     overflow: hidden;
     background: white;
@@ -164,15 +168,15 @@
 }
 
 .filter-input {
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--lc-neutral-200);
     border-radius: 50px;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
 }
 
 .filter-input:focus {
-    border-color: #2196F3;
-    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+    border-color: var(--lc-primary);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
 }
 
 .filter-input-group .filter-input {
@@ -181,16 +185,16 @@
 }
 
 .filter-input-group:focus-within {
-    border-color: #2196F3;
-    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+    border-color: var(--lc-primary);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
 }
 
 .search-icon-custom {
-    color: #2196F3;
+    color: var(--lc-primary);
     font-size: 1.2rem;
 }
 
-/* Select dropdown styling */
+/* === Select Dropdown === */
 select.filter-input {
     cursor: pointer;
     background-color: white;

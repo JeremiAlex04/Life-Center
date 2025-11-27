@@ -1,0 +1,274 @@
+// ============================================
+// LifeCenter - Componente: Tarjetas (Cards)
+// Estilos personalizados para cards
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Card Base ===
+.card {
+    @include card-base;
+    border: 1px solid $lc-neutral-200;
+
+    &-body {
+        padding: $lc-spacing-md;
+    }
+
+    &-title {
+        font-weight: $lc-font-weight-bold;
+        color: $lc-neutral-900;
+    }
+
+    &-text {
+        color: $lc-neutral-600;
+    }
+}
+
+// === Tarjetas de Médicos ===
+.card-medico {
+    @include transition(all, 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    position: relative;
+    @include animate-in(fadeInUp, 0.6s);
+
+    // Barra superior animada
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        @include gradient-primary;
+        transform: scaleX(0);
+        @include transition(transform, 0.4s);
+        z-index: 10;
+    }
+
+    &:hover::before {
+        transform: scaleX(1);
+    }
+
+    &:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 20px 40px rgba($lc-primary, 0.2) !important;
+
+        .doctor-image {
+            transform: scale(1.1);
+        }
+
+        .specialty-badge {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba($lc-secondary, 0.4);
+        }
+    }
+
+    // Delays escalonados para animación
+    @for $i from 1 through 4 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+        }
+    }
+}
+
+// === Contenedor de Imagen de Médico ===
+.doctor-image-container {
+    position: relative;
+    padding: 2rem 0 1rem 0;
+    background: linear-gradient(135deg, rgba($lc-primary, 0.05), rgba($lc-secondary, 0.05));
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, rgba($lc-primary, 0.1), transparent);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+    }
+}
+
+.doctor-image {
+    position: relative;
+    z-index: 1;
+    @include transition(transform, 0.4s);
+    @include shadow('md');
+}
+
+// === Información del Médico ===
+.doctor-info {
+    padding: $lc-spacing-md;
+}
+
+.doctor-name {
+    font-size: 1.25rem;
+    font-weight: $lc-font-weight-bold;
+    color: $lc-neutral-900;
+    margin-bottom: 0.5rem;
+}
+
+.doctor-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.doctor-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: $lc-neutral-500;
+    font-size: $lc-font-size-sm;
+
+    i {
+        color: $lc-primary;
+    }
+}
+
+// === Badge de Especialidad ===
+.specialty-badge {
+    @include gradient-secondary;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: $lc-radius-full;
+    font-weight: $lc-font-weight-semibold;
+    font-size: $lc-font-size-sm;
+    display: inline-block;
+    @include shadow('sm');
+    @include transition(all);
+}
+
+// === Tarjetas de Servicios ===
+.service-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    @include transition(all);
+    height: 100%;
+    border: 2px solid transparent;
+
+    &:hover {
+        transform: translateY(-5px);
+        @include shadow('lg');
+        border-color: $lc-secondary;
+    }
+}
+
+.service-icon-wrapper {
+    @include gradient-secondary;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    @include center-flex;
+    margin-bottom: $lc-spacing-md;
+    @include transition(transform);
+
+    .service-card:hover & {
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+// === Tarjetas de Pasos (Cómo Funciona) ===
+.step-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    @include transition(all);
+    position: relative;
+    border: 2px solid $lc-neutral-200;
+    height: 100%;
+
+    &:hover {
+        transform: translateY(-5px);
+        @include shadow('lg');
+        border-color: $lc-primary;
+    }
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    @include gradient-primary;
+    color: white;
+    @include center-flex;
+    font-size: 1.8rem;
+    font-weight: $lc-font-weight-bold;
+    margin: 0 auto $lc-spacing-md;
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    color: $lc-primary;
+    margin-bottom: 1rem;
+}
+
+// === Tarjetas de Testimonios ===
+.testimonial-card {
+    background: white;
+    @include transition(all);
+
+    &:hover {
+        transform: translateY(-3px);
+        @include shadow('lg');
+    }
+}
+
+// === Tarjetas Personalizadas de LifeCenter ===
+.card-lc {
+    border: 1px solid $lc-neutral-200;
+    border-radius: $lc-radius-lg;
+    @include shadow('sm');
+    @include transition(all);
+
+    &:hover {
+        @include shadow('lg');
+        transform: translateY(-4px);
+    }
+}
+
+.card-lc-primary {
+    border-top: 4px solid $lc-primary;
+}
+
+.card-lc-secondary {
+    border-top: 4px solid $lc-secondary;
+}
+
+.card-lc-accent {
+    border-top: 4px solid $lc-accent;
+}
+
+// === Efecto Shine en Cards ===
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: rotate(45deg);
+        @include transition(all, 0.6s);
+    }
+}
+
+.card-medico:hover .shine-effect::after {
+    left: 100%;
+}

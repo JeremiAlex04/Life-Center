@@ -1,0 +1,15 @@
+{
+    "name": "lifecenter",
+    "version": "1.0.0",
+    "description": "LifeCenter Healthcare Management System",
+    "scripts": {
+        "sass:build": "sass src/main/resources/static/scss/main.scss src/main/resources/static/css/lifecenter.css --no-source-map",
+        "sass:watch": "sass --watch src/main/resources/static/scss/main.scss src/main/resources/static/css/lifecenter.css --no-source-map",
+        "sass:prod": "sass src/main/resources/static/scss/main.scss src/main/resources/static/css/lifecenter.min.css --style=compressed --no-source-map"
+    },
+    "devDependencies": {
+        "sass": "^1.70.0"
+    },
+    "author": "LifeCenter Team",
+    "license": "ISC"
+}

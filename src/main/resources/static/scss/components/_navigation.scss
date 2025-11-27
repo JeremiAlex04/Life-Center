@@ -1,0 +1,180 @@
+// ============================================
+// LifeCenter - Componente: Navegación
+// Estilos personalizados para navbar
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Navbar Base ===
+.navbar {
+    @include transition(all);
+    padding: 1rem 0;
+
+    &.fixed-top {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    &.navbar-dark {
+        background-color: rgba($lc-neutral-900, 0.95) !important;
+    }
+}
+
+// === Navbar Brand ===
+.navbar-brand {
+    font-weight: $lc-font-weight-bold;
+    font-size: 1.5rem;
+    @include transition(all);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    i {
+        @include transition(transform);
+    }
+
+    &:hover i {
+        transform: scale(1.1);
+        animation: pulse 1s infinite;
+    }
+}
+
+// === Nav Links ===
+.nav-link {
+    position: relative;
+    font-weight: $lc-font-weight-medium;
+    padding: 0.5rem 1rem;
+    @include transition(all);
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: $lc-primary;
+        @include transition(all);
+        transform: translateX(-50%);
+    }
+
+    &:hover::after,
+    &.active::after {
+        width: 80%;
+    }
+
+    &:hover {
+        color: $lc-primary !important;
+    }
+
+    &.active {
+        color: $lc-primary !important;
+        font-weight: $lc-font-weight-semibold;
+    }
+}
+
+// === Navbar Toggler ===
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    @include transition(all);
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    .navbar-toggler-icon {
+        @include transition(all);
+    }
+}
+
+// === Navbar Collapse ===
+.navbar-collapse {
+    @include respond-to('xs') {
+        background: rgba($lc-neutral-900, 0.98);
+        padding: 1rem;
+        border-radius: $lc-radius-lg;
+        margin-top: 1rem;
+    }
+}
+
+// === Botón en Navbar ===
+.navbar {
+    .btn-primary {
+        @include shadow('sm');
+
+        &:hover {
+            @include shadow('md');
+        }
+    }
+}
+
+// === Dropdown en Navbar ===
+.navbar .dropdown-menu {
+    border: none;
+    @include shadow('lg');
+    border-radius: $lc-radius-lg;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+
+    .dropdown-item {
+        border-radius: $lc-radius;
+        padding: 0.5rem 1rem;
+        @include transition(all);
+
+        &:hover {
+            background-color: rgba($lc-primary, 0.1);
+            color: $lc-primary;
+            transform: translateX(5px);
+        }
+
+        &:active {
+            background-color: rgba($lc-primary, 0.2);
+        }
+    }
+}
+
+// === Navbar Scroll Effect ===
+.navbar.scrolled {
+    @include shadow('md');
+    padding: 0.5rem 0;
+
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+}
+
+// === Footer Navigation ===
+footer {
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+    padding-top: 3rem !important;
+    padding-bottom: 2rem !important;
+    width: 100%;
+    flex-shrink: 0;
+
+    * {
+        margin-bottom: 0 !important;
+    }
+
+    a {
+        @include transition(all);
+
+        &:hover {
+            color: $lc-primary !important;
+            transform: translateX(3px);
+        }
+    }
+
+    .list-inline-item a {
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}

@@ -1,0 +1,227 @@
+// ============================================
+// LifeCenter - Componente: Badges
+// Estilos personalizados para badges y etiquetas
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Badge Base ===
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: $lc-radius;
+    font-weight: $lc-font-weight-semibold;
+    font-size: 0.875rem;
+    @include transition(all);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+// === Badges de Color ===
+.badge-lc-primary {
+    background-color: $lc-primary;
+    color: white;
+}
+
+.badge-lc-secondary {
+    background-color: $lc-secondary;
+    color: white;
+}
+
+.badge-lc-accent {
+    background-color: $lc-accent;
+    color: white;
+}
+
+// === Badges con Gradiente ===
+.badge-gradient-primary {
+    @include gradient-primary;
+    color: white;
+    @include shadow('sm');
+}
+
+.badge-gradient-secondary {
+    @include gradient-secondary;
+    color: white;
+    @include shadow('sm');
+}
+
+.badge-gradient-accent {
+    @include gradient-accent;
+    color: white;
+    @include shadow('sm');
+}
+
+// === Badge Pill ===
+.badge-pill {
+    border-radius: $lc-radius-full;
+    padding: 0.4rem 1rem;
+}
+
+// === Badges de Estado ===
+.badge-success {
+    background-color: $lc-success;
+    color: white;
+}
+
+.badge-warning {
+    background-color: $lc-warning;
+    color: white;
+}
+
+.badge-error,
+.badge-danger {
+    background-color: $lc-error;
+    color: white;
+}
+
+.badge-info {
+    background-color: $lc-info;
+    color: white;
+}
+
+// === Badge con Icono ===
+.badge {
+    i {
+        margin-right: 0.25rem;
+    }
+}
+
+// === Badge Outline ===
+.badge-outline-primary {
+    background: transparent;
+    border: 2px solid $lc-primary;
+    color: $lc-primary;
+
+    &:hover {
+        background: $lc-primary;
+        color: white;
+    }
+}
+
+.badge-outline-secondary {
+    background: transparent;
+    border: 2px solid $lc-secondary;
+    color: $lc-secondary;
+
+    &:hover {
+        background: $lc-secondary;
+        color: white;
+    }
+}
+
+// === Badge con Animación de Pulso ===
+.badge-pulse {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: inherit;
+        transform: translate(-50%, -50%);
+        animation: pulse-ring 1.5s ease-out infinite;
+        opacity: 0;
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+// === Badge con Contador ===
+.badge-counter {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 20px;
+    height: 20px;
+    @include center-flex;
+    border-radius: $lc-radius-full;
+    background: $lc-error;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: $lc-font-weight-bold;
+    @include shadow('sm');
+}
+
+// === Badge de Especialidad (Específico) ===
+.specialty-badge {
+    @include gradient-secondary;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: $lc-radius-full;
+    font-weight: $lc-font-weight-semibold;
+    font-size: $lc-font-size-sm;
+    display: inline-block;
+    @include shadow('sm');
+    @include transition(all);
+
+    &:hover {
+        transform: scale(1.05);
+        @include shadow('md');
+    }
+}
+
+// === Tamaños de Badges ===
+.badge-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+.badge-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+// === Badge con Punto ===
+.badge-dot {
+    position: relative;
+    padding-left: 1.5rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+}
+
+// === Badge Removible ===
+.badge-removable {
+    padding-right: 2rem;
+    position: relative;
+
+    .badge-close {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        opacity: 0.7;
+        @include transition(opacity);
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

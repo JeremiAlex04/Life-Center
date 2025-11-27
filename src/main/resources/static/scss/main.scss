@@ -1,0 +1,220 @@
+// ============================================
+// LifeCenter - Archivo Principal SASS
+// Importa todos los módulos y componentes
+// ============================================
+
+// === 1. Base: Variables y Configuración ===
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+
+// === 2. Bootstrap Personalizado ===
+@import 'bootstrap-custom';
+
+// === 3. Componentes ===
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/forms';
+@import 'components/navigation';
+@import 'components/badges';
+@import 'components/footer';
+
+// === 4. Páginas Específicas ===
+@import 'pages/home';
+@import 'pages/medicos';
+@import 'pages/especialidades';
+
+// === 5. Utilidades Globales ===
+
+// Utilidades de espaciado
+.mt-auto {
+    margin-top: auto !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+// Utilidades de sombra
+.shadow-sm {
+    @include shadow('sm');
+}
+
+.shadow {
+    @include shadow();
+}
+
+.shadow-md {
+    @include shadow('md');
+}
+
+.shadow-lg {
+    @include shadow('lg');
+}
+
+.shadow-xl {
+    @include shadow('xl');
+}
+
+.shadow-2xl {
+    @include shadow('2xl');
+}
+
+// Utilidades de transición
+.transition-fast {
+    @include transition-fast();
+}
+
+.transition {
+    @include transition();
+}
+
+.transition-slow {
+    @include transition-slow();
+}
+
+// Utilidades de texto
+.text-muted {
+    color: $lc-neutral-500 !important;
+}
+
+.fw-bold {
+    font-weight: $lc-font-weight-bold !important;
+}
+
+.fw-semibold {
+    font-weight: $lc-font-weight-semibold !important;
+}
+
+.fw-medium {
+    font-weight: $lc-font-weight-medium !important;
+}
+
+// Utilidades de display
+.d-flex {
+    display: flex !important;
+}
+
+.d-inline-flex {
+    display: inline-flex !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+// Utilidades de alineación
+.align-items-center {
+    align-items: center !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+// === 6. Estilos Globales Adicionales ===
+
+// Smooth scrolling
+html {
+    scroll-behavior: smooth;
+}
+
+// Selección de texto
+::selection {
+    background: rgba($lc-primary, 0.2);
+    color: $lc-neutral-900;
+}
+
+::-moz-selection {
+    background: rgba($lc-primary, 0.2);
+    color: $lc-neutral-900;
+}
+
+// Scrollbar personalizado (Webkit)
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: $lc-neutral-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @include gradient-primary;
+    border-radius: $lc-radius-full;
+
+    &:hover {
+        background: $lc-primary-dark;
+    }
+}
+
+// Focus visible para accesibilidad
+:focus-visible {
+    outline: 2px solid $lc-primary;
+    outline-offset: 2px;
+}
+
+// Imágenes responsivas
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+// Links base
+a {
+    text-decoration: none;
+    @include transition(all);
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $lc-font-family-heading;
+    font-weight: $lc-font-weight-bold;
+    line-height: 1.2;
+}
+
+// Párrafos
+p {
+    line-height: 1.6;
+}
+
+// === 7. Print Styles ===
+@media print {
+
+    .navbar,
+    footer,
+    .btn,
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
