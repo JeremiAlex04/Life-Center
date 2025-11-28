@@ -7,6 +7,7 @@ import com.example.demo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class ServicioRecuperacion {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public String crearTokenRecuperacion(Usuario usuario) {
         // Eliminar token existente si hay uno
         tokenRepository.deleteByUsuario(usuario);

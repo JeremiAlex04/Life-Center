@@ -1,0 +1,208 @@
+/* ============================================
+   Authentication Pages - LifeCenter
+   Styles for Login, Forgot Password, Reset Password
+   ============================================ */
+
+:root {
+    --lc-auth-bg-color: #f8f9fa; /* Light Gray */
+    --lc-auth-card-bg-color: #ffffff;
+    --lc-auth-text-color: #212529;
+    --lc-auth-primary-color: var(--lc-primary, #2563EB); /* Fallback to a default blue */
+    --lc-auth-primary-hover: var(--lc-primary-hover, #1D4ED8);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.auth-body {
+    height: 100%;
+    background-color: var(--lc-auth-bg-color);
+}
+
+.auth-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.auth-container > .row {
+    flex-grow: 1;
+}
+
+
+/* Left side panel with background image */
+.auth-hero-panel {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-hero-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+}
+
+.auth-hero-content {
+    position: relative; /* Ensure content is above the overlay */
+    text-align: center;
+    padding: 3rem;
+    z-index: 1;
+}
+
+.auth-hero-content .icon-display {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: lc-fadeInUp 0.8s ease-out backwards;
+}
+
+.auth-hero-content h1 {
+    font-weight: 700; /* Bolder */
+    margin-bottom: 1rem;
+    animation: lc-fadeInUp 0.8s ease-out 0.2s backwards;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.auth-hero-content p {
+    font-size: 1.25rem;
+    font-weight: 500;
+    animation: lc-fadeInUp 0.8s ease-out 0.4s backwards;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Right side panel with the form */
+.auth-form-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lc-auth-bg-color);
+}
+
+.auth-form-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 1rem;
+}
+
+.auth-card {
+    background-color: var(--lc-auth-card-bg-color);
+    border: 1px solid var(--lc-neutral-200, #E5E7EB);
+    border-radius: var(--lc-radius-lg, 1rem);
+    box-shadow: var(--lc-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+    animation: lc-fadeInUp 0.6s ease-out;
+    transition: all var(--lc-transition, 300ms ease-in-out);
+    border-top: 4px solid var(--lc-auth-primary-color);
+}
+
+.auth-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--lc-shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+}
+
+.auth-card .card-body {
+    padding: 2.5rem;
+}
+
+.auth-card .card-title {
+    font-weight: 700;
+    color: var(--lc-neutral-800, #1F2937);
+    margin-bottom: 1.5rem;
+}
+
+.auth-form .input-group-text {
+    background-color: var(--lc-neutral-100, #F3F4F6);
+    border-color: var(--lc-neutral-200, #E5E7EB);
+    color: var(--lc-neutral-500, #6B7280);
+}
+
+.auth-form .form-control {
+    border-radius: var(--lc-radius-sm, 0.375rem);
+}
+
+.auth-form .form-control:focus {
+    border-color: var(--lc-auth-primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.auth-form .btn-primary {
+    /* Existing btn-primary in auth.css will be replaced by btn-auth-primary in HTML directly */
+}
+
+/* Custom Primary Button for Auth Forms */
+.btn-auth-primary {
+    background: linear-gradient(135deg, var(--lc-primary), var(--lc-primary-dark));
+    color: white;
+    border: none;
+    box-shadow: var(--lc-shadow-sm);
+    padding: 0.75rem 1.5rem; /* Adjust padding as needed */
+    font-weight: 600;
+    border-radius: var(--lc-radius-full, 9999px);
+    transition: all var(--lc-transition, 300ms ease-in-out);
+    width: 100%; /* Make full width within its container */
+}
+
+.btn-auth-primary:hover,
+.btn-auth-primary:focus {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: var(--lc-shadow-md);
+}
+
+.btn-auth-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Custom Outline Secondary Button for Auth Forms */
+.btn-auth-outline-secondary {
+    color: var(--lc-secondary);
+    border: 2px solid var(--lc-secondary);
+    background: transparent;
+    padding: 0.75rem 1.5rem; /* Adjust padding as needed */
+    font-weight: 600;
+    border-radius: var(--lc-radius-full, 9999px);
+    transition: all var(--lc-transition, 300ms ease-in-out);
+    width: 100%; /* Make full width within its container */
+}
+
+.btn-auth-outline-secondary:hover,
+.btn-auth-outline-secondary:focus {
+    background: linear-gradient(135deg, var(--lc-secondary), var(--lc-secondary-dark));
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: var(--lc-shadow-md);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--lc-neutral-500, #6B7280);
+}
+
+.auth-link {
+    color: var(--lc-auth-primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--lc-transition-fast, 150ms ease-in-out);
+}
+
+.auth-link:hover {
+    color: var(--lc-auth-primary-hover);
+    text-decoration: underline;
+}

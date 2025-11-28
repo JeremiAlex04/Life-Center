@@ -6,7 +6,6 @@ import com.example.demo.model.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 import com.example.demo.service.PacienteService;
 import com.example.demo.service.ServicioRecuperacion;
-import com.example.demo.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,9 +34,7 @@ public class AuthController {
     @Autowired
     private ServicioRecuperacion servicioRecuperacion;
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
-
+    // ------------------- Login & Registro -------------------
     @GetMapping("/login")
     public String viewLoginPage() {
         return "login";
@@ -56,58 +53,57 @@ public class AuthController {
             BindingResult bindingResult,
             @RequestParam("password") String password,
             RedirectAttributes redirectAttributes) {
-
         if (usuarioRepository.findByUsername(paciente.getDni()).isPresent()) {
-            redirectAttributes.addFlashAttribute("error", "El DNI ingresado ya está registrado como usuario.");
+            redirectAttributes.addFlashAttribute("error",
+                    "El DNI ingresado ya está registrado como usuario.");
             redirectAttributes.addFlashAttribute("paciente", paciente);
             return "redirect:/registro";
         }
-
         Usuario usuario = new Usuario();
         usuario.setUsername(paciente.getDni());
         usuario.setPassword(passwordEncoder.encode(password));
         usuario.setRol(Rol.ROLE_PACIENTE);
-
         paciente.setUsuario(usuario);
-
         pacienteService.save(paciente);
-
-        redirectAttributes.addFlashAttribute("registro", "¡Registro exitoso! Ahora puedes iniciar sesión con tu DNI.");
+        redirectAttributes.addFlashAttribute("registro",
+                "¡Registro exitoso! Ahora puedes iniciar sesión con tu DNI.");
         return "redirect:/login";
     }
 
-    // Endpoints de Recuperación de Contraseña (Solo DNI)
-
+    // ------------------- Password Recovery -------------------
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
         return "forgot_password";
     }
 
     @PostMapping("/forgot-password")
-    public String processForgotPassword(@RequestParam("dni") String dni, RedirectAttributes redirectAttributes) {
-        // 1. Buscar usuario por DNI
+    public String processForgotPassword(@RequestParam("dni") String dni,
+            RedirectAttributes redirectAttributes) {
+        System.out.println("[AuthController] Received DNI for password recovery: " + dni);
         Optional<Usuario> usuarioOptional = usuarioRepository.findByUsername(dni);
-
         if (!usuarioOptional.isPresent()) {
-            redirectAttributes.addFlashAttribute("error", "No se encontró ningún usuario con ese DNI.");
+            System.out.println("[AuthController] No user found for DNI: " + dni);
+            redirectAttributes.addFlashAttribute("error",
+                    "El DNI ingresado no fue encontrado. Por favor, verifique el DNI e intente de nuevo.");
             return "redirect:/forgot-password";
         }
-
         Usuario usuario = usuarioOptional.get();
-
-        // 2. Generar token
+        System.out.println("[AuthController] User found: " + usuario.getUsername());
         String token = servicioRecuperacion.crearTokenRecuperacion(usuario);
-
-        // 3. Redirigir directamente al formulario de reset con el token
+        System.out.println("[AuthController] Generated token: " + token);
         return "redirect:/reset-password?token=" + token;
     }
 
     @GetMapping("/reset-password")
-    public String showResetPasswordForm(@RequestParam("token") String token, Model model,
+    public String showResetPasswordForm(@RequestParam("token") String token,
+            Model model,
             RedirectAttributes redirectAttributes) {
+        System.out.println("[AuthController] Showing reset form for token: " + token);
         String resultado = servicioRecuperacion.validarToken(token);
         if (resultado != null) {
-            redirectAttributes.addFlashAttribute("error", "El enlace de recuperación es " + resultado + ".");
+            System.out.println("[AuthController] Token validation failed: " + resultado);
+            redirectAttributes.addFlashAttribute("error",
+                    "El enlace de recuperación es " + resultado + ".");
             return "redirect:/login";
         }
         model.addAttribute("token", token);
@@ -118,19 +114,23 @@ public class AuthController {
     public String processResetPassword(@RequestParam("token") String token,
             @RequestParam("password") String password,
             RedirectAttributes redirectAttributes) {
+        System.out.println("[AuthController] Processing password reset for token: " + token);
         String resultado = servicioRecuperacion.validarToken(token);
         if (resultado != null) {
-            redirectAttributes.addFlashAttribute("error", "El enlace de recuperación es " + resultado + ".");
+            System.out.println("[AuthController] Token validation failed on reset: " + resultado);
+            redirectAttributes.addFlashAttribute("error",
+                    "El enlace de recuperación es " + resultado + ".");
             return "redirect:/login";
         }
-
         Usuario usuario = servicioRecuperacion.obtenerUsuarioPorToken(token);
         if (usuario != null) {
             servicioRecuperacion.cambiarContrasena(usuario, password);
-            redirectAttributes.addFlashAttribute("registro", "Contraseña restablecida exitosamente.");
+            redirectAttributes.addFlashAttribute("registro",
+                    "Contraseña restablecida exitosamente.");
             return "redirect:/login";
         } else {
-            redirectAttributes.addFlashAttribute("error", "Error al restablecer la contraseña.");
+            redirectAttributes.addFlashAttribute("error",
+                    "Error al restablecer la contraseña.");
             return "redirect:/login";
         }
     }
