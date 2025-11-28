@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout('Agendar Cita', ~{::section})}">
+
+<head>
+    <title>Agendar Cita</title>
+</head>
 
 <body>
     <section class="paciente-citas">
@@ -49,9 +53,19 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="hora" class="form-label">Hora</label>
-                                    <input type="time" class="form-control" id="hora" th:field="*{hora}" required>
-                                    <div class="form-text">Seleccione una hora dentro del turno del médico.</div>
+                                    <label class="form-label">Hora</label>
+                                    <input type="hidden" id="hora" th:field="*{hora}" required>
+                                    <div id="slotsContainer" class="d-flex flex-wrap gap-2">
+                                        <div class="text-muted fst-italic">Seleccione un médico y una fecha para ver los
+                                            horarios disponibles.</div>
+                                    </div>
+                                    <div id="loadingSlots" class="text-center mt-2" style="display: none;">
+                                        <div class="spinner-border text-primary spinner-border-sm" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <small class="text-muted ms-2">Buscando horarios...</small>
+                                    </div>
+                                    <div class="form-text mt-2" id="horaHelp">Seleccione un horario disponible.</div>
                                 </div>
 
                                 <div class="mb-3">
@@ -65,7 +79,8 @@
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <a th:href="@{/paciente/dashboard}"
                                         class="btn btn-outline-secondary me-md-2">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Confirmar Cita</button>
+                                    <button type="submit" class="btn btn-primary" id="btnConfirmar" disabled>Confirmar
+                                        Cita</button>
                                 </div>
                             </form>
                         </div>
@@ -74,58 +89,25 @@
             </div>
         </div>
 
-        <script>
-            function filtrarMedicos() {
-                const especialidadSelect = document.getElementById('especialidad');
-                const medicoSelect = document.getElementById('medico');
-                const selectedEspecialidad = especialidadSelect.value;
-                const options = medicoSelect.options;
-
-                // Resetear selección de médico
-                medicoSelect.value = "";
-                document.getElementById('horarioHelp').style.display = 'none';
-
-                for (let i = 0; i < options.length; i++) {
-                    const option = options[i];
-                    const medicoEspecialidad = option.getAttribute('data-especialidad');
-
-                    if (option.value === "") {
-                        option.style.display = "block"; // Siempre mostrar la opción por defecto
-                        continue;
-                    }
-
-                    if (selectedEspecialidad === "" || medicoEspecialidad === selectedEspecialidad) {
-                        option.style.display = "block";
-                    } else {
-                        option.style.display = "none";
-                    }
-                }
+        <style>
+            .slot-btn {
+                width: 100px;
+                transition: all 0.2s;
             }
 
-            function actualizarHorario() {
-                const medicoSelect = document.getElementById('medico');
-                const horarioHelp = document.getElementById('horarioHelp');
-                const rangoHorario = document.getElementById('rangoHorario');
-                const selectedOption = medicoSelect.options[medicoSelect.selectedIndex];
-                const turno = selectedOption.getAttribute('data-turno');
-
-                if (turno) {
-                    let horarioTexto = "";
-                    if (turno.toLowerCase() === 'mañana') {
-                        horarioTexto = "07:00 AM - 01:00 PM";
-                    } else if (turno.toLowerCase() === 'tarde') {
-                        horarioTexto = "02:00 PM - 08:00 PM";
-                    } else {
-                        horarioTexto = "Consultar con administración";
-                    }
-
-                    rangoHorario.textContent = horarioTexto;
-                    horarioHelp.style.display = 'block';
-                } else {
-                    horarioHelp.style.display = 'none';
-                }
+            .slot-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
-        </script>
+
+            .slot-btn.active {
+                background-color: #0d6efd;
+                color: white;
+                border-color: #0d6efd;
+            }
+        </style>
+
+        <script th:src="@{/js/citas-paciente.js}"></script>
     </section>
 </body>
 

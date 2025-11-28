@@ -25,6 +25,9 @@ public class Medico {
     private Integer anioEgreso;
     private String fotoUrl;
 
+    @Column(columnDefinition = "integer default 30")
+    private Integer duracionCita = 30;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;

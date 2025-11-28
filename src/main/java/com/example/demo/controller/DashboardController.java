@@ -21,17 +21,21 @@ public class DashboardController {
     @Autowired
     private com.example.demo.repository.ConsultorioRepository consultorioRepository;
 
+    @Autowired
+    private com.example.demo.service.CitaService citaService;
+
     @GetMapping("/dashboard")
     public String viewAdminDashboard(Model model) {
         long totalPacientes = pacienteRepository.count();
         long totalMedicos = medicoRepository.count();
         long totalConsultorios = consultorioRepository.count();
+        long totalCitas = citaService.countAllCitas();
 
         model.addAttribute("totalPacientes", totalPacientes);
         model.addAttribute("totalMedicos", totalMedicos);
         model.addAttribute("totalConsultorios", totalConsultorios);
 
-        model.addAttribute("totalCitas", 0);
+        model.addAttribute("totalCitas", totalCitas);
         model.addAttribute("totalHabitaciones", 0);
 
         return "admin/dashboard";

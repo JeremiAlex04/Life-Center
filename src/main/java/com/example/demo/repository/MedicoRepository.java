@@ -32,4 +32,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
             @Param("consultorioId") Long consultorioId,
             @Param("turno") String turno,
             @Param("medicoId") Long medicoId);
+
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT m FROM Medico m WHERE m.idMedico = :id")
+    Optional<Medico> findByIdWithLock(@Param("id") Long id);
 }

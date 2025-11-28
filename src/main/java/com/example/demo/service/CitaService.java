@@ -3,8 +3,12 @@ package com.example.demo.service;
 import com.example.demo.model.Cita;
 import com.example.demo.model.HistorialClinico;
 import com.example.demo.repository.CitaRepository;
+import com.example.demo.repository.MedicoRepository;
+import com.example.demo.repository.HorarioMedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -17,6 +21,12 @@ public class CitaService {
     @Autowired
     private HistorialClinicoService historialClinicoService;
 
+    @Autowired
+    private MedicoRepository medicoRepository;
+
+    @Autowired
+    private HorarioMedicoRepository horarioMedicoRepository;
+
     public List<Cita> findAll() {
         return citaRepository.findAll();
     }
@@ -25,13 +35,24 @@ public class CitaService {
         return citaRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Cita save(Cita cita) {
+        // Bloqueo pesimista para evitar concurrencia en el mismo médico
+        if (cita.getMedico() != null && cita.getMedico().getIdMedico() != null) {
+            medicoRepository.findByIdWithLock(cita.getMedico().getIdMedico());
+        }
+
         if (cita.getEstado() == null) {
             cita.setEstado(com.example.demo.model.EstadoCita.PENDIENTE);
         }
 
-        if (cita.getFecha().isBefore(LocalDate.now())) {
+        LocalDate hoy = LocalDate.now();
+        if (cita.getFecha().isBefore(hoy)) {
             throw new IllegalArgumentException("No se pueden agendar citas en fechas pasadas.");
+        }
+
+        if (cita.getFecha().isEqual(hoy) && cita.getHora().isBefore(LocalTime.now())) {
+            throw new IllegalArgumentException("No se pueden agendar citas en horas pasadas.");
         }
 
         // Validar solapamiento de citas considerando la duración
@@ -78,6 +99,20 @@ public class CitaService {
             } else if (turno.equalsIgnoreCase("Tarde")) {
                 if (hora.isBefore(LocalTime.of(14, 0)) || hora.isAfter(LocalTime.of(20, 0))) {
                     throw new IllegalArgumentException("El médico solo atiende en el turno Tarde (14:00 - 20:00).");
+                }
+            }
+        }
+
+        // Actualizar el estado del slot a RESERVADO
+        if (cita.getIdCita() == null) { // Solo para nuevas citas
+            List<com.example.demo.model.HorarioMedico> horarios = horarioMedicoRepository
+                    .findByMedicoIdMedicoAndFecha(cita.getMedico().getIdMedico(), cita.getFecha());
+
+            for (com.example.demo.model.HorarioMedico h : horarios) {
+                if (h.getHoraInicio().equals(cita.getHora())) {
+                    h.setEstado("RESERVADO");
+                    horarioMedicoRepository.save(h);
+                    break;
                 }
             }
         }

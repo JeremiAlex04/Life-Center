@@ -19,6 +19,9 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private HorarioService horarioService;
+
     public List<Medico> findAll() {
         return medicoRepository.findAll();
     }
@@ -32,7 +35,12 @@ public class MedicoService {
      */
     public Medico save(Medico medico) {
         validarAsignacionConsultorio(medico);
-        return medicoRepository.save(medico);
+        Medico savedMedico = medicoRepository.save(medico);
+
+        // Generar horarios para los próximos 30 días
+        horarioService.generarHorarios(savedMedico, java.time.LocalDate.now(), java.time.LocalDate.now().plusDays(30));
+
+        return savedMedico;
     }
 
     public void deleteById(Long id) {
