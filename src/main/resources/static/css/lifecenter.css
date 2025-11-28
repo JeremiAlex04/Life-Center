@@ -3221,6 +3221,710 @@ body {
   transition: all 300ms ease-in-out;
 }
 
+.paciente-dashboard {
+  padding: 2.5rem;
+}
+.paciente-dashboard .welcome-card {
+  background: linear-gradient(135deg, #3B82F6 0%, rgb(98.0087804878, 154.8780487805, 247.7912195122) 100%);
+  color: white;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInDown 0.6s ease-out 0s backwards;
+}
+.paciente-dashboard .welcome-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+.paciente-dashboard .welcome-card .display-5 {
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.paciente-dashboard .welcome-card .lead {
+  position: relative;
+  z-index: 1;
+  opacity: 0.95;
+  font-size: 1.1rem;
+}
+.paciente-dashboard .welcome-card hr {
+  border-color: rgba(255, 255, 255, 0.3);
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+}
+.paciente-dashboard .welcome-card .btn-agendar-cita {
+  position: relative;
+  z-index: 1;
+  background: white;
+  color: #3B82F6;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: none;
+  transition: all 300ms ease-in-out;
+}
+.paciente-dashboard .welcome-card .btn-agendar-cita:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  color: #2563EB;
+}
+.paciente-dashboard .welcome-card .btn-agendar-cita i {
+  transition: transform 300ms ease-in-out;
+}
+.paciente-dashboard .welcome-card .btn-agendar-cita:hover i {
+  transform: scale(1.2);
+}
+.paciente-dashboard .appointments-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.paciente-dashboard .appointments-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #10B981, rgb(20.0597014925, 231.9402985075, 161.7313432836));
+  border-radius: 9999px;
+}
+.paciente-dashboard .appointments-table {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+.paciente-dashboard .appointments-table .table {
+  margin-bottom: 0;
+}
+.paciente-dashboard .appointments-table .table thead th {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 3px solid #10B981;
+  padding: 1.25rem;
+}
+.paciente-dashboard .appointments-table .table tbody tr {
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #F3F4F6;
+}
+.paciente-dashboard .appointments-table .table tbody tr td {
+  padding: 1.25rem;
+  vertical-align: middle;
+  color: #374151;
+}
+.paciente-dashboard .appointments-table .table tbody tr:hover {
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+  transform: translateX(5px);
+  box-shadow: inset 4px 0 0 #10B981;
+}
+.paciente-dashboard .appointments-table .table tbody tr:last-child {
+  border-bottom: none;
+}
+.paciente-dashboard .appointments-table .badge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 300ms ease-in-out;
+}
+.paciente-dashboard .appointments-table .badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.paciente-citas .appointment-form-card {
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: none;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out 0s backwards;
+}
+.paciente-citas .appointment-form-card .card-header {
+  background: linear-gradient(135deg, #2563EB 0%, rgb(60.3571428571, 115.7142857143, 237.1428571429) 100%);
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1.75rem 2rem;
+  border-bottom: none;
+}
+.paciente-citas .appointment-form-card .card-header h1 {
+  color: white;
+  font-weight: 700;
+  margin: 0;
+}
+.paciente-citas .appointment-form-card .card-body {
+  padding: 2.5rem;
+  background: #F9FAFB;
+}
+.paciente-citas .appointment-form-card .card-body .form-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+.paciente-citas .appointment-form-card .card-body .form-control,
+.paciente-citas .appointment-form-card .card-body .form-select {
+  border: 2px solid #E5E7EB;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 300ms ease-in-out;
+}
+.paciente-citas .appointment-form-card .card-body .form-control:focus,
+.paciente-citas .appointment-form-card .card-body .form-select:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+.paciente-citas .appointment-form-card .card-body textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+.paciente-citas .appointment-form-card .card-body .form-text {
+  color: #6B7280;
+  font-size: 0.875rem;
+}
+.paciente-citas .appointment-form-card .card-body .form-text.text-info {
+  color: #3B82F6 !important;
+  font-weight: 600;
+}
+.paciente-citas .appointment-form-card .card-body .form-text.text-info i {
+  margin-right: 0.25rem;
+}
+.paciente-citas .appointment-form-card .card-body .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 300ms ease-in-out;
+}
+.paciente-citas .appointment-form-card .card-body .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.paciente-citas .appointment-form-card .card-body .btn-primary {
+  background: linear-gradient(135deg, #2563EB, rgb(20.7142857143, 84.9285714286, 225.7857142857));
+  border: none;
+}
+.paciente-citas .appointment-form-card .card-body .btn-primary:hover {
+  background: linear-gradient(135deg, rgb(20.7142857143, 84.9285714286, 225.7857142857), rgb(18.5714285714, 76.1428571429, 202.4285714286));
+}
+.paciente-citas .appointment-form-card .card-body .btn-outline-secondary {
+  border: 2px solid #D1D5DB;
+  color: #374151;
+}
+.paciente-citas .appointment-form-card .card-body .btn-outline-secondary:hover {
+  background: #F3F4F6;
+  border-color: #9CA3AF;
+}
+.paciente-citas .appointment-form-card .alert-danger {
+  border-radius: 1rem;
+  border-left: 4px solid #EF4444;
+  background: white;
+  color: rgb(234.9802955665, 21.0197044335, 21.0197044335);
+}
+
+.paciente-historia {
+  padding: 2.5rem;
+}
+.paciente-historia .history-table-container {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+  animation: fadeInUp 0.6s ease-out 0s backwards;
+}
+.paciente-historia .history-table-container .table {
+  margin-bottom: 0;
+}
+.paciente-historia .history-table-container .table thead th {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 3px solid #10B981;
+  padding: 1.25rem;
+}
+.paciente-historia .history-table-container .table tbody tr {
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #F3F4F6;
+}
+.paciente-historia .history-table-container .table tbody tr td {
+  padding: 1.25rem;
+  vertical-align: middle;
+  color: #374151;
+}
+.paciente-historia .history-table-container .table tbody tr:hover {
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+  transform: translateX(5px);
+  box-shadow: inset 4px 0 0 #10B981;
+}
+.paciente-historia .history-table-container .table tbody tr:last-child {
+  border-bottom: none;
+}
+.paciente-historia .empty-state {
+  animation: fadeIn 0.6s ease-out 0s backwards;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+}
+.paciente-historia .empty-state i {
+  font-size: 4.5rem;
+  color: #3B82F6;
+  margin-bottom: 1.5rem;
+  transition: all 300ms ease-in-out;
+}
+.paciente-historia .empty-state i:hover {
+  color: #2563EB;
+  transform: scale(1.1);
+}
+.paciente-historia .empty-state p {
+  font-size: 1.1rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .paciente-dashboard .welcome-card {
+    padding: 2rem;
+  }
+  .paciente-citas .appointment-form-card .card-body {
+    padding: 2rem;
+  }
+}
+@media (max-width: 767px) {
+  .paciente-dashboard,
+  .paciente-historia {
+    padding: 1.5rem;
+  }
+  .paciente-dashboard .welcome-card {
+    padding: 1.5rem;
+  }
+  .paciente-dashboard .welcome-card .display-5 {
+    font-size: 1.75rem;
+  }
+  .paciente-dashboard .welcome-card .btn-agendar-cita {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .paciente-citas .appointment-form-card .card-body {
+    padding: 1.5rem;
+  }
+}
+.medico-dashboard {
+  padding: 2.5rem;
+}
+.medico-dashboard .welcome-section {
+  margin-bottom: 2.5rem;
+}
+.medico-dashboard .welcome-section .welcome-card {
+  background: linear-gradient(135deg, #10B981 0%, rgb(19.247761194, 222.552238806, 155.1850746269) 100%);
+  color: white;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInDown 0.6s ease-out 0s backwards;
+}
+.medico-dashboard .welcome-section .welcome-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+.medico-dashboard .welcome-section .welcome-card .display-6 {
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+}
+.medico-dashboard .welcome-section .welcome-card .lead {
+  position: relative;
+  z-index: 1;
+  opacity: 0.95;
+}
+.medico-dashboard .welcome-section .profile-card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  animation: fadeInDown 0.6s ease-out 0.1s backwards;
+  transition: all 300ms ease-in-out;
+}
+.medico-dashboard .welcome-section .profile-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+.medico-dashboard .welcome-section .profile-card .card-title {
+  color: #4B5563;
+  font-weight: 600;
+}
+.medico-dashboard .welcome-section .profile-card .card-title i {
+  color: #10B981;
+}
+.medico-dashboard .welcome-section .profile-card p {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+.medico-dashboard .welcome-section .profile-card p strong {
+  color: #1F2937;
+}
+.medico-dashboard .kpi-cards {
+  margin-bottom: 2.5rem;
+}
+.medico-dashboard .kpi-cards .kpi-card {
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: none;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+.medico-dashboard .kpi-cards .kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.medico-dashboard .kpi-cards .kpi-card.kpi-today {
+  border-left: 4px solid #2563EB;
+  animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+.medico-dashboard .kpi-cards .kpi-card.kpi-upcoming {
+  border-left: 4px solid #3B82F6;
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+.medico-dashboard .kpi-cards .kpi-card .card-body {
+  padding: 1.5rem;
+}
+.medico-dashboard .kpi-cards .kpi-card .card-body h6 {
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.medico-dashboard .kpi-cards .kpi-card .card-body .display-4 {
+  font-weight: 700;
+  margin-bottom: 0;
+  transition: transform 300ms ease-in-out;
+}
+.medico-dashboard .kpi-cards .kpi-card .card-body i {
+  font-size: 3rem;
+  opacity: 0.25;
+  transition: all 300ms ease-in-out;
+}
+.medico-dashboard .kpi-cards .kpi-card:hover .display-4 {
+  transform: scale(1.05);
+}
+.medico-dashboard .kpi-cards .kpi-card:hover i {
+  opacity: 0.35;
+  transform: scale(1.1);
+}
+.medico-dashboard .appointments-card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out 0.3s backwards;
+}
+.medico-dashboard .appointments-card .card-header {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  border-bottom: 3px solid #10B981;
+  padding: 1.5rem 2rem;
+}
+.medico-dashboard .appointments-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+.medico-dashboard .appointments-card .card-header h2 i {
+  color: #10B981;
+}
+.medico-dashboard .appointments-card .card-body {
+  padding: 2rem;
+}
+.medico-dashboard .appointments-card .card-body .table {
+  margin-bottom: 0;
+}
+.medico-dashboard .appointments-card .card-body .table thead th {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 2px solid #10B981;
+  padding: 1rem;
+}
+.medico-dashboard .appointments-card .card-body .table tbody tr {
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #F3F4F6;
+}
+.medico-dashboard .appointments-card .card-body .table tbody tr td {
+  padding: 1rem;
+  vertical-align: middle;
+  color: #374151;
+}
+.medico-dashboard .appointments-card .card-body .table tbody tr:hover {
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+  transform: translateX(5px);
+  box-shadow: inset 4px 0 0 #10B981;
+}
+.medico-dashboard .appointments-card .card-body .table tbody tr:last-child {
+  border-bottom: none;
+}
+.medico-dashboard .appointments-card .card-body .table .badge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 300ms ease-in-out;
+}
+.medico-dashboard .appointments-card .card-body .table .badge:hover {
+  transform: scale(1.05);
+}
+.medico-dashboard .appointments-card .card-body .table .btn-group .btn {
+  border-radius: 0.75rem;
+  transition: all 300ms ease-in-out;
+}
+.medico-dashboard .appointments-card .card-body .table .btn-group .btn:hover {
+  transform: translateY(-2px);
+}
+.medico-dashboard .appointments-card .card-body .empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6B7280;
+}
+
+.medico-atender-cita .attend-card {
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: none;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out 0s backwards;
+}
+.medico-atender-cita .attend-card .card-header {
+  background: linear-gradient(135deg, #10B981 0%, rgb(18.0298507463, 208.4701492537, 145.3656716418) 100%);
+  padding: 1.75rem 2rem;
+  border-bottom: none;
+}
+.medico-atender-cita .attend-card .card-header h4 {
+  color: white;
+  font-weight: 700;
+  margin: 0;
+}
+.medico-atender-cita .attend-card .card-header h4 i {
+  margin-right: 0.5rem;
+}
+.medico-atender-cita .attend-card .card-body {
+  padding: 2.5rem;
+  background: #F9FAFB;
+}
+.medico-atender-cita .attend-card .card-body .patient-info {
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.medico-atender-cita .attend-card .card-body .patient-info .alert-heading {
+  color: #10B981;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.medico-atender-cita .attend-card .card-body .patient-info p {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+.medico-atender-cita .attend-card .card-body .patient-info p strong {
+  color: #1F2937;
+}
+.medico-atender-cita .attend-card .card-body .form-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+.medico-atender-cita .attend-card .card-body .form-control {
+  border: 2px solid #E5E7EB;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 300ms ease-in-out;
+}
+.medico-atender-cita .attend-card .card-body .form-control:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+  transform: translateY(-1px);
+}
+.medico-atender-cita .attend-card .card-body textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+.medico-atender-cita .attend-card .card-body .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 300ms ease-in-out;
+}
+.medico-atender-cita .attend-card .card-body .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.medico-atender-cita .attend-card .card-body .btn-success {
+  background: linear-gradient(135deg, #10B981, rgb(13.9701492537, 161.5298507463, 112.6343283582));
+  border: none;
+}
+.medico-atender-cita .attend-card .card-body .btn-success:hover {
+  background: linear-gradient(135deg, rgb(13.9701492537, 161.5298507463, 112.6343283582), rgb(11.9402985075, 138.0597014925, 96.2686567164));
+}
+
+.medico-pacientes {
+  padding: 2.5rem;
+}
+.medico-pacientes .patients-card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out 0s backwards;
+}
+.medico-pacientes .patients-card .card-header {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  border-bottom: 3px solid #10B981;
+  padding: 1.5rem 2rem;
+}
+.medico-pacientes .patients-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+.medico-pacientes .patients-card .card-header h2 i {
+  color: #10B981;
+}
+.medico-pacientes .patients-card .card-body {
+  padding: 2rem;
+}
+.medico-pacientes .patients-card .card-body .table {
+  margin-bottom: 0;
+}
+.medico-pacientes .patients-card .card-body .table thead th {
+  background: linear-gradient(135deg, rgb(248.8285714286, 249.3428571429, 250.3714285714), #F3F4F6);
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 2px solid #10B981;
+  padding: 1rem;
+}
+.medico-pacientes .patients-card .card-body .table tbody tr {
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #F3F4F6;
+}
+.medico-pacientes .patients-card .card-body .table tbody tr td {
+  padding: 1rem;
+  vertical-align: middle;
+  color: #374151;
+}
+.medico-pacientes .patients-card .card-body .table tbody tr:hover {
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+  transform: translateX(5px);
+  box-shadow: inset 4px 0 0 #10B981;
+}
+.medico-pacientes .patients-card .card-body .table tbody tr:last-child {
+  border-bottom: none;
+}
+.medico-pacientes .patients-card .card-body .table .btn-outline-info {
+  border-radius: 9999px;
+  transition: all 300ms ease-in-out;
+}
+.medico-pacientes .patients-card .card-body .table .btn-outline-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.medico-pacientes .patients-card .card-body .empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6B7280;
+}
+.medico-pacientes .modal-content {
+  border-radius: 1.5rem;
+  border: none;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.medico-pacientes .modal-content .modal-header {
+  background: linear-gradient(135deg, #10B981, rgb(18.0298507463, 208.4701492537, 145.3656716418));
+  border-bottom: none;
+  padding: 1.5rem 2rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+.medico-pacientes .modal-content .modal-header .modal-title {
+  color: white;
+  font-weight: 700;
+}
+.medico-pacientes .modal-content .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+}
+.medico-pacientes .modal-content .modal-body {
+  padding: 2rem;
+  background: #F9FAFB;
+}
+.medico-pacientes .modal-content .modal-footer {
+  border-top: 1px solid #E5E7EB;
+  padding: 1.5rem 2rem;
+  background: white;
+}
+
+@media (min-width: 768px) {
+  .medico-dashboard .welcome-section .welcome-card {
+    padding: 2rem;
+  }
+  .medico-atender-cita .attend-card .card-body {
+    padding: 2rem;
+  }
+}
+@media (max-width: 767px) {
+  .medico-dashboard,
+  .medico-pacientes {
+    padding: 1.5rem;
+  }
+  .medico-dashboard .welcome-section .welcome-card {
+    padding: 1.5rem;
+  }
+  .medico-dashboard .welcome-section .welcome-card .display-6 {
+    font-size: 1.5rem;
+  }
+  .medico-atender-cita .attend-card .card-body {
+    padding: 1.5rem;
+  }
+}
 .mt-auto {
   margin-top: auto !important;
 }

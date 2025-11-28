@@ -3,13 +3,13 @@
 
 <body>
     <div th:replace="~{layout :: layout(title='Mis Pacientes', content=~{::section})}">
-        <section>
-            <div class="card shadow-sm">
+        <section class="medico-pacientes">
+            <div class="card patients-card">
                 <div class="card-header">
                     <h2 class="h5 mb-0"><i class="bi bi-people me-2"></i>Listado de Pacientes</h2>
                 </div>
                 <div class="card-body">
-                    <div th:if="${#lists.isEmpty(pacientes)}">
+                    <div th:if="${#lists.isEmpty(pacientes)}" class="empty-state">
                         <p class="text-center text-muted">No ha atendido a ningún paciente aún.</p>
                     </div>
                     <div th:unless="${#lists.isEmpty(pacientes)}">

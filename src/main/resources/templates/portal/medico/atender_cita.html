@@ -3,17 +3,17 @@
 
 <body>
     <div th:replace="~{layout :: layout(title='Atender Cita', content=~{::section})}">
-        <section>
+        <section class="medico-atender-cita">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                        <div class="card attend-card">
+                            <div class="card-header">
                                 <h4 class="mb-0"><i class="bi bi-clipboard-pulse me-2"></i>Atención de Cita</h4>
                             </div>
                             <div class="card-body">
-                                <div class="alert alert-light border mb-4">
-                                    <h5 class="alert-heading text-primary">Información del Paciente</h5>
+                                <div class="alert patient-info">
+                                    <h5 class="alert-heading">Información del Paciente</h5>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -38,20 +38,20 @@
 
                                 <form th:action="@{/medico/citas/{id}/finalizar(id=${cita.idCita})}" method="post">
                                     <div class="mb-3">
-                                        <label for="diagnostico" class="form-label fw-bold">Diagnóstico</label>
+                                        <label for="diagnostico" class="form-label">Diagnóstico</label>
                                         <textarea class="form-control" id="diagnostico" name="diagnostico" rows="3"
                                             required placeholder="Ingrese el diagnóstico del paciente..."></textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="tratamiento" class="form-label fw-bold">Tratamiento / Receta</label>
+                                        <label for="tratamiento" class="form-label">Tratamiento / Receta</label>
                                         <textarea class="form-control" id="tratamiento" name="tratamiento" rows="3"
                                             required
                                             placeholder="Detalle el tratamiento o medicamentos recetados..."></textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="observaciones" class="form-label fw-bold">Observaciones
+                                        <label for="observaciones" class="form-label">Observaciones
                                             Adicionales</label>
                                         <textarea class="form-control" id="observaciones" name="observaciones" rows="2"
                                             placeholder="Notas adicionales (opcional)..."></textarea>

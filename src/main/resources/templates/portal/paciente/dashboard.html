@@ -2,48 +2,48 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 
 <body>
-    <section>
-        <div class="alert alert-info shadow-sm">
+    <section class="paciente-dashboard">
+        <div class="welcome-card">
             <h1 class="display-5 fw-bold">Bienvenido, <span th:text="${nombrePaciente}"></span> a su Portal de Paciente
             </h1>
             <p class="lead">Desde aquí puede gestionar su información y agendar sus citas.</p>
             <hr>
-            <a th:href="@{/citas/nueva}" class="btn btn-primary btn-lg">
+            <a th:href="@{/citas/nueva}" class="btn btn-agendar-cita">
                 <i class="bi bi-calendar-plus me-2"></i>Agendar una Nueva Cita
             </a>
         </div>
 
-        <div class="mt-4">
+        <div class="appointments-section">
             <h2 class="mb-3">Sus Próximas Citas</h2>
-            <table class="table table-striped table-hover shadow-sm">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Médico</th>
-                        <th>Especialidad</th>
-                        <th>Motivo</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí iteraríamos sobre las citas del paciente -->
-                    <!-- Ejemplo estático o dinámico si se pasa la lista de citas -->
-                    <tr th:each="cita : ${citas}">
-                        <td th:text="${cita.fecha}"></td>
-                        <td th:text="${cita.hora}"></td>
-                        <td th:text="${cita.medico.nombres}"></td>
-                        <td th:text="${cita.medico.especialidad}"></td>
-                        <td th:text="${cita.motivo}"></td>
-                        <td>
-                            <span class="badge bg-info"
-                                th:classappend="${cita.estado.name() == 'CONFIRMADA' ? 'bg-success' : (cita.estado.name() == 'CANCELADA' ? 'bg-danger' : 'bg-warning')}"
-                                th:text="${cita.estado}">
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="appointments-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Médico</th>
+                            <th>Especialidad</th>
+                            <th>Motivo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cita : ${citas}">
+                            <td th:text="${cita.fecha}"></td>
+                            <td th:text="${cita.hora}"></td>
+                            <td th:text="${cita.medico.nombres}"></td>
+                            <td th:text="${cita.medico.especialidad}"></td>
+                            <td th:text="${cita.motivo}"></td>
+                            <td>
+                                <span class="badge"
+                                    th:classappend="${cita.estado.name() == 'CONFIRMADA' ? 'bg-success' : (cita.estado.name() == 'CANCELADA' ? 'bg-danger' : 'bg-warning')}"
+                                    th:text="${cita.estado}">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 </body>
