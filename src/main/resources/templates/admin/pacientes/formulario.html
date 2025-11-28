@@ -113,11 +113,6 @@
                                             <option value="Villa María del Triunfo">Villa María del Triunfo</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="numeroSeguro" class="form-label">N° Seguro</label>
-                                        <input type="text" id="numeroSeguro" class="form-control"
-                                            th:field="*{numeroSeguro}" placeholder="Número de seguro (opcional)" />
-                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -129,7 +124,8 @@
                                 <hr class="my-4">
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a th:href="@{/admin/pacientes}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                                    <a th:href="@{/admin/pacientes}"
+                                        class="btn btn-outline-secondary me-md-2">Cancelar</a>
                                     <button type="submit" class="btn btn-primary"
                                         th:text="${paciente.idPaciente == null ? 'Guardar Paciente' : 'Aplicar Cambios'}">
                                     </button>

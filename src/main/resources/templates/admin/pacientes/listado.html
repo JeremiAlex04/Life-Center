@@ -49,17 +49,13 @@
                             <td th:text="${paciente.distrito}"></td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-info btn-sm text-white"
-                                        data-bs-toggle="modal" data-bs-target="#verPacienteModal"
-                                        th:data-dni="${paciente.dni}" th:data-nombres="${paciente.nombres}"
-                                        th:data-apellidos="${paciente.apellidos}"
+                                    <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                        data-bs-target="#verPacienteModal" th:data-dni="${paciente.dni}"
+                                        th:data-nombres="${paciente.nombres}" th:data-apellidos="${paciente.apellidos}"
                                         th:data-fecha="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')}"
                                         th:data-fecha-raw="${paciente.fechaNacimiento}"
-                                        th:data-telefono="${paciente.telefono}"
-                                        th:data-distrito="${paciente.distrito}"
+                                        th:data-telefono="${paciente.telefono}" th:data-distrito="${paciente.distrito}"
                                         th:data-direccion="${paciente.direccion}"
-                                        th:data-seguro="${paciente.numeroSeguro}"
-                                        th:data-genero="${paciente.genero}"
                                         th:data-username="${paciente.usuario != null ? paciente.usuario.username : 'Sin usuario'}"
                                         onclick="cargarDatosPaciente(this)">
                                         <i class="bi bi-eye-fill"></i> Ver
@@ -99,7 +95,6 @@
                         <div class="mb-2"><strong>Teléfono:</strong> <span id="modalTelefono"></span></div>
                         <div class="mb-2"><strong>Distrito:</strong> <span id="modalDistrito"></span></div>
                         <div class="mb-2"><strong>Dirección:</strong> <span id="modalDireccion"></span></div>
-                        <div class="mb-2"><strong>N° Seguro:</strong> <span id="modalSeguro"></span></div>
                         <hr>
                         <div class="mb-2"><strong>Usuario de Sistema:</strong> <span id="modalUsername"
                                 class="badge bg-secondary"></span></div>
@@ -121,7 +116,6 @@
                 document.getElementById('modalTelefono').textContent = button.getAttribute('data-telefono');
                 document.getElementById('modalDistrito').textContent = button.getAttribute('data-distrito');
                 document.getElementById('modalDireccion').textContent = button.getAttribute('data-direccion');
-                document.getElementById('modalSeguro').textContent = button.getAttribute('data-seguro');
                 document.getElementById('modalUsername').textContent = button.getAttribute('data-username');
 
                 // Calcular edad
