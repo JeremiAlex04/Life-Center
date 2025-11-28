@@ -53,20 +53,12 @@
                                         <select id="especialidad" class="form-select" th:field="*{especialidad}"
                                             required>
                                             <option value="" disabled>Seleccione una especialidad</option>
-                                            <option value="Medicina General / Medicina Familiar">Medicina General /
-                                                Medicina Familiar</option>
-                                            <option value="Medicina Interna">Medicina Interna</option>
-                                            <option value="Pediatría">Pediatría</option>
-                                            <option value="Ginecología y Obstetricia">Ginecología y Obstetricia</option>
-                                            <option value="Dermatología">Dermatología</option>
-                                            <option value="Oftalmología">Oftalmología</option>
-                                            <option value="Otorrinolaringología (ORL)">Otorrinolaringología (ORL)
+                                            <option th:each="esp : ${especialidades}" th:value="${esp.nombre}"
+                                                th:text="${esp.nombre}"
+                                                th:selected="${medico.especialidad == esp.nombre}">
                                             </option>
-                                            <option value="Traumatología y Ortopedia">Traumatología y Ortopedia</option>
-                                            <option value="Urología">Urología</option>
-                                            <option value="Cardiología">Cardiología</option>
-                                            <option value="Psicología">Psicología</option>
-                                            <option value="Psiquiatría">Psiquiatría</option>
+                                            <option value="Otra" th:selected="${medico.especialidad == 'Otra'}">Otra
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3" id="otraEspecialidadContainer" style="display: none;">
@@ -170,7 +162,7 @@
             toggleOtraEspecialidad();
 
             // Add event listener
-            especialidadSelect.addEventListener('change', toggleOsped);
+            especialidadSelect.addEventListener('change', toggleOtraEspecialidad);
         });
     </script>
 </body>

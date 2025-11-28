@@ -82,7 +82,11 @@ public class AdminEspecialidadController {
             return "redirect:/admin/especialidades";
         }
 
-        List<Medico> medicos = especialidad.getMedicos();
+        // Obtener médicos directamente del repositorio para evitar lazy loading
+        List<Medico> medicos = medicoService.findAll().stream()
+                .filter(m -> m.getEspecialidad() != null && m.getEspecialidad().equals(especialidad.getNombre()))
+                .collect(java.util.stream.Collectors.toList());
+
         model.addAttribute("especialidad", especialidad);
         model.addAttribute("medicos", medicos);
         return "admin/especialidades/medicos";

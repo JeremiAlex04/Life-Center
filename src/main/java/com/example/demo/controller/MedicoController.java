@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ConflictoHorarioException;
+import com.example.demo.exception.ConsultorioNoDisponibleException;
+import com.example.demo.exception.IncompatibilidadEspecialidadException;
 import com.example.demo.model.Medico;
 import com.example.demo.model.Rol;
 import com.example.demo.model.Usuario;
@@ -9,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -25,6 +29,9 @@ public class MedicoController {
     @Autowired
     private com.example.demo.repository.ConsultorioRepository consultorioRepository;
 
+    @Autowired
+    private com.example.demo.repository.EspecialidadRepository especialidadRepository;
+
     @GetMapping
     public String listarMedicos(Model model) {
         model.addAttribute("medicos", medicoService.findAll());
@@ -35,27 +42,24 @@ public class MedicoController {
     public String mostrarFormularioNuevo(Model model) {
         model.addAttribute("medico", new Medico());
         model.addAttribute("consultorios", consultorioRepository.findAll());
+        model.addAttribute("especialidades", especialidadRepository.findAll());
         return "admin/medicos/formulario";
     }
 
     @PostMapping("/guardar")
     public String guardarMedico(@ModelAttribute("medico") Medico medico,
             @RequestParam(value = "otraEspecialidad", required = false) String otraEspecialidad,
-            @RequestParam(value = "consultorio", required = false) Long consultorioId) throws IOException {
+            @RequestParam(value = "consultorio", required = false) Long consultorioId,
+            RedirectAttributes redirectAttributes) throws IOException {
 
         // Lógica para manejar "Otra" especialidad
         if ("Otra".equals(medico.getEspecialidad()) && otraEspecialidad != null && !otraEspecialidad.trim().isEmpty()) {
             medico.setEspecialidad(otraEspecialidad.trim());
         }
 
-        // Asignar consultorio desde el ID y Sincronizar Tipo
+        // Asignar consultorio desde el ID (sin sincronizar tipo automáticamente)
         if (consultorioId != null) {
-            consultorioRepository.findById(consultorioId).ifPresent(c -> {
-                medico.setConsultorio(c);
-                // Sincronizar el Tipo del Consultorio con la Especialidad del Médico
-                c.setTipo(medico.getEspecialidad());
-                consultorioRepository.save(c);
-            });
+            consultorioRepository.findById(consultorioId).ifPresent(medico::setConsultorio);
         }
 
         String fotoFileName = medico.getFotoUrl();
@@ -85,8 +89,20 @@ public class MedicoController {
             }
         }
 
-        medicoService.save(medico);
-        return "redirect:/admin/medicos";
+        // Intentar guardar con validaciones
+        try {
+            medicoService.save(medico);
+            redirectAttributes.addFlashAttribute("success", "Médico guardado exitosamente");
+            return "redirect:/admin/medicos";
+        } catch (ConflictoHorarioException | ConsultorioNoDisponibleException
+                | IncompatibilidadEspecialidadException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            if (medico.getIdMedico() == null) {
+                return "redirect:/admin/medicos/nuevo";
+            } else {
+                return "redirect:/admin/medicos/editar/" + medico.getIdMedico();
+            }
+        }
     }
 
     @GetMapping("/editar/{id}")
@@ -99,8 +115,15 @@ public class MedicoController {
             medico.setFotoUrl(parts[parts.length - 1]);
         }
 
+        // Asegurar que el campo String especialidad esté sincronizado con el objeto
+        // para el select del formulario
+        if (medico.getEspecialidadObj() != null) {
+            medico.setEspecialidad(medico.getEspecialidadObj().getNombre());
+        }
+
         model.addAttribute("medico", medico);
         model.addAttribute("consultorios", consultorioRepository.findAll());
+        model.addAttribute("especialidades", especialidadRepository.findAll());
         return "admin/medicos/formulario";
     }
 

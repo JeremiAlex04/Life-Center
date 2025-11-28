@@ -22,4 +22,14 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     @Query("SELECT DISTINCT m.especialidad FROM Medico m")
     List<String> findDistinctEspecialidades();
+
+    /**
+     * Busca médicos asignados a un consultorio específico en un turno específico,
+     * excluyendo un médico en particular (útil para validar al actualizar).
+     */
+    @Query("SELECT m FROM Medico m WHERE m.consultorio.idConsultorio = :consultorioId AND m.turno = :turno AND m.idMedico != :medicoId")
+    List<Medico> findByConsultorioAndTurnoExcludingMedico(
+            @Param("consultorioId") Long consultorioId,
+            @Param("turno") String turno,
+            @Param("medicoId") Long medicoId);
 }

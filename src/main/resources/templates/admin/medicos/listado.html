@@ -40,14 +40,18 @@
                             <td th:text="${medico.dni}"></td>
                             <td th:text="${medico.nombres}"></td>
                             <td th:text="${medico.apellidos}"></td>
-                            <td th:text="${medico.especialidad}"></td>
+                            <td>
+                                <span th:if="${medico.especialidadObj != null}"
+                                    th:text="${medico.especialidadObj.nombre}"></span>
+                                <span th:unless="${medico.especialidadObj != null}"
+                                    th:text="${medico.especialidad}"></span>
+                            </td>
                             <td th:text="${medico.estado}"></td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-info btn-sm text-white"
-                                        data-bs-toggle="modal" data-bs-target="#verMedicoModal"
-                                        th:data-dni="${medico.dni}" th:data-nombres="${medico.nombres}"
-                                        th:data-apellidos="${medico.apellidos}"
+                                    <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
+                                        data-bs-target="#verMedicoModal" th:data-dni="${medico.dni}"
+                                        th:data-nombres="${medico.nombres}" th:data-apellidos="${medico.apellidos}"
                                         th:data-especialidad="${medico.especialidad}"
                                         th:data-colegiatura="${medico.numeroColegiatura}"
                                         th:data-telefono="${medico.telefono}" th:data-email="${medico.email}"

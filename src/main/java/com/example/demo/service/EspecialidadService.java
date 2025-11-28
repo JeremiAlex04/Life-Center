@@ -19,7 +19,11 @@ public class EspecialidadService {
     }
 
     public List<Especialidad> findActivas() {
-        return especialidadRepository.findByEstado("ACTIVA");
+        // JOIN FETCH puede crear duplicados de Especialidad cuando hay múltiples
+        // médicos
+        // Usamos LinkedHashSet para eliminar duplicados manteniendo el orden
+        List<Especialidad> especialidades = especialidadRepository.findByEstadoWithMedicos("ACTIVA");
+        return new java.util.ArrayList<>(new java.util.LinkedHashSet<>(especialidades));
     }
 
     public Especialidad findById(Long id) {

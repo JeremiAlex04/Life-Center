@@ -54,7 +54,8 @@
                                         th:data-nombres="${paciente.nombres}" th:data-apellidos="${paciente.apellidos}"
                                         th:data-fecha="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')}"
                                         th:data-fecha-raw="${paciente.fechaNacimiento}"
-                                        th:data-telefono="${paciente.telefono}" th:data-distrito="${paciente.distrito}"
+                                        th:data-genero="${paciente.genero}" th:data-telefono="${paciente.telefono}"
+                                        th:data-distrito="${paciente.distrito}"
                                         th:data-direccion="${paciente.direccion}"
                                         th:data-username="${paciente.usuario != null ? paciente.usuario.username : 'Sin usuario'}"
                                         onclick="cargarDatosPaciente(this)">

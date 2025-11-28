@@ -114,42 +114,42 @@ public class DataInitializer implements CommandLineRunner {
 		// Inicializar Especialidades (12 especialidades médicas)
 		if (especialidadRepository.count() == 0) {
 			String[][] especialidadesData = {
-				{ "Medicina General / Medicina Familiar", 
-				  "Base de atención, resuelve la mayoría de casos y coordina derivaciones solo cuando es necesario.",
-				  "/img/especialidades/medicina_general.jpg" },
-				{ "Medicina Interna",
-				  "Atiende a adultos con enfermedades agudas y crónicas sin necesidad de subespecialistas.",
-				  "/img/especialidades/medicina_interna.jpg" },
-				{ "Pediatría",
-				  "Atiende a niños y adolescentes, incluyendo controles y enfermedades frecuentes.",
-				  "/img/especialidades/pediatria.jpg" },
-				{ "Ginecología y Obstetricia",
-				  "Salud femenina, control ginecológico y atención prenatal de forma autónoma.",
-				  "/img/especialidades/ginecologia.jpg" },
-				{ "Dermatología",
-				  "Diagnóstico y tratamiento de enfermedades de piel, cabello y uñas. Muy independiente.",
-				  "/img/especialidades/dermatologia.jpg" },
-				{ "Oftalmología",
-				  "Atención visual y enfermedades oculares comunes; autonomía plena en consulta y procedimientos básicos.",
-				  "/img/especialidades/oftalmologia.jpg" },
-				{ "Otorrinolaringología (ORL)",
-				  "Problemas de oído, nariz y garganta; maneja consultas, infecciones y procedimientos menores.",
-				  "/img/especialidades/otorrinolaringologia.jpg" },
-				{ "Traumatología y Ortopedia",
-				  "Atiende lesiones musculoesqueléticas, dolores articulares y traumatismos leves.",
-				  "/img/especialidades/traumatologia.jpg" },
-				{ "Urología",
-				  "Salud urinaria y de próstata; trabaja de manera independiente en consultas diagnósticas.",
-				  "/img/especialidades/urologia.jpg" },
-				{ "Cardiología",
-				  "Atención primaria cardíaca: ECG, chequeos, control de hipertensión y arritmias simples.",
-				  "/img/especialidades/cardiologia.jpg" },
-				{ "Psicología",
-				  "Evaluación y terapia totalmente independiente, sin necesidad de otras áreas.",
-				  "/img/especialidades/psicologia.jpg" },
-				{ "Psiquiatría",
-				  "Diagnóstico y tratamiento farmacológico de trastornos mentales; opera de forma autónoma.",
-				  "/img/especialidades/psiquiatria.jpg" }
+					{ "Medicina General / Medicina Familiar",
+							"Base de atención, resuelve la mayoría de casos y coordina derivaciones solo cuando es necesario.",
+							"/img/especialidades/medicina_general.jpg" },
+					{ "Medicina Interna",
+							"Atiende a adultos con enfermedades agudas y crónicas sin necesidad de subespecialistas.",
+							"/img/especialidades/medicina_interna.jpg" },
+					{ "Pediatría",
+							"Atiende a niños y adolescentes, incluyendo controles y enfermedades frecuentes.",
+							"/img/especialidades/pediatria.jpg" },
+					{ "Ginecología y Obstetricia",
+							"Salud femenina, control ginecológico y atención prenatal de forma autónoma.",
+							"/img/especialidades/ginecologia.jpg" },
+					{ "Dermatología",
+							"Diagnóstico y tratamiento de enfermedades de piel, cabello y uñas. Muy independiente.",
+							"/img/especialidades/dermatologia.jpg" },
+					{ "Oftalmología",
+							"Atención visual y enfermedades oculares comunes; autonomía plena en consulta y procedimientos básicos.",
+							"/img/especialidades/oftalmologia.jpg" },
+					{ "Otorrinolaringología (ORL)",
+							"Problemas de oído, nariz y garganta; maneja consultas, infecciones y procedimientos menores.",
+							"/img/especialidades/otorrinolaringologia.jpg" },
+					{ "Traumatología y Ortopedia",
+							"Atiende lesiones musculoesqueléticas, dolores articulares y traumatismos leves.",
+							"/img/especialidades/traumatologia.jpg" },
+					{ "Urología",
+							"Salud urinaria y de próstata; trabaja de manera independiente en consultas diagnósticas.",
+							"/img/especialidades/urologia.jpg" },
+					{ "Cardiología",
+							"Atención primaria cardíaca: ECG, chequeos, control de hipertensión y arritmias simples.",
+							"/img/especialidades/cardiologia.jpg" },
+					{ "Psicología",
+							"Evaluación y terapia totalmente independiente, sin necesidad de otras áreas.",
+							"/img/especialidades/psicologia.jpg" },
+					{ "Psiquiatría",
+							"Diagnóstico y tratamiento farmacológico de trastornos mentales; opera de forma autónoma.",
+							"/img/especialidades/psiquiatria.jpg" }
 			};
 
 			for (String[] data : especialidadesData) {
@@ -172,13 +172,13 @@ public class DataInitializer implements CommandLineRunner {
 				{ "medico3", "Ricardo", "Vargas", "Dermatología", "12974853", "988333444",
 						"ricardo.vargas@example.com",
 						"Mañana" },
-				{ "medico4", "Gabriela", "Rivas", "Neurología", "86432091", "988444555",
+				{ "medico4", "Gabriela", "Rivas", "Medicina Interna", "86432091", "988444555",
 						"gabriela.rivas@example.com",
 						"Tarde" },
-				{ "medico5", "Hernán", "Montoya", "Ginecología", "51794268", "988555666",
+				{ "medico5", "Hernán", "Montoya", "Ginecología y Obstetricia", "51794268", "988555666",
 						"hernan.montoya@example.com",
 						"Mañana" },
-				{ "medico6", "Daniela", "Paredes", "Traumatología", "23058647", "988666777",
+				{ "medico6", "Daniela", "Paredes", "Traumatología y Ortopedia", "23058647", "988666777",
 						"daniela.paredes@example.com", "Tarde" },
 				{ "medico7", "Sebastián", "Aguilar", "Oftalmología", "94517230", "988777888",
 						"sebastian.aguilar@example.com", "Mañana" },
@@ -187,7 +187,7 @@ public class DataInitializer implements CommandLineRunner {
 						"Tarde" },
 				{ "medico9", "Eduardo", "Reyes", "Urología", "37290618", "988999000",
 						"eduardo.reyes@example.com", "Mañana" },
-				{ "medico10", "Mariana", "Quispe", "Endocrinología", "80452193", "988000111",
+				{ "medico10", "Mariana", "Quispe", "Medicina General / Medicina Familiar", "80452193", "988000111",
 						"mariana.quispe@example.com", "Tarde" }
 		};
 
@@ -211,7 +211,7 @@ public class DataInitializer implements CommandLineRunner {
 				medico.setNombres(nombre);
 				medico.setApellidos(apellido);
 				medico.setEspecialidad(data[3]);
-				
+
 				// Buscar y asignar la especialidad como objeto
 				String nombreEspecialidad = data[3];
 				Optional<Especialidad> especialidadOpt = especialidadRepository.findByNombre(nombreEspecialidad);
@@ -219,14 +219,15 @@ public class DataInitializer implements CommandLineRunner {
 					// Si no existe exactamente, buscar por coincidencia parcial
 					List<Especialidad> todasEspecialidades = especialidadRepository.findAll();
 					for (Especialidad esp : todasEspecialidades) {
-						if (esp.getNombre().contains(nombreEspecialidad) || nombreEspecialidad.contains(esp.getNombre())) {
+						if (esp.getNombre().contains(nombreEspecialidad)
+								|| nombreEspecialidad.contains(esp.getNombre())) {
 							especialidadOpt = Optional.of(esp);
 							break;
 						}
 					}
 				}
 				especialidadOpt.ifPresent(medico::setEspecialidadObj);
-				
+
 				medico.setNumeroColegiatura(data[4]);
 				medico.setTelefono(data[5]);
 				medico.setEmail(data[6]);
@@ -255,43 +256,37 @@ public class DataInitializer implements CommandLineRunner {
 		// 15 pacientes inicializados
 		String[][] pacientesData = {
 				{ "71234567", "Carlos", "Perez", "1990-05-15", "Masculino", "987654321", "Lima",
-						"Av. Arequipa 123",
-						"12345" },
+						"Av. Arequipa 123" },
 				{ "72345678", "Ana", "Gomez", "1985-08-20", "Femenino", "987123456", "Miraflores",
-						"Calle Larco 456",
-						"23456" },
+						"Calle Larco 456" },
 				{ "73456789", "Luis", "Rodriguez", "1992-11-30", "Masculino", "998765432", "San Isidro",
-						"Av. Javier Prado 789", "34567" },
+						"Av. Javier Prado 789" },
 				{ "74567890", "Maria", "Fernandez", "1988-02-10", "Femenino", "976543210", "Surco",
-						"Calle Montebello 101", "45678" },
+						"Calle Montebello 101" },
 				{ "75678901", "Jorge", "Lopez", "1995-07-25", "Masculino", "965432109", "La Molina",
-						"Av. La Molina 202", "56789" },
+						"Av. La Molina 202" },
 				{ "76789012", "Laura", "Martinez", "1998-09-05", "Femenino", "954321098", "Barranco",
-						"Av. Grau 303",
-						"67890" },
+						"Av. Grau 303" },
 				{ "77890123", "Pedro", "Sanchez", "1980-01-12", "Masculino", "943210987", "Lince",
-						"Av. Arequipa 404",
-						"78901" },
+						"Av. Arequipa 404" },
 				{ "78901234", "Sofia", "Ramirez", "2000-03-22", "Femenino", "932109876", "Pueblo Libre",
-						"Av. Bolivar 505", "89012" },
+						"Av. Bolivar 505" },
 				{ "79012345", "Diego", "Torres", "1993-06-18", "Masculino", "921098765", "Jesus Maria",
-						"Av. Salaverry 606", "90123" },
+						"Av. Salaverry 606" },
 				{ "80123456", "Carmen", "Diaz", "1983-12-01", "Femenino", "910987654", "Magdalena",
-						"Av. Brasil 707",
-						"01234" },
+						"Av. Brasil 707" },
 				{ "81234567", "Javier", "Vargas", "1991-04-14", "Masculino", "909876543", "San Miguel",
-						"Av. La Marina 808", "11234" },
+						"Av. La Marina 808" },
 				{ "82345678", "Rosa", "Castro", "1987-10-28", "Femenino", "989876543", "San Borja",
-						"Av. Aviacion 909",
-						"22345" },
+						"Av. Aviacion 909" },
 				{ "83456789", "Miguel", "Silva", "1996-08-08", "Masculino", "978765432", "Chorrillos",
-						"Av. Huaylas 1010", "33456" },
+						"Av. Huaylas 1010" },
 				{ "84567890", "Elena", "Rojas", "1989-05-19", "Femenino", "967654321",
 						"Villa El Salvador",
-						"Av. El Sol 1111", "44567" },
+						"Av. El Sol 1111" },
 				{ "85678901", "Francisco", "Soto", "1994-02-23", "Masculino", "956543210",
 						"San Juan de Lurigancho",
-						"Av. Proceres 1212", "55678" }
+						"Av. Proceres 1212" }
 		};
 
 		for (String[] data : pacientesData) {
@@ -317,7 +312,7 @@ public class DataInitializer implements CommandLineRunner {
 				paciente.setTelefono(data[5]);
 				paciente.setDistrito(data[6]);
 				paciente.setDireccion(data[7]);
-				paciente.setNumeroSeguro(data[8]);
+				// paciente.setNumeroSeguro(data[8]); // Removed
 
 				pacienteRepository.save(paciente);
 			}
