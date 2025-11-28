@@ -6,28 +6,32 @@
 @import '../variables';
 @import '../mixins';
 
-// === Hero Section con Fondo ===
-.bg-hero-specialties {
+// === Main Content ===
+.main-content {
+    padding-top: 56px;
+}
+
+// === Hero Section ===
+.specialties-hero {
     position: relative;
-    background-image: url("../img/Fondo_SecMedico.jpg");
+    min-height: 400px;
+    background-image: url("../img/Fondo_SecMedico.jpg"); // Usamos la misma imagen o una específica si existe
     background-size: cover;
     background-position: center;
+    text-align: center;
     padding: $lc-spacing-2xl 0;
+    @include center-flex;
+    flex-direction: column;
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        @include gradient-hero;
-        z-index: 1;
-    }
+    // Overlay usando mixin
+    @include overlay(#000, 0.6);
 
-    .container {
+    .hero-content {
         position: relative;
         z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 $lc-spacing-md;
     }
 
     h1 {
@@ -38,10 +42,110 @@
     p {
         @include animate-in(fadeInUp, 0.8s, 0.2s);
         text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        font-size: 1.25rem;
+        font-weight: 300;
     }
 }
 
-// === Grid de Especialidades ===
+// === Tarjetas de Especialidades ===
+.specialty-card {
+    @include card-base;
+    border: 1px solid transparent;
+    overflow: hidden;
+
+    // Hover effect using mixin
+    @include hover-lift(-8px, 'xl');
+
+    &:hover {
+        border-color: rgba($lc-primary, 0.2);
+
+        .specialty-img {
+            transform: scale(1.1);
+        }
+
+        .specialty-overlay {
+            opacity: 1;
+        }
+
+        .card-title {
+            color: $lc-primary;
+        }
+    }
+
+    .card-title {
+        font-weight: $lc-font-weight-bold;
+        color: $lc-neutral-900;
+        @include transition(color);
+    }
+}
+
+// === Wrapper de Imagen ===
+.specialty-img-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background-color: $lc-neutral-100;
+}
+
+// === Imagen de Especialidad ===
+.specialty-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    @include transition(transform, 0.5s cubic-bezier(0.165, 0.84, 0.44, 1));
+}
+
+// === Overlay de Imagen ===
+.specialty-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($lc-primary, 0.7);
+    @include center-flex;
+    opacity: 0;
+    @include transition(opacity, 0.3s ease);
+}
+
+// === Sección de Beneficios ===
+.benefit-card {
+    @include transition(all, 0.3s ease);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $lc-shadow-lg !important;
+        border-color: rgba($lc-primary, 0.1);
+
+        .benefit-icon {
+            background-color: $lc-primary;
+            color: white;
+            transform: scale(1.1);
+
+            i {
+                color: white;
+            }
+        }
+    }
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: rgba($lc-primary, 0.1);
+    @include center-flex;
+    @include transition(all, 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+
+    i {
+        color: $lc-primary;
+        @include transition(color);
+    }
+}
+
+// === Animaciones de Entrada ===
 .row.g-4 {
     >[class*="col-"] {
         @include animate-in(fadeInUp, 0.6s);
@@ -54,126 +158,13 @@
     }
 }
 
-// === Tarjetas de Especialidades ===
-.card {
-    @include card-base;
-    @include transition(all, 0.4s);
-    border: 2px solid transparent;
-
-    &:hover {
-        border-color: $lc-primary;
-        transform: translateY(-10px) scale(1.02);
-        @include shadow('xl');
-
-        img {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card-title {
-            color: $lc-primary;
-        }
-    }
-
-    img {
-        @include transition(transform, 0.4s);
-    }
-
-    .card-title {
-        @include transition(color);
-        font-weight: $lc-font-weight-bold;
-        color: $lc-neutral-900;
-    }
-}
-
-// === Sección de Beneficios ===
-.bg-light {
-    .bg-primary.bg-opacity-10 {
-        @include transition(all);
-
-        &:hover {
-            background-color: rgba($lc-primary, 0.2) !important;
-            transform: scale(1.1);
-        }
-    }
-
-    .text-lc-primary {
-        @include transition(transform);
-    }
-
-    .col-md-4:hover .text-lc-primary {
-        transform: scale(1.1);
-        animation: pulse 1s infinite;
-    }
-}
-
-// === CTA Section ===
-.border-primary.border-3 {
-    position: relative;
-    overflow: hidden;
-    @include transition(all);
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba($lc-primary, 0.1), transparent);
-        @include transition(left, 1s);
-    }
-
-    &:hover::before {
-        left: 100%;
-    }
-
-    &:hover {
-        @include shadow('lg');
-        transform: translateY(-5px);
-    }
-
-    i {
-        @include transition(transform);
-    }
-
-    &:hover i {
-        transform: scale(1.2);
-        animation: bounce 1s infinite;
-    }
-}
-
-// === Iconos Circulares ===
-.rounded-circle {
-    @include transition(all);
-
-    &.border-lc-secondary {
-        border-color: $lc-secondary !important;
-        border-width: 3px !important;
-    }
-}
-
 // === Responsive ===
 @include respond-to('xs') {
-    .bg-hero-specialties {
-        padding: $lc-spacing-xl 0;
+    .specialties-hero {
+        min-height: 300px;
 
         h1 {
             font-size: 2rem;
         }
-
-        p {
-            font-size: 1rem;
-        }
-    }
-
-    .card img {
-        width: 120px !important;
-        height: 120px !important;
-    }
-}
-
-@include respond-to('md') {
-    .bg-hero-specialties {
-        padding: $lc-spacing-3xl 0;
     }
 }

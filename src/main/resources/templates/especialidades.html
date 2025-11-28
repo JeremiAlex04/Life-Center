@@ -45,95 +45,100 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="bg-hero-specialties text-white py-5 mt-5">
-        <div class="container text-center py-5">
-            <h1 class="display-3 fw-bold mb-3">Nuestras Especialidades Médicas</h1>
-            <p class="lead fs-5 mb-0">Atención especializada con los mejores profesionales de la salud</p>
-        </div>
-    </div>
-
-    <!-- Especialidades -->
-    <div class="container my-5 py-4">
-        <div class="text-center mb-5">
-            <p class="lead text-muted">Contamos con un amplio equipo de especialistas en diversas áreas de la medicina
-            </p>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-4" th:each="esp : ${especialidades}">
-                <div class="card text-center h-100 shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <div class="mb-4">
-                            <img th:src="@{${esp.urlImagen}}" alt="Imagen de Especialidad"
-                                class="img-fluid rounded-circle border border-3 border-primary shadow"
-                                style="width: 150px; height: 150px; object-fit: cover;">
-                        </div>
-                        <h5 class="card-title fw-bold mb-3" th:text="${esp.nombre}"></h5>
-                        <p class="card-text text-muted" th:text="${esp.descripcion}"></p>
-                    </div>
+    <!-- Main Content Wrapper -->
+    <div class="main-content">
+        <div class="container-fluid px-0">
+            <!-- Hero Section -->
+            <div class="hero-section specialties-hero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="display-3 fw-bold mb-3 text-white">Nuestras Especialidades</h1>
+                    <p class="lead text-white">Atención especializada con los mejores profesionales de la salud</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Sección de Beneficios -->
-    <div class="bg-light py-5">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">¿Por Qué Confiar en Nuestros Especialistas?</h2>
-            </div>
+        <!-- Especialidades Grid -->
+        <div class="container my-5 py-4">
             <div class="row g-4">
-                <div class="col-md-4 text-center">
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                        style="width: 80px; height: 80px;">
-                        <i class="bi bi-mortarboard-fill fs-1 text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Alta Capacitación</h5>
-                    <p class="text-muted px-3">Médicos certificados con estudios nacionales e internacionales</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                        style="width: 80px; height: 80px;">
-                        <i class="bi bi-hospital-fill fs-1 text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Equipamiento Moderno</h5>
-                    <p class="text-muted px-3">Tecnología de última generación para diagnósticos precisos</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                        style="width: 80px; height: 80px;">
-                        <i class="bi bi-heart-fill fs-1 text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Atención Personalizada</h5>
-                    <p class="text-muted px-3">Cuidado centrado en el paciente y su bienestar integral</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="container my-5 py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="border border-primary border-3 rounded p-5 shadow-sm">
-                    <i class="bi bi-calendar-heart fs-1 text-primary mb-3 d-block"></i>
-                    <h3 class="fw-bold mb-3">¿Necesitas Atención Médica Especializada?</h3>
-                    <p class="lead text-muted mb-4">Agenda tu cita con uno de nuestros especialistas y recibe la
-                        atención que mereces</p>
-                    <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a th:href="@{/registro}" class="btn btn-primary btn-lg px-5 rounded-pill">
-                            <i class="bi bi-person-plus me-2"></i>Crear Cuenta
-                        </a>
-                        <a th:href="@{/login}" class="btn btn-outline-primary btn-lg px-5 rounded-pill">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
-                        </a>
+                <div class="col-md-6 col-lg-4" th:each="esp : ${especialidades}">
+                    <div class="card specialty-card h-100 border-0">
+                        <div class="specialty-img-wrapper">
+                            <img th:src="@{${esp.urlImagen}}" alt="Imagen de Especialidad" class="specialty-img">
+                            <div class="specialty-overlay">
+                                <i class="bi bi-arrow-right-circle text-white fs-2"></i>
+                            </div>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title mb-3" th:text="${esp.nombre}"></h5>
+                            <p class="card-text small text-muted" th:text="${esp.descripcion}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- Sección de Beneficios -->
+        <div class="bg-light py-5 position-relative overflow-hidden">
+            <div class="container py-4 position-relative z-1">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-3">¿Por Qué Confiar en Nosotros?</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="benefit-card text-center p-4 h-100 bg-white rounded-4 shadow-sm">
+                            <div class="benefit-icon mb-3">
+                                <i class="bi bi-mortarboard-fill fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Alta Capacitación</h5>
+                            <p class="text-muted mb-0">Médicos certificados con estudios nacionales e internacionales
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-card text-center p-4 h-100 bg-white rounded-4 shadow-sm">
+                            <div class="benefit-icon mb-3">
+                                <i class="bi bi-hospital-fill fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Equipamiento Moderno</h5>
+                            <p class="text-muted mb-0">Tecnología de última generación para diagnósticos precisos</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-card text-center p-4 h-100 bg-white rounded-4 shadow-sm">
+                            <div class="benefit-icon mb-3">
+                                <i class="bi bi-heart-fill fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Atención Personalizada</h5>
+                            <p class="text-muted mb-0">Cuidado centrado en el paciente y su bienestar integral</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="container my-5 py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="border border-primary border-3 rounded p-5 shadow-sm">
+                        <i class="bi bi-calendar-heart fs-1 text-primary mb-3 d-block"></i>
+                        <h3 class="fw-bold mb-3">¿Necesitas Atención Médica Especializada?</h3>
+                        <p class="lead text-muted mb-4">Agenda tu cita con uno de nuestros especialistas y recibe la
+                            atención que mereces</p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a th:href="@{/registro}" class="btn btn-primary btn-lg px-5 rounded-pill">
+                                <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+                            </a>
+                            <a th:href="@{/login}" class="btn btn-outline-primary btn-lg px-5 rounded-pill">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-dark text-white pt-5 pb-4">
         <div class="container text-center text-md-start">

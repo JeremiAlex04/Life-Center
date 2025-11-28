@@ -1760,34 +1760,149 @@ body {
     margin-bottom: 2rem;
   }
 }
-.bg-hero-specialties {
+.main-content {
+  padding-top: 56px;
+}
+
+.specialties-hero {
   position: relative;
+  min-height: 400px;
   background-image: url("../img/Fondo_SecMedico.jpg");
   background-size: cover;
   background-position: center;
+  text-align: center;
   padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
 }
-.bg-hero-specialties::before {
+.specialties-hero::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(30, 64, 175, 0.9));
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
-.bg-hero-specialties .container {
+.specialties-hero .hero-content {
   position: relative;
   z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
-.bg-hero-specialties h1 {
+.specialties-hero h1 {
   animation: fadeInDown 0.8s ease-out 0s backwards;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
-.bg-hero-specialties p {
+.specialties-hero p {
   animation: fadeInUp 0.8s ease-out 0.2s backwards;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.specialty-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 300ms ease-in-out;
+}
+.specialty-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+}
+.specialty-card {
+  border: 1px solid transparent;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+.specialty-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.specialty-card:hover {
+  border-color: rgba(37, 99, 235, 0.2);
+}
+.specialty-card:hover .specialty-img {
+  transform: scale(1.1);
+}
+.specialty-card:hover .specialty-overlay {
+  opacity: 1;
+}
+.specialty-card:hover .card-title {
+  color: #2563EB;
+}
+.specialty-card .card-title {
+  font-weight: 700;
+  color: #111827;
+  transition: color 300ms ease-in-out;
+}
+
+.specialty-img-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background-color: #F3F4F6;
+}
+
+.specialty-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.specialty-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(37, 99, 235, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.benefit-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(37, 99, 235, 0.1);
+}
+.benefit-card:hover .benefit-icon {
+  background-color: #2563EB;
+  color: white;
+  transform: scale(1.1);
+}
+.benefit-card:hover .benefit-icon i {
+  color: white;
+}
+
+.benefit-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.benefit-icon i {
+  color: #2563EB;
+  transition: color 300ms ease-in-out;
 }
 
 .row.g-4 > [class*=col-] {
@@ -1830,111 +1945,12 @@ body {
   animation-delay: 1.2s;
 }
 
-.card {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  transition: all 300ms ease-in-out;
-}
-.card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transform: translateY(-4px);
-}
-.card {
-  transition: all 0.4s;
-  border: 2px solid transparent;
-}
-.card:hover {
-  border-color: #2563EB;
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-.card:hover img {
-  transform: scale(1.1) rotate(5deg);
-}
-.card:hover .card-title {
-  color: #2563EB;
-}
-.card img {
-  transition: transform 0.4s;
-}
-.card .card-title {
-  transition: color 300ms ease-in-out;
-  font-weight: 700;
-  color: #111827;
-}
-
-.bg-light .bg-primary.bg-opacity-10 {
-  transition: all 300ms ease-in-out;
-}
-.bg-light .bg-primary.bg-opacity-10:hover {
-  background-color: rgba(37, 99, 235, 0.2) !important;
-  transform: scale(1.1);
-}
-.bg-light .text-lc-primary {
-  transition: transform 300ms ease-in-out;
-}
-.bg-light .col-md-4:hover .text-lc-primary {
-  transform: scale(1.1);
-  animation: pulse 1s infinite;
-}
-
-.border-primary.border-3 {
-  position: relative;
-  overflow: hidden;
-  transition: all 300ms ease-in-out;
-}
-.border-primary.border-3::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
-  transition: left 1s;
-}
-.border-primary.border-3:hover::before {
-  left: 100%;
-}
-.border-primary.border-3:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transform: translateY(-5px);
-}
-.border-primary.border-3 i {
-  transition: transform 300ms ease-in-out;
-}
-.border-primary.border-3:hover i {
-  transform: scale(1.2);
-  animation: bounce 1s infinite;
-}
-
-.rounded-circle {
-  transition: all 300ms ease-in-out;
-}
-.rounded-circle.border-lc-secondary {
-  border-color: #10B981 !important;
-  border-width: 3px !important;
-}
-
 @media (max-width: 575px) {
-  .bg-hero-specialties {
-    padding: 3rem 0;
+  .specialties-hero {
+    min-height: 300px;
   }
-  .bg-hero-specialties h1 {
+  .specialties-hero h1 {
     font-size: 2rem;
-  }
-  .bg-hero-specialties p {
-    font-size: 1rem;
-  }
-  .card img {
-    width: 120px !important;
-    height: 120px !important;
-  }
-}
-@media (min-width: 768px) {
-  .bg-hero-specialties {
-    padding: 6rem 0;
   }
 }
 .mt-auto {

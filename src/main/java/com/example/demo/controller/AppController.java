@@ -39,6 +39,7 @@ public class AppController {
         @GetMapping("/especialidades")
         public String verPaginaEspecialidades(Model model) {
                 List<Especialidad> especialidades = especialidadService.findActivas();
+                System.out.println("DEBUG: Especialidades encontradas en Controller: " + especialidades.size());
                 model.addAttribute("especialidades", especialidades);
                 return "especialidades";
         }
