@@ -1,0 +1,204 @@
+// ============================================
+// Estilos Modernos para el Layout del Admin
+// Sidebar, navegación y estructura principal
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+// === Sidebar Moderno ===
+.d-flex.min-vh-100 {
+    >.bg-dark {
+        background: linear-gradient(180deg, #1a1d29 0%, #2d3748 100%) !important;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+
+        // Efecto decorativo sutil
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            @include gradient-primary;
+            z-index: 10;
+        }
+
+        // Logo/Brand mejorado
+        a {
+            @include transition(all);
+            padding: 1rem;
+            border-radius: $lc-radius-md;
+            margin-bottom: 1rem !important;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.05);
+                transform: translateX(5px);
+
+                i {
+                    transform: scale(1.1) rotate(-5deg);
+                    color: $lc-primary-light;
+                }
+            }
+
+            i {
+                @include transition(all, 0.4s);
+            }
+
+            span {
+                font-weight: $lc-font-weight-bold;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        // Separador mejorado
+        hr {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 1.5rem 0;
+            opacity: 1;
+        }
+
+        // Navegación mejorada
+        .nav {
+            gap: 0.5rem;
+
+            .nav-item {
+                position: relative;
+            }
+
+            .nav-link {
+                padding: 0.875rem 1.25rem;
+                border-radius: $lc-radius-md;
+                @include transition(all, 0.3s);
+                font-weight: $lc-font-weight-medium;
+                position: relative;
+                overflow: hidden;
+
+                // Indicador de hover
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 4px;
+                    height: 0;
+                    background: $lc-primary;
+                    border-radius: 0 4px 4px 0;
+                    @include transition(height, 0.3s);
+                }
+
+                i {
+                    @include transition(all, 0.3s);
+                    font-size: 1.1rem;
+                }
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                    color: white !important;
+                    padding-left: 1.5rem;
+
+                    &::before {
+                        height: 70%;
+                    }
+
+                    i {
+                        transform: translateX(3px);
+                        color: $lc-primary-light;
+                    }
+                }
+
+                // Estado activo
+                &.active,
+                &[aria-current="page"] {
+                    background: linear-gradient(90deg, rgba($lc-primary, 0.2), rgba($lc-primary, 0.05));
+                    color: white !important;
+                    font-weight: $lc-font-weight-semibold;
+                    border-left: 4px solid $lc-primary;
+                    padding-left: 1.5rem;
+
+                    i {
+                        color: $lc-primary-light;
+                    }
+                }
+            }
+        }
+
+        // Botón de logout mejorado
+        form {
+            button[type="submit"] {
+                background: transparent !important;
+                border: 2px solid rgba(255, 255, 255, 0.1) !important;
+                padding: 0.75rem 1.25rem !important;
+                border-radius: $lc-radius-md !important;
+                @include transition(all);
+                width: 100%;
+
+                &:hover {
+                    background: rgba(239, 68, 68, 0.1) !important;
+                    border-color: rgba(239, 68, 68, 0.4) !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+
+                    i {
+                        transform: translateX(-3px);
+                    }
+                }
+
+                i {
+                    @include transition(transform, 0.3s);
+                }
+            }
+        }
+    }
+}
+
+// === Área principal de contenido ===
+.flex-grow-1.bg-light {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+
+    >h1 {
+        color: $lc-neutral-800;
+        font-weight: $lc-font-weight-bold;
+        font-size: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 3px solid $lc-primary;
+        margin-bottom: 2rem !important;
+        display: inline-block;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 40%;
+            height: 3px;
+            background: $lc-secondary;
+        }
+    }
+}
+
+// === Responsive Design ===
+@include respond-to('md') {
+    .d-flex.min-vh-100>.bg-dark {
+        width: 280px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .d-flex.min-vh-100 {
+        flex-direction: column;
+
+        >.bg-dark {
+            width: 100% !important;
+
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+    }
+}

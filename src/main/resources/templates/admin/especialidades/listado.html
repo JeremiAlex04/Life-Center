@@ -2,89 +2,83 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 
 <body>
-    <section>
-        <div class="container mt-5">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3">
-                    <i class="bi bi-heart-pulse-fill text-primary me-2"></i>
-                    Gestión de Especialidades
-                </h1>
-                <a th:href="@{/admin/especialidades/nuevo}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-2"></i>Nueva Especialidad
-                </a>
+    <section class="admin-especialidades">
+        <div class="header">
+            <h1>
+                <i class="bi bi-heart-pulse-fill text-primary me-2"></i>
+                Gestión de Especialidades
+            </h1>
+            <a th:href="@{/admin/especialidades/nuevo}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Nueva Especialidad
+            </a>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-2"></i><span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i><span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div th:if="${especialidades == null or especialidades.isEmpty()}" class="empty-state">
+            <div class="empty-state-icon">
+                <i class="bi bi-inbox"></i>
             </div>
+            <p class="empty-state-text">No hay especialidades registradas.</p>
+            <a th:href="@{/admin/especialidades/nuevo}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Crear Primera Especialidad
+            </a>
+        </div>
 
-            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle me-2"></i><span th:text="${success}"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-
-            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle me-2"></i><span th:text="${error}"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div th:if="${especialidades == null or especialidades.isEmpty()}" class="text-center py-5">
-                        <i class="bi bi-inbox display-1 text-muted"></i>
-                        <p class="mt-3 text-muted">No hay especialidades registradas.</p>
-                        <a th:href="@{/admin/especialidades/nuevo}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-2"></i>Crear Primera Especialidad
-                        </a>
-                    </div>
-
-                    <div th:unless="${especialidades == null or especialidades.isEmpty()}">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="esp : ${especialidades}">
-                                        <td>
-                                            <strong th:text="${esp.nombre}">Cardiología</strong>
-                                        </td>
-                                        <td>
-                                            <span th:text="${#strings.abbreviate(esp.descripcion, 80)}">
-                                                Descripción de la especialidad...
-                                            </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span th:if="${esp.estado == 'ACTIVA'}"
-                                                class="badge bg-success">Activa</span>
-                                            <span th:if="${esp.estado == 'INACTIVA'}"
-                                                class="badge bg-secondary">Inactiva</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                <a th:href="@{/admin/especialidades/{id}/medicos(id=${esp.idEspecialidad})}"
-                                                    class="btn btn-sm btn-info" title="Ver Médicos">
-                                                    <i class="bi bi-people-fill"></i>
-                                                </a>
-                                                <a th:href="@{/admin/especialidades/editar/{id}(id=${esp.idEspecialidad})}"
-                                                    class="btn btn-sm btn-warning" title="Editar">
-                                                    <i class="bi bi-pencil-fill"></i>
-                                                </a>
-                                                <a th:href="@{/admin/especialidades/eliminar/{id}(id=${esp.idEspecialidad})}"
-                                                    class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('¿Está seguro de eliminar esta especialidad?')"
-                                                    title="Eliminar">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+        <div th:unless="${especialidades == null or especialidades.isEmpty()}" class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="esp : ${especialidades}">
+                            <td>
+                                <strong th:text="${esp.nombre}">Cardiología</strong>
+                            </td>
+                            <td>
+                                <span th:text="${#strings.abbreviate(esp.descripcion, 80)}">
+                                    Descripción de la especialidad...
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <span th:if="${esp.estado == 'ACTIVA'}" class="badge bg-success">Activa</span>
+                                <span th:if="${esp.estado == 'INACTIVA'}" class="badge bg-secondary">Inactiva</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a th:href="@{/admin/especialidades/{id}/medicos(id=${esp.idEspecialidad})}"
+                                        class="btn btn-sm btn-info" title="Ver Médicos">
+                                        <i class="bi bi-people-fill"></i>
+                                    </a>
+                                    <a th:href="@{/admin/especialidades/editar/{id}(id=${esp.idEspecialidad})}"
+                                        class="btn btn-sm btn-warning" title="Editar">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a th:href="@{/admin/especialidades/eliminar/{id}(id=${esp.idEspecialidad})}"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Está seguro de eliminar esta especialidad?')"
+                                        title="Eliminar">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>

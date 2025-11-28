@@ -1,0 +1,181 @@
+// ============================================
+// Estilos para la página de Pacientes
+// ============================================
+
+@import '../variables';
+@import '../mixins';
+
+.admin-pacientes {
+    padding: 2.5rem;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        @include animate-in(fadeInDown, 0.5s);
+
+        h1 {
+            font-size: 2rem;
+            font-weight: $lc-font-weight-bold;
+            color: $lc-neutral-800;
+            position: relative;
+            padding-bottom: 0.5rem;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: linear-gradient(135deg, $lc-info, lighten($lc-info, 10%));
+                border-radius: $lc-radius-full;
+            }
+        }
+    }
+
+    .filters-card {
+        background: white;
+        border-radius: $lc-radius-xl;
+        padding: 2rem;
+        box-shadow: $lc-shadow-lg;
+        margin-bottom: 2.5rem;
+        border: 1px solid $lc-neutral-200;
+        @include animate-in(fadeInUp, 0.6s, 0.1s);
+        @include transition(all);
+
+        &:hover {
+            box-shadow: $lc-shadow-xl;
+        }
+    }
+
+    .table-container {
+        background: white;
+        border-radius: $lc-radius-xl;
+        box-shadow: $lc-shadow-lg;
+        overflow: hidden;
+        border: 1px solid $lc-neutral-200;
+        @include animate-in(fadeInUp, 0.6s, 0.2s);
+
+        .table {
+            margin-bottom: 0;
+
+            thead {
+                th {
+                    background: linear-gradient(135deg, lighten($lc-neutral-100, 2%), $lc-neutral-100);
+                    color: $lc-neutral-700;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: $lc-font-weight-bold;
+                    font-size: 0.875rem;
+                    border-bottom: 3px solid $lc-info;
+                    padding: 1.25rem;
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -3px;
+                        left: 0;
+                        width: 0;
+                        height: 3px;
+                        background: $lc-accent;
+                        @include transition(width);
+                    }
+
+                    &:hover::after {
+                        width: 100%;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    transition: all 0.3s ease-in-out;
+                    border-bottom: 1px solid $lc-neutral-100;
+
+                    td {
+                        padding: 1.25rem;
+                        vertical-align: middle;
+                        color: $lc-neutral-700;
+                    }
+
+                    &:hover {
+                        background: linear-gradient(90deg, transparent, rgba($lc-info, 0.05), transparent);
+                        transform: translateX(5px);
+                        box-shadow: inset 4px 0 0 $lc-info;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-content {
+        border-radius: $lc-radius-xl;
+        border: none;
+        box-shadow: $lc-shadow-2xl;
+        overflow: hidden;
+
+        .modal-header {
+            background: linear-gradient(135deg, $lc-info, lighten($lc-info, 5%));
+            border-bottom: none;
+            padding: 1.75rem 2rem;
+            color: white;
+
+            .modal-title {
+                font-size: 1.5rem;
+                font-weight: $lc-font-weight-bold;
+            }
+
+            .btn-close-white {
+                @include transition(transform);
+
+                &:hover {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+
+        .modal-body {
+            padding: 2rem;
+            background: $lc-neutral-50;
+        }
+
+        .modal-footer {
+            border-top: 1px solid $lc-neutral-200;
+            padding: 1.5rem 2rem;
+            background: white;
+        }
+    }
+
+    .btn-primary {
+        @include button-variant($lc-primary, white);
+        padding: 0.75rem 1.5rem;
+        font-weight: $lc-font-weight-semibold;
+        border-radius: $lc-radius-full;
+        @include transition(all);
+    }
+
+    .btn-info {
+        @include button-variant($lc-info, white);
+        border-radius: $lc-radius-full;
+        @include transition(all);
+    }
+
+    .btn-warning {
+        @include button-variant($lc-warning, $lc-neutral-800);
+        border-radius: $lc-radius-full;
+        @include transition(all);
+    }
+
+    .btn-danger {
+        @include button-variant($lc-error, white);
+        border-radius: $lc-radius-full;
+        @include transition(all);
+    }
+}

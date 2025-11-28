@@ -190,3 +190,22 @@
         transform: translateY(-4px);
     }
 }
+
+// === Mixin para Variantes de Botón ===
+@mixin button-variant($background, $color) {
+    background-color: $background;
+    color: $color;
+    border: 1px solid $background;
+
+    &:hover,
+    &:focus {
+        background-color: darken($background, 8%);
+        border-color: darken($background, 10%);
+        color: $color;
+    }
+
+    &:active {
+        background-color: darken($background, 12%);
+        border-color: darken($background, 14%);
+    }
+}

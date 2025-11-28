@@ -2,78 +2,74 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 
 <body>
-    <section>
-        <div class="container mt-5">
-            <div class="card shadow-sm border-0">
+    <section class="admin-medicos">
+        <div class="header">
+            <h1>Gestión de Médicos</h1>
+            <a th:href="@{/admin/medicos/nuevo}" class="btn btn-success btn-sm">
+                <i class="fas fa-plus me-1"></i> Registrar Nuevo Médico
+            </a>
+        </div>
 
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                    <h1 class="h4 mb-0">Gestión de Médicos</h1>
-                    <a th:href="@{/admin/medicos/nuevo}" class="btn btn-success btn-sm">
-                        <i class="fas fa-plus me-1"></i> Registrar Nuevo Médico
-                    </a>
-                </div>
+        <div class="filters-card">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control"
+                    placeholder="Buscar médicos por nombre o DNI...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </div>
 
-                <div class="card-body">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <input type="text" id="searchInput" class="form-control"
-                                placeholder="Buscar médicos por nombre o DNI...">
-                            <button class="btn btn-outline-secondary" type="button" id="searchButton">
-                                <i class="bi bi-search"></i> Buscar
-                            </button>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">DNI</th>
-                                    <th scope="col">Nombres</th>
-                                    <th scope="col">Apellidos</th>
-                                    <th scope="col">Especialidad</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col" class="text-center">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="medico : ${medicos}">
-                                    <td th:text="${medico.idMedico}"></td>
-                                    <td th:text="${medico.dni}"></td>
-                                    <td th:text="${medico.nombres}"></td>
-                                    <td th:text="${medico.apellidos}"></td>
-                                    <td th:text="${medico.especialidad}"></td>
-                                    <td th:text="${medico.estado}"></td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-info btn-sm text-white"
-                                                data-bs-toggle="modal" data-bs-target="#verMedicoModal"
-                                                th:data-dni="${medico.dni}" th:data-nombres="${medico.nombres}"
-                                                th:data-apellidos="${medico.apellidos}"
-                                                th:data-especialidad="${medico.especialidad}"
-                                                th:data-colegiatura="${medico.numeroColegiatura}"
-                                                th:data-telefono="${medico.telefono}" th:data-email="${medico.email}"
-                                                th:data-turno="${medico.turno}" th:data-estado="${medico.estado}"
-                                                th:data-anio-egreso="${medico.anioEgreso}"
-                                                th:data-consultorio="${medico.consultorio != null ? medico.consultorio.numero + ' - Piso ' + medico.consultorio.piso : 'Sin asignar'}"
-                                                th:data-username="${medico.usuario != null ? medico.usuario.username : 'Sin usuario'}"
-                                                onclick="cargarDatosMedico(this)">
-                                                <i class="bi bi-eye-fill"></i> Ver
-                                            </button>
-                                            <a th:href="@{/admin/medicos/editar/{id}(id=${medico.idMedico})}"
-                                                class="btn btn-warning btn-sm">Editar</a>
-                                            <a th:href="@{/admin/medicos/eliminar/{id}(id=${medico.idMedico})}"
-                                                class="btn btn-danger btn-sm">Eliminar</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr th:if="${#lists.isEmpty(medicos)}">
-                                    <td colspan="7" class="text-center text-muted">No hay médicos registrados.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Especialidad</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="medico : ${medicos}">
+                            <td th:text="${medico.idMedico}"></td>
+                            <td th:text="${medico.dni}"></td>
+                            <td th:text="${medico.nombres}"></td>
+                            <td th:text="${medico.apellidos}"></td>
+                            <td th:text="${medico.especialidad}"></td>
+                            <td th:text="${medico.estado}"></td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-info btn-sm text-white"
+                                        data-bs-toggle="modal" data-bs-target="#verMedicoModal"
+                                        th:data-dni="${medico.dni}" th:data-nombres="${medico.nombres}"
+                                        th:data-apellidos="${medico.apellidos}"
+                                        th:data-especialidad="${medico.especialidad}"
+                                        th:data-colegiatura="${medico.numeroColegiatura}"
+                                        th:data-telefono="${medico.telefono}" th:data-email="${medico.email}"
+                                        th:data-turno="${medico.turno}" th:data-estado="${medico.estado}"
+                                        th:data-anio-egreso="${medico.anioEgreso}"
+                                        th:data-consultorio="${medico.consultorio != null ? medico.consultorio.numero + ' - Piso ' + medico.consultorio.piso : 'Sin asignar'}"
+                                        th:data-username="${medico.usuario != null ? medico.usuario.username : 'Sin usuario'}"
+                                        onclick="cargarDatosMedico(this)">
+                                        <i class="bi bi-eye-fill"></i> Ver
+                                    </button>
+                                    <a th:href="@{/admin/medicos/editar/{id}(id=${medico.idMedico})}"
+                                        class="btn btn-warning btn-sm">Editar</a>
+                                    <a th:href="@{/admin/medicos/eliminar/{id}(id=${medico.idMedico})}"
+                                        class="btn btn-danger btn-sm">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(medicos)}">
+                            <td colspan="7" class="text-center text-muted">No hay médicos registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <script th:src="@{/js/admin-search.js}"></script>

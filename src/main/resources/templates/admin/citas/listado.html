@@ -3,81 +3,76 @@
 
 
 <body>
-    <section>
-        <div class="container mt-5">
-            <div class="card shadow-sm border-0">
+    <section class="admin-citas">
+        <div class="header">
+            <h1>Gestión de Citas</h1>
+        </div>
 
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                    <h1 class="h4 mb-0">Gestión de Citas</h1>
-                </div>
+        <div class="filters-card">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control"
+                    placeholder="Buscar citas por paciente, médico o estado...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </div>
 
-                <div class="card-body">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <input type="text" id="searchInput" class="form-control"
-                                placeholder="Buscar citas por paciente, médico o estado...">
-                            <button class="btn btn-outline-secondary" type="button" id="searchButton">
-                                <i class="bi bi-search"></i> Buscar
-                            </button>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Paciente</th>
-                                    <th scope="col">Médico</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Hora</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col" class="text-center">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="cita : ${citas}">
-                                    <td th:text="${cita.idCita}"></td>
-                                    <td
-                                        th:text="${cita.paciente != null ? cita.paciente.nombres + ' ' + cita.paciente.apellidos : 'Sin Paciente'}">
-                                    </td>
-                                    <td
-                                        th:text="${cita.medico != null ? cita.medico.nombres + ' ' + cita.medico.apellidos : 'Sin Médico'}">
-                                    </td>
-                                    <td
-                                        th:text="${cita.fecha != null ? #temporals.format(cita.fecha, 'dd/MM/yyyy') : '-'}">
-                                    </td>
-                                    <td th:text="${cita.hora != null ? cita.hora : '-'}"></td>
-                                    <td>
-                                        <span th:if="${cita.estado != null}" th:class="'badge ' + 
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Médico</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cita : ${citas}">
+                            <td th:text="${cita.idCita}"></td>
+                            <td
+                                th:text="${cita.paciente != null ? cita.paciente.nombres + ' ' + cita.paciente.apellidos : 'Sin Paciente'}">
+                            </td>
+                            <td
+                                th:text="${cita.medico != null ? cita.medico.nombres + ' ' + cita.medico.apellidos : 'Sin Médico'}">
+                            </td>
+                            <td
+                                th:text="${cita.fecha != null ? #temporals.format(cita.fecha, 'dd/MM/yyyy') : '-'}">
+                            </td>
+                            <td th:text="${cita.hora != null ? cita.hora : '-'}"></td>
+                            <td>
+                                <span th:if="${cita.estado != null}" th:class="'badge ' + 
                                             (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' : 
                                             (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' : 
                                             (${cita.estado.name() == 'COMPLETADA'} ? 'bg-success' : 
                                             'bg-danger')))" th:text="${cita.estado}">
-                                        </span>
-                                        <span th:if="${cita.estado == null}"
-                                            class="badge bg-secondary">Desconocido</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group">
-                                            <a th:if="${cita.estado != null and cita.estado.name() != 'CANCELADA' and cita.estado.name() != 'COMPLETADA'}"
-                                                th:href="@{/admin/citas/cancelar/{id}(id=${cita.idCita})}"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="return confirm('¿Estás seguro de cancelar esta cita?')">
-                                                Cancelar
-                                            </a>
-                                            <span
-                                                th:if="${cita.estado == null or cita.estado.name() == 'CANCELADA' or cita.estado.name() == 'COMPLETADA'}"
-                                                class="text-muted">-</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr th:if="${#lists.isEmpty(citas)}">
-                                    <td colspan="7" class="text-center text-muted">No hay citas registradas.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                </span>
+                                <span th:if="${cita.estado == null}" class="badge bg-secondary">Desconocido</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a th:if="${cita.estado != null and cita.estado.name() != 'CANCELADA' and cita.estado.name() != 'COMPLETADA'}"
+                                        th:href="@{/admin/citas/cancelar/{id}(id=${cita.idCita})}"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('¿Estás seguro de cancelar esta cita?')">
+                                        Cancelar
+                                    </a>
+                                    <span
+                                        th:if="${cita.estado == null or cita.estado.name() == 'CANCELADA' or cita.estado.name() == 'COMPLETADA'}"
+                                        class="text-muted">-</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(citas)}">
+                            <td colspan="7" class="text-center text-muted">No hay citas registradas.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <script th:src="@{/js/admin-search.js}"></script>
