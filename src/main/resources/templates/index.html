@@ -28,6 +28,18 @@
         .dropdown-menu {
             margin-top: 0;
         }
+        footer a:hover {
+            color: #fff !important;
+            transition: color 0.3s ease;
+        }
+
+        footer .bi-facebook:hover,
+        footer .bi-instagram:hover,
+        footer .bi-twitter:hover,
+        footer .bi-linkedin:hover {
+            transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 
@@ -389,63 +401,150 @@
             </div>
         </div>
 
-        <footer class="bg-dark text-white pt-5 pb-4">
-            <div class="container text-center text-md-start">
-                <div class="row text-center text-md-start">
-                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                        <h5 class="text-uppercase mb-4 fw-bold text-white">LifeCenter</h5>
-                        <p>Cuidando de tu salud con la mejor tecnología y un equipo de profesionales comprometidos.</p>
+        <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <!-- Sobre LifeCenter -->
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-heart-pulse fs-3 text-primary me-2"></i>
+                        <h5 class="text-uppercase fw-bold text-white mb-0">LifeCenter</h5>
                     </div>
-
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                        <h5 class="text-uppercase mb-4 fw-bold">Enlaces</h5>
-                        <p>
-                            <a href="#" class="text-white text-decoration-none">Nuestros Servicios</a>
-                        </p>
-                        <p>
-                            <a th:href="@{/especialidades}" class="text-white text-decoration-none">Especialidades</a>
-                        </p>
-                        <p>
-                            <a th:href="@{/login}" class="text-white text-decoration-none">Portal de Pacientes</a>
-                        </p>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                        <h5 class="text-uppercase mb-4 fw-bold">Contacto</h5>
-                        <p><i class="bi bi-geo-alt-fill me-3"></i>Av. Principal 123, Ciudad</p>
-                        <p><i class="bi bi-envelope-fill me-3"></i>info@lifecenter.com</p>
-                        <p><i class="bi bi-telephone-fill me-3"></i>+1 234 567 890</p>
+                    <p class="text-white-50 small">
+                        Tu salud es nuestra prioridad. Brindamos atención médica de calidad con tecnología de punta y un
+                        equipo de profesionales altamente capacitados.
+                    </p>
+                    <!-- Redes Sociales -->
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3 fs-5" style="text-decoration: none;" title="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="text-white me-3 fs-5" style="text-decoration: none;" title="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white me-3 fs-5" style="text-decoration: none;" title="Twitter">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="text-white fs-5" style="text-decoration: none;" title="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
                     </div>
                 </div>
 
-                <hr class="mb-4">
+                <!-- Enlaces Rápidos -->
+                <div class="col-md-4 col-lg-2 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-3 text-primary">Enlaces Rápidos</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a th:href="@{/}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Inicio
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/nosotros}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Nosotros
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/medicos}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Médicos
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/especialidades}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Especialidades
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/contacto}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Contacto
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-                <div class="row align-items-center">
-                    <div class="col-md-7 col-lg-8">
-                        <p class="m-0">© 2025 LifeCenter. Todos los derechos reservados.</p>
-                    </div>
-                    <div class="col-md-5 col-lg-4">
-                        <div class="text-center text-md-end">
-                            <ul class="list-unstyled list-inline m-0">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-white text-decoration-none" style="font-size: 23px;">
-                                        <i class="bi bi-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-white text-decoration-none" style="font-size: 23px;">
-                                        <i class="bi bi-twitter"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-white text-decoration-none" style="font-size: 23px;">
-                                        <i class="bi bi-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-        </footer>
+                <!-- Servicios -->
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-3 text-primary">Servicios</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a th:href="@{/login}" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Portal de Pacientes
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Agendar Cita
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Resultados en Línea
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Emergencias 24/7
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none small">
+                                <i class="bi bi-chevron-right me-1"></i>Telemedicina
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contacto -->
+                <div class="col-md-12 col-lg-4 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-3 text-primary">Contáctanos</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-geo-alt-fill text-primary me-3 mt-1"></i>
+                            <span class="text-white-50 small">
+                                Av. Jorge Basadre Grohmann 223<br>
+                                San Isidro, Lima, Perú
+                            </span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-telephone-fill text-primary me-3"></i>
+                            <a href="tel:+51987654321" class="text-white-50 text-decoration-none small">
+                                +51 987 654 321
+                            </a>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-envelope-fill text-primary me-3"></i>
+                            <a href="mailto:info@lifecenter.com" class="text-white-50 text-decoration-none small">
+                                info@lifecenter.com
+                            </a>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-clock-fill text-primary me-3 mt-1"></i>
+                            <span class="text-white-50 small">
+                                Lun - Vie: 7:00 AM - 8:00 PM<br>
+                                Sábados: 8:00 AM - 2:00 PM
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="text-white-50 small mb-0">
+                        © 2025 <strong>LifeCenter</strong>. Todos los derechos reservados.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none small me-3">Política de Privacidad</a>
+                    <a href="#" class="text-white-50 text-decoration-none small">Términos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
         <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
