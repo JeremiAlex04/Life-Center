@@ -8,6 +8,26 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
     <link rel="stylesheet" th:href="@{/css/lifecenter.css}">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            margin: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .navbar-nav .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,14 +40,19 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">Inicio</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" th:href="@{/}" id="navbarDropdownInicio" role="button">
+                            Inicio
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
+                            <li><a class="dropdown-item" th:href="@{/#servicios}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/#testimonios}">Testimonios</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/medicos}">Médicos</a>
                     </li>
@@ -38,16 +63,25 @@
                         <a class="nav-link active" th:href="@{/contacto}">Contacto</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="container-fluid bg-primary text-white py-5 mt-5">
-        <div class="container py-5 text-center">
+    <div class="container-fluid text-white py-5 mt-5 position-relative"
+        th:style="'background-image: url(\'' + @{/img/Fondo_SecMedico.jpg} + '\'); background-size: cover; background-position: center; min-height: 400px;'">
+        <!-- Capa oscura con opacidad -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6);"></div>
+
+        <!-- Contenido -->
+        <div class="container py-5 text-center position-relative" style="z-index: 1;">
             <h1 class="display-3 fw-bold mb-3">Contáctanos</h1>
             <p class="lead fs-4">Estamos aquí para atenderte. Escríbenos o visítanos.</p>
         </div>
@@ -66,8 +100,7 @@
                     </div>
                     <div class="ms-3">
                         <h5 class="fw-bold">Ubicación</h5>
-                        <p class="text-muted mb-0">Av. Principal 123, Ciudad de la Salud.<br>Edificio LifeCenter, Piso
-                            1.</p>
+                        <p class="text-muted mb-0">Av. Jorge Basadre Grohmann 223<br>San Isidro, Lima, Perú</p>
                     </div>
                 </div>
 
@@ -79,8 +112,8 @@
                     </div>
                     <div class="ms-3">
                         <h5 class="fw-bold">Teléfonos</h5>
-                        <p class="text-muted mb-0">Citas: +1 234 567 890</p>
-                        <p class="text-muted mb-0">Emergencias: +1 987 654 321</p>
+                        <p class="text-muted mb-0">Citas: +51 987 654 321</p>
+                        <p class="text-muted mb-0">Emergencias: +51 987 654 321</p>
                     </div>
                 </div>
 
@@ -112,48 +145,16 @@
                 </div>
             </div>
 
-            <!-- Formulario -->
+            <!-- Mapa de Ubicación -->
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm p-4">
-                    <h3 class="fw-bold mb-4">Envíanos un Mensaje</h3>
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="nombre" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com"
-                                    required>
-                            </div>
-                            <div class="col-12">
-                                <label for="asunto" class="form-label">Asunto</label>
-                                <input type="text" class="form-control" id="asunto" placeholder="Motivo de tu mensaje"
-                                    required>
-                            </div>
-                            <div class="col-12">
-                                <label for="mensaje" class="form-label">Mensaje</label>
-                                <textarea class="form-control" id="mensaje" rows="5"
-                                    placeholder="Escribe tu mensaje aquí..." required></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary px-4 py-2">Enviar Mensaje</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="card border-0 shadow-sm p-3">
+                    <h3 class="fw-bold mb-4">Encuéntranos</h3>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.3!2d-77.0344!3d-12.0928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA1JzM0LjIiUyA3N8KwMDInMDMuOSJX!5e0!3m2!1ses-419!2spe!4v1234567890"
+                        width="100%" height="500" style="border:0; border-radius: 10px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mapa (Placeholder) -->
-    <div class="container-fluid p-0">
-        <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 400px;">
-            <div class="text-center">
-                <i class="bi bi-map fs-1"></i>
-                <p class="mt-2">Aquí iría el mapa de Google Maps</p>
-                <small>(Requiere API Key)</small>
             </div>
         </div>
     </div>
@@ -175,9 +176,9 @@
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                     <h5 class="text-uppercase mb-4 fw-bold">Contacto</h5>
-                    <p><i class="bi bi-geo-alt-fill me-3"></i>Av. Principal 123, Ciudad</p>
+                    <p><i class="bi bi-geo-alt-fill me-3"></i>Av. Jorge Basadre Grohmann 223, San Isidro, Lima</p>
                     <p><i class="bi bi-envelope-fill me-3"></i>info@lifecenter.com</p>
-                    <p><i class="bi bi-telephone-fill me-3"></i>+1 234 567 890</p>
+                    <p><i class="bi bi-telephone-fill me-3"></i>+51 987 654 321</p>
                 </div>
             </div>
             <hr class="mb-4">

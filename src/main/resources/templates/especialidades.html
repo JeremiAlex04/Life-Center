@@ -8,6 +8,26 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
     <link rel="stylesheet" th:href="@{/css/lifecenter.css}">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            margin: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .navbar-nav .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,17 +40,19 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">Inicio</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" th:href="@{/}" id="navbarDropdownInicio" role="button">
+                            Inicio
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
+                            <li><a class="dropdown-item" th:href="@{/#servicios}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/#testimonios}">Testimonios</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/#servicios}">Servicios</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/medicos}">Médicos</a>
                     </li>
@@ -41,10 +63,14 @@
                         <a class="nav-link" th:href="@{/contacto}">Contacto</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
