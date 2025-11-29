@@ -57,7 +57,18 @@ public class AppController {
                                 .thenComparing(Medico::getApellidos));
 
                 model.addAttribute("medicos", medicos);
+                model.addAttribute("medicos", medicos);
                 return "medicos";
+        }
+
+        @GetMapping("/nosotros")
+        public String verPaginaNosotros(Model model) {
+                return "nosotros";
+        }
+
+        @GetMapping("/contacto")
+        public String verPaginaContacto(Model model) {
+                return "contacto";
         }
 
 }

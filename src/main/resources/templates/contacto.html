@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - LifeCenter</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/lifecenter.css}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+                <i class="bi bi-heart-pulse me-2 fs-4"></i>
+                <span class="fs-4 fw-bold">LifeCenter</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/medicos}">Médicos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/especialidades}">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/contacto}">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container-fluid bg-primary text-white py-5 mt-5">
+        <div class="container py-5 text-center">
+            <h1 class="display-3 fw-bold mb-3">Contáctanos</h1>
+            <p class="lead fs-4">Estamos aquí para atenderte. Escríbenos o visítanos.</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Información de Contacto -->
+            <div class="col-lg-5">
+                <h2 class="fw-bold mb-4 text-primary">Información</h2>
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-geo-alt-fill fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="fw-bold">Ubicación</h5>
+                        <p class="text-muted mb-0">Av. Principal 123, Ciudad de la Salud.<br>Edificio LifeCenter, Piso
+                            1.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-telephone-fill fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="fw-bold">Teléfonos</h5>
+                        <p class="text-muted mb-0">Citas: +1 234 567 890</p>
+                        <p class="text-muted mb-0">Emergencias: +1 987 654 321</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-envelope-fill fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="fw-bold">Correo Electrónico</h5>
+                        <p class="text-muted mb-0">info@lifecenter.com</p>
+                        <p class="text-muted mb-0">citas@lifecenter.com</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-clock-fill fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="fw-bold">Horario de Atención</h5>
+                        <p class="text-muted mb-0">Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                        <p class="text-muted mb-0">Sábados: 8:00 AM - 2:00 PM</p>
+                        <p class="text-muted mb-0 fw-bold text-danger">Emergencias 24/7</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-sm p-4">
+                    <h3 class="fw-bold mb-4">Envíanos un Mensaje</h3>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="asunto" class="form-label">Asunto</label>
+                                <input type="text" class="form-control" id="asunto" placeholder="Motivo de tu mensaje"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="5"
+                                    placeholder="Escribe tu mensaje aquí..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 py-2">Enviar Mensaje</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa (Placeholder) -->
+    <div class="container-fluid p-0">
+        <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 400px;">
+            <div class="text-center">
+                <i class="bi bi-map fs-1"></i>
+                <p class="mt-2">Aquí iría el mapa de Google Maps</p>
+                <small>(Requiere API Key)</small>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-white">LifeCenter</h5>
+                    <p>Cuidando de tu salud con la mejor tecnología y un equipo de profesionales comprometidos.</p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold">Enlaces</h5>
+                    <p><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></p>
+                    <p><a th:href="@{/especialidades}" class="text-white text-decoration-none">Especialidades</a></p>
+                    <p><a th:href="@{/login}" class="text-white text-decoration-none">Portal de Pacientes</a></p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold">Contacto</h5>
+                    <p><i class="bi bi-geo-alt-fill me-3"></i>Av. Principal 123, Ciudad</p>
+                    <p><i class="bi bi-envelope-fill me-3"></i>info@lifecenter.com</p>
+                    <p><i class="bi bi-telephone-fill me-3"></i>+1 234 567 890</p>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8">
+                    <p class="m-0">© 2025 LifeCenter. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
