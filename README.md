@@ -1,149 +1,181 @@
 # LifeCenter - Sistema de Gestión Hospitalaria
 
-![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.6-green)
-![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Template_Engine-darkgreen)
-![Security](https://img.shields.io/badge/Spring_Security-Protected-red)
+**LifeCenter** es una plataforma web integral diseñada para modernizar y optimizar la gestión de centros médicos. Facilita la interacción entre pacientes, médicos y administradores, proporcionando herramientas eficientes para la reserva de citas, gestión de historiales clínicos y administración de recursos hospitalarios.
 
-**LifeCenter** es una plataforma web integral desarrollada con Spring Boot diseñada para administrar los procesos clínicos y administrativos de un centro médico. Facilita la gestión de citas, expedientes médicos y la administración de recursos hospitalarios mediante una interfaz segura basada en roles.
+## 🚀 Características Principales
 
-## 📋 Tabla de Contenidos
-- [Características y Lógica de Negocio](#-características-y-lógica-de-negocio)
-- [Tecnologías](#-tecnologías)
-- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
-- [Instalación y Despliegue](#-instalación-y-despliegue)
-- [Seguridad](#-seguridad)
+### 🌐 Portal Público
+- **Landing Page Moderna**: Diseño atractivo y responsivo con información sobre servicios y testimonios.
+- **Catálogo de Médicos**: Visualización de staff médico con filtros por especialidad.
+- **Especialidades**: Información detallada sobre las áreas médicas atendidas.
+- **Contacto**: Formulario de contacto y ubicación.
 
----
+### 🔐 Módulo de Seguridad y Autenticación
+- **Login Unificado**: Acceso seguro para todos los roles (Admin, Médico, Paciente).
+- **Registro de Pacientes**: Formulario de auto-registro con validaciones de DNI y datos personales.
+- **Recuperación de Contraseña**: Flujo seguro para restablecer credenciales.
+- **Roles y Permisos**: Control de acceso basado en roles (`ROLE_ADMIN`, `ROLE_MEDICO`, `ROLE_PACIENTE`) utilizando Spring Security.
 
-## 🧠 Características y Lógica de Negocio
+### 👤 Módulo de Paciente
+- **Agendamiento de Citas**: Interfaz intuitiva para reservar citas médicas seleccionando especialidad, médico y horario.
+- **Historial Clínico**: Acceso a su propio historial de atenciones y diagnósticos.
+- **Dashboard Personal**: Resumen de próximas citas y estado de salud.
 
-El sistema implementa una lógica de negocio segregada por roles de usuario, garantizando que cada actor tenga acceso únicamente a las funciones pertinentes a su labor.
+### 👨‍⚕️ Módulo de Médico
+- **Gestión de Agenda**: Visualización de citas programadas (diarias, semanales).
+- **Atención de Pacientes**: Registro de diagnósticos, recetas y notas de evolución en la historia clínica.
+- **Perfil Profesional**: Gestión de información pública (foto, especialidad).
 
-### 1. Portal del Paciente (`ROLE_PACIENTE`)
-Diseñado para la autogestión del usuario final.
-* **Registro e Inicio de Sesión:** Acceso seguro mediante credenciales encriptadas.
-* **Gestión de Citas:** Solicitar nuevas citas médicas según especialidad y disponibilidad.
-* **Historial Clínico:** Visualización del historial médico personal.
-* **Dashboard:** Vista resumen de próximas citas y estado actual.
+### 🛠️ Módulo de Administrador
+- **Gestión de Usuarios**: Administración centralizada de cuentas.
+- **Gestión de Médicos**: Alta, baja y modificación de personal médico. *Nota: Al crear un médico, el sistema genera automáticamente su usuario de acceso.*
+- **Gestión de Consultorios**: Administración de espacios físicos y asignación de recursos.
+- **Gestión de Especialidades**: Configuración del catálogo de servicios médicos.
+- **Reportes**: Visualización de métricas clave (citas por día, ocupación, etc.).
 
-### 2. Portal del Médico (`ROLE_MEDICO`)
-Herramientas para la gestión clínica diaria.
-* **Agenda Médica:** Visualización de citas asignadas.
-* **Atención de Pacientes:** Registro de diagnósticos, recetas y evolución en el historial clínico durante la consulta.
-* **Gestión de Pacientes:** Acceso a la lista de pacientes asignados.
+## 🧠 Lógica de Negocio Destacada
 
-### 3. Panel Administrativo (`ROLE_ADMIN`)
-Control total sobre la configuración del sistema.
-* **Gestión de Recursos:** ABM (Alta, Baja, Modificación) de Consultorios y Especialidades.
-* **Gestión de Usuarios:** Administración de cuentas de Médicos y Pacientes.
-* **Supervisión:** Vista global de todas las citas y operaciones del centro.
+1.  **Integración Usuario-Rol**:
+    - Cada actor del sistema (Médico, Paciente) está vinculado a una entidad `Usuario` que maneja las credenciales.
+    - El DNI se utiliza como identificador único y nombre de usuario por defecto.
 
----
+2.  **Validaciones de Negocio**:
+    - **DNI**: Validación estricta de 8 dígitos numéricos en formularios de registro.
+    - **Disponibilidad**: El sistema impide agendar citas en horarios ocupados o con médicos no disponibles.
+    - **Integridad**: No se pueden eliminar registros que tengan dependencias activas (ej. médicos con citas futuras).
 
-## 🛠 Tecnologías
+3.  **Automatización**:
+    - Generación automática de credenciales para médicos nuevos (Usuario: DNI, Password: Generada).
+    - Asignación automática de roles según el tipo de registro.
 
-* **Backend Framework:** Spring Boot 3.5.6 (Web, Data JPA, Security).
-* **Lenguaje:** Java 17.
-* **Motor de Plantillas:** Thymeleaf con integración de Spring Security 6.
-* **Base de Datos:** MySQL.
-* **Frontend:** Bootstrap 5 (Estilos y Componentes), Bootstrap Icons.
-* **Herramientas de Construcción:** Maven (Wrapper incluido).
-* **Utilidades:** Lombok (para reducción de código repetitivo).
+## 💻 Stack Tecnológico
 
----
+El proyecto está construido utilizando tecnologías robustas y modernas del ecosistema Java:
 
-## 📂 Arquitectura del Proyecto
+*   **Backend**:
+    *   **Java 17+**: Lenguaje de programación principal.
+    *   **Spring Boot 3.x**: Framework para el desarrollo de aplicaciones web.
+    *   **Spring Data JPA**: Capa de persistencia y ORM (Hibernate).
+    *   **Spring Security**: Gestión de autenticación y autorización.
+    *   **MySQL**: Base de datos relacional.
 
-La estructura sigue el patrón MVC (Modelo-Vista-Controlador) estándar de Spring Boot:
+*   **Frontend**:
+    *   **Thymeleaf**: Motor de plantillas para renderizado del lado del servidor.
+    *   **Bootstrap 5**: Framework CSS para diseño responsivo y componentes UI.
+    *   **JavaScript (Vanilla)**: Lógica del lado del cliente y validaciones (ej. `registro.js`).
+    *   **HTML5 & CSS3**: Estructura y estilos personalizados (`lifecenter-theme.css`).
 
-```text
-src/main/java/com/example/demo
-├── config       # Configuración de Seguridad (SecurityConfig) e Inicialización de Datos
-├── controller   # Controladores Web (Admin, Medico, Paciente, Auth)
-├── model        # Entidades JPA (Usuario, Cita, HistorialClinico, Consultorio, etc.)
-├── repository   # Interfaces JpaRepository para acceso a datos
-├── service      # Lógica de negocio y servicios
-└── LifeCenterApplication.java
+## 📂 Estructura del Proyecto
+
+```
+src/main/
+├── java/com/example/demo/
+│   ├── config/          # Configuraciones (Security, MVC, DataInit)
+│   ├── controller/      # Controladores MVC (Vistas y API)
+│   ├── entity/          # Entidades JPA (Modelo de datos)
+│   ├── repository/      # Interfaces de acceso a datos (DAO)
+│   ├── service/         # Lógica de negocio
+│   └── LifeCenterApplication.java
+└── resources/
+    ├── static/          # Recursos estáticos (CSS, JS, Imágenes)
+    │   ├── css/
+    │   ├── img/
+    │   └── js/
+    └── templates/       # Vistas Thymeleaf (.html)
+        ├── admin/       # Vistas protegidas de administrador
+        ├── fragments/   # Componentes reutilizables (Navbar, Footer)
+        ├── portal/      # Vistas de dashboards (Médico, Paciente)
+        └── ...          # Vistas públicas
 ```
 
------
+## 🚀 Instalación y Ejecución
 
-## 🚀 Instalación y Despliegue
-
-### Requisitos Previos
-
-  * JDK 17 o superior.
-  * MySQL Server en ejecución.
-
-### Pasos
-
-1.  **Clonar el repositorio**
-
+1.  **Clonar el repositorio**:
     ```bash
-    git clone https://github.com/tu-usuario/life-center.git
-    cd life-center
+    git clone https://github.com/JeremiAlex04/Life-Center.git
+    cd Life-Center
     ```
 
-2.  **Configurar la Base de Datos**
-    Crea una base de datos vacía en tu servidor MySQL:
+2.  **Configurar Base de Datos**:
+    - Asegúrese de tener MySQL ejecutándose.
+    - Configure las credenciales en `src/main/resources/application.properties`.
 
-    ```sql
-    CREATE DATABASE hospital_db;
-    ```
-
-3.  **Configurar Credenciales**
-    Abre el archivo `src/main/resources/application.properties` y ajusta tu usuario y contraseña:
-
-    ```properties
-    spring.datasource.url=jdbc:mysql://localhost:3306/hospital_db?useSSL=false&serverTimezone=UTC
-    spring.datasource.username=TU_USUARIO
-    spring.datasource.password=TU_CONTRASEÑA
-
-    # Hibernate creará/actualizará las tablas automáticamente
-    spring.jpa.hibernate.ddl-auto=update
-    ```
-
-4.  **Ejecutar la Aplicación**
-    Usa el wrapper de Maven incluido:
-
-    *En Windows:*
-    ```bash
-    mvnw.cmd spring-boot:run
-    ```
-
-    *En Linux/Mac:*
+3.  **Ejecutar la aplicación**:
     ```bash
     ./mvnw spring-boot:run
     ```
+    O ejecute la clase `LifeCenterApplication.java` desde su IDE favorito.
 
-5.  **Acceso**
-    Navega a: `http://localhost:8080`
+4.  **Acceso**:
+    - Abra su navegador en `http://localhost:8080`.
 
------
+## 🔑 Credenciales de Acceso (Datos de Prueba)
 
-## 🔒 Seguridad
+El sistema se inicializa con datos de prueba (`DataInitializer.java`) para facilitar las pruebas.
 
-La seguridad es gestionada por **Spring Security**. El acceso a las rutas está protegido según el rol del usuario autenticado:
+### 🛡️ Administrador
+- **Usuario**: `admin`
+- **Contraseña**: `admin123`
 
-| Ruta | Acceso Requerido | Descripción |
-| :--- | :--- | :--- |
-| `/`, `/login`, `/registro` | Público | Páginas de acceso y aterrizaje. |
-| `/admin/**` | `ROLE_ADMIN` | Gestión administrativa. |
-| `/medico/**` | `ROLE_MEDICO` | Portal de atención médica. |
-| `/paciente/**` | `ROLE_PACIENTE` | Portal del paciente. |
+### 👨‍⚕️ Médicos (Ejemplos)
+El formato de contraseña por defecto para médicos es: `[InicialNombre][InicialApellido]2010` (todo en minúsculas).
 
-  * Las contraseñas se almacenan con hash **BCrypt**.
-  * El sistema incluye un `DataInitializer` (si está habilitado) para crear usuarios por defecto al inicio.
+| Nombre | Especialidad | Usuario (DNI) | Contraseña |
+| :--- | :--- | :--- | :--- |
+| Andrés Salazar | Cardiología | `48219357` | `as2010` |
+| Valeria Cornejo | Pediatría | `70358149` | `vc2010` |
+| Ricardo Vargas | Dermatología | `12974853` | `rv2010` |
+| Gabriela Rivas | Medicina Interna | `86432091` | `gr2010` |
 
------
+### 👤 Pacientes (Ejemplos)
+El formato de contraseña por defecto para pacientes es: `[InicialNombre][InicialApellido][AñoNacimiento]`.
 
-## 🤝 Contribución
+| Nombre | Año Nac. | Usuario (DNI) | Contraseña |
+| :--- | :--- | :--- | :--- |
+| Carlos Perez | 1990 | `71234567` | `cp1990` |
+| Ana Gomez | 1985 | `72345678` | `ag1985` |
+| Luis Rodriguez | 1992 | `73456789` | `lr1992` |
 
-Si deseas contribuir a este proyecto, por favor crea un *fork* del repositorio y envía un *pull request*.
+> **Nota**: Los nuevos usuarios registrados a través del formulario público crean su propia contraseña.
 
-## 📄 Licencia
+## 📖 Explicación del Código y Arquitectura
 
-Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
+El proyecto sigue una arquitectura en capas clásica de Spring Boot (MVC + Service + Repository).
 
+### 1. Capa de Configuración (`com.example.demo.config`)
+- **`SecurityConfiguration.java`**: Define las reglas de seguridad. Configura qué rutas son públicas (`/`, `/login`, `/registro`, `/medicos`) y cuáles requieren autenticación. Asigna permisos por rol (ej. solo ADMIN puede ver `/admin/**`).
+- **`DataInitializer.java`**: Clase que se ejecuta al iniciar la aplicación. Se encarga de poblar la base de datos con usuarios, médicos, especialidades y consultorios iniciales si la base de datos está vacía.
+
+### 2. Capa de Modelo / Entidades (`com.example.demo.model`)
+Representan las tablas de la base de datos.
+- **`Usuario`**: Entidad central para la autenticación. Contiene `username`, `password` y `rol`.
+- **`Medico`**: Almacena datos profesionales (CMP, especialidad). Tiene una relación `OneToOne` con `Usuario`.
+- **`Paciente`**: Almacena datos personales e historial. Tiene una relación `OneToOne` con `Usuario`.
+- **`Cita`**: Representa el agendamiento. Relaciona `Medico`, `Paciente` y `Consultorio`.
+- **`Consultorio`**: Espacios físicos donde se realizan las atenciones.
+
+### 3. Capa de Repositorio (`com.example.demo.repository`)
+Interfaces que extienden `JpaRepository`. Permiten realizar operaciones CRUD y consultas personalizadas a la base de datos sin escribir SQL manual (ej. `findByDni`, `findByEspecialidad`).
+
+### 4. Capa de Servicio (`com.example.demo.service`)
+Contiene la lógica de negocio pura.
+- **`UsuarioService`**: Maneja la creación de usuarios y encriptación de contraseñas.
+- **`CitaService`**: Lógica compleja para agendar citas, validar disponibilidad de horarios y médicos, y evitar conflictos.
+- **`MedicoService`**: Gestión de la información de los médicos.
+
+### 5. Capa de Controladores (`com.example.demo.controller`)
+Maneja las peticiones HTTP y decide qué vista mostrar.
+- **`AuthController`**: Gestiona el Login y Registro de pacientes.
+- **`AdminController`**: Controla el dashboard del administrador y los mantenimientos (CRUDs).
+- **`PortalPacienteController`**: Maneja las vistas del paciente (Mis Citas, Historia Clínica).
+- **`PortalMedicoController`**: Maneja las vistas del médico (Agenda, Atención de Citas).
+- **`HomeController`**: Sirve las páginas públicas (`index`, `medicos`, `contacto`).
+
+### 6. Frontend (Thymeleaf + JS)
+- **Fragmentos (`templates/fragments/`)**: Piezas de código reutilizables como el `navbar.html` y `footer.html`. El navbar contiene lógica condicional para mostrar diferentes menús según si el usuario es Admin, Médico o Paciente.
+- **JavaScript (`static/js/`)**:
+    - `registro.js`: Contiene validaciones del lado del cliente, como asegurar que el DNI tenga máximo 8 dígitos.
+    - `login.js`: Efectos visuales para la página de login.
+
+---
+&copy; 2025 LifeCenter. Desarrollado por Jeremi Alexander.
