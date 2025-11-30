@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LifeCenter</title>
-    
+
     <!-- Bootstrap y Custom CSS -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
@@ -36,11 +36,13 @@
                             <h3 class="card-title text-center fs-4">Bienvenido de Nuevo</h3>
 
                             <!-- Alertas -->
-                            <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center" role="alert">
+                            <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center"
+                                role="alert">
                                 <i class="bi bi-exclamation-triangle-fill me-2"></i>
                                 <div>Usuario o contraseña inválidos.</div>
                             </div>
-                            <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center" role="alert">
+                            <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center"
+                                role="alert">
                                 <i class="bi bi-check-circle-fill me-2"></i>
                                 <div>Has cerrado sesión exitosamente.</div>
                             </div>
@@ -55,20 +57,23 @@
                                     <label for="username" class="form-label">Usuario</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese su usuario" required autofocus>
+                                        <input type="text" class="form-control" id="username" name="username"
+                                            placeholder="Ingrese su usuario" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Contraseña</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Ingrese su contraseña" required>
                                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                             <i class="bi bi-eye-fill"></i>
                                         </button>
                                     </div>
                                     <div class="text-end mt-2">
-                                        <a th:href="@{/forgot-password}" class="auth-link small">¿Olvidaste tu contraseña?</a>
+                                        <a th:href="@{/forgot-password}" class="auth-link small">¿Olvidaste tu
+                                            contraseña?</a>
                                     </div>
                                 </div>
                                 <div class="d-grid">
@@ -77,6 +82,11 @@
                                 <div class="text-center mt-4">
                                     <p class="mb-0">¿Eres un paciente nuevo?</p>
                                     <a th:href="@{/registro}" class="auth-link">Crea tu cuenta aquí</a>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a th:href="@{/}" class="text-decoration-none text-muted small">
+                                        <i class="bi bi-arrow-left me-1"></i>Volver al Inicio
+                                    </a>
                                 </div>
                             </form>
                         </div>
