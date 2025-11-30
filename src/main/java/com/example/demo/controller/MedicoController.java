@@ -7,6 +7,7 @@ import com.example.demo.model.Medico;
 import com.example.demo.model.Rol;
 import com.example.demo.model.Usuario;
 import com.example.demo.service.MedicoService;
+import com.example.demo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ public class MedicoController {
 
     @Autowired
     private com.example.demo.repository.EspecialidadRepository especialidadRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
     public String listarMedicos(Model model) {
@@ -72,11 +76,29 @@ public class MedicoController {
                 medico.setFotoUrl(null);
             }
 
+            // Verificar si el usuario ya existe
+            if (usuarioRepository.findByUsername(medico.getDni()).isPresent()) {
+                redirectAttributes.addFlashAttribute("error", "El DNI ya está registrado como usuario.");
+                return "redirect:/admin/medicos/nuevo";
+            }
+
             Usuario usuario = new Usuario();
             usuario.setUsername(medico.getDni());
-            usuario.setPassword(passwordEncoder.encode(medico.getDni()));
+
+            // Generar contraseña: Inicial Nombre + Inicial Apellido + Año Egreso
+            String rawPassword = medico.getDni(); // Default fallback
+            if (medico.getNombres() != null && !medico.getNombres().isEmpty() &&
+                    medico.getApellidos() != null && !medico.getApellidos().isEmpty() &&
+                    medico.getAnioEgreso() != null) {
+                rawPassword = (medico.getNombres().substring(0, 1) + medico.getApellidos().substring(0, 1))
+                        .toLowerCase()
+                        + medico.getAnioEgreso();
+            }
+
+            usuario.setPassword(passwordEncoder.encode(rawPassword));
             usuario.setRol(Rol.ROLE_MEDICO);
             medico.setUsuario(usuario);
+
         } else {
             Medico medicoExistente = medicoService.findById(medico.getIdMedico())
                     .orElseThrow(() -> new IllegalArgumentException("Id de Médico inválido:" + medico.getIdMedico()));
