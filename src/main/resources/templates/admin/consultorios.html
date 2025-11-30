@@ -95,18 +95,9 @@
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo</label>
                                 <select class="form-select" id="tipo" name="tipo" required>
-                                    <option value="GENERAL">General</option>
-                                    <option value="Cardiología">Cardiología</option>
-                                    <option value="Pediatría">Pediatría</option>
-                                    <option value="Dermatología">Dermatología</option>
-                                    <option value="Neurología">Neurología</option>
-                                    <option value="Ginecología">Ginecología</option>
-                                    <option value="Traumatología">Traumatología</option>
-                                    <option value="Oftalmología">Oftalmología</option>
-                                    <option value="Psiquiatría">Psiquiatría</option>
-                                    <option value="Urología">Urología</option>
-                                    <option value="Endocrinología">Endocrinología</option>
-                                    <option value="Odontología">Odontología</option>
+                                    <option value="GENERAL">GENERAL</option>
+                                    <option th:each="esp : ${especialidades}" th:value="${esp.nombre}"
+                                        th:text="${esp.nombre}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">

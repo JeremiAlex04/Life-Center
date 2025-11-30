@@ -26,9 +26,13 @@ public class ConsultorioAdminController {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private com.example.demo.repository.EspecialidadRepository especialidadRepository;
+
     // Método para servir la página HTML de gestión de consultorios
     @GetMapping
     public String gestionarConsultorios(Model model) {
+        model.addAttribute("especialidades", especialidadRepository.findAll());
         return "admin/consultorios"; // Esta será nuestra única página: admin/consultorios.html
     }
 
