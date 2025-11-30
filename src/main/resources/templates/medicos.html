@@ -45,48 +45,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-                <i class="bi bi-heart-pulse me-2 fs-4"></i>
-                <span class="fs-4 fw-bold">LifeCenter</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" th:href="@{/}" id="navbarDropdownInicio" role="button">
-                            Inicio
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
-                            <li><a class="dropdown-item" th:href="@{/#servicios}">Servicios</a></li>
-                            <li><a class="dropdown-item" th:href="@{/#testimonios}">Testimonios</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/medicos}">Médicos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/especialidades}">Especialidades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/contacto}">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
+    <!-- Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <!-- Sección de Plantel Médico -->
     <div class="main-content">

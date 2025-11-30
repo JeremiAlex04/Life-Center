@@ -1,0 +1,84 @@
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top"
+    xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+            <i class="bi bi-heart-pulse me-2 fs-4"></i>
+            <span class="fs-4 fw-bold">LifeCenter</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" th:href="@{/}" id="navbarDropdownInicio" role="button">
+                        Inicio
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
+                        <li><a class="dropdown-item" th:href="@{/#servicios}">Servicios</a></li>
+                        <li><a class="dropdown-item" th:href="@{/#testimonios}">Testimonios</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/medicos}">Médicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/especialidades}">Especialidades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contacto}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
+                </li>
+
+                <!-- Botón Iniciar Sesión (Visible si NO está autenticado) -->
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
+                </li>
+
+                <!-- Dropdown Usuario (Visible si ESTÁ autenticado) -->
+                <li class="nav-item dropdown ms-lg-3" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center bg-primary rounded-pill px-3 py-1 text-white"
+                        href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-5 me-2"></i>
+                        <span sec:authentication="name" class="fw-bold small">Usuario</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+                        <!-- Dashboard Links según Rol -->
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/admin/dashboard}">
+                                <i class="bi bi-speedometer2 me-2 text-primary"></i>Dashboard
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('MEDICO')">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/medico/dashboard}">
+                                <i class="bi bi-activity me-2 text-primary"></i>Mi Panel
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('PACIENTE')">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/paciente/dashboard}">
+                                <i class="bi bi-person-badge me-2 text-primary"></i>Mi Portal
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <!-- Cerrar Sesión -->
+                        <li>
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <button type="submit" class="dropdown-item d-flex align-items-center text-danger">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

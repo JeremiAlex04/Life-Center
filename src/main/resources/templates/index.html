@@ -28,6 +28,7 @@
         .dropdown-menu {
             margin-top: 0;
         }
+
         footer a:hover {
             color: #fff !important;
             transition: color 0.3s ease;
@@ -44,70 +45,39 @@
 </head>
 
 <body>
+    <!-- Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-                <i class="bi bi-heart-pulse me-2 fs-4"></i>
-                <span class="fs-4 fw-bold">LifeCenter</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <!-- Hero Section -->
+    <div class="hero-section text-white d-flex align-items-center position-relative"
+        style="background-image: url('/img/Fondo_inicio.jpg'); background-size: cover; background-position: center; min-height: 100vh;">
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link active" th:href="@{/}" id="navbarDropdownInicio" role="button">
-                            Inicio
+        <!-- Capa oscura -->
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.55);"></div>
+
+        <!-- Contenido -->
+        <div class="container text-center position-relative">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-1 fw-bold mb-4">Tu Salud, Nuestra Pasión</h1>
+                    <p class="fs-3 mb-2">Bienvenido a <span class="fw-bold">LifeCenter</span></p>
+                    <p class="lead fs-5 mb-5">Donde la excelencia médica se une con la calidez humana. Agenda tu cita
+                        hoy y
+                        descubre una nueva experiencia en atención de salud.</p>
+
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a th:href="@{/registro}" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+                            <i class="bi bi-calendar-check me-2"></i>Agendar Cita Ahora
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
-                            <li><a class="dropdown-item" th:href="@{/#servicios}">Servicios</a></li>
-                            <li><a class="dropdown-item" th:href="@{/#testimonios}">Testimonios</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/medicos}">Médicos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/especialidades}">Especialidades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/contacto}">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-lg-3 px-4" th:href="@{/login}">Iniciar Sesión</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
-
-    <!-- Hero Section corregido -->
-    <div class="container-fluid min-vh-100 pt-5 p-0 d-flex align-items-center"
-        th:style="'background: linear-gradient(rgba(13, 110, 253, 0.85), rgba(108, 117, 125, 0.85)), url(' + @{/img/fondo_inicio.jpg} + '); background-size: cover; background-position: center;'">
-        <div class="container text-white text-center">
-            <h1 class="display-1 fw-bold mb-4">Tu Salud, Nuestra Pasión</h1>
-            <p class="fs-3 mb-2">Bienvenido a <span class="fw-bold">LifeCenter</span></p>
-            <p class="lead fs-5 mb-5">
-                Donde la excelencia médica se une con la calidez humana. Agenda tu cita hoy y descubre una nueva
-                experiencia en atención de salud.
-            </p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a th:href="@{/registro}" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
-                    <i class="bi bi-calendar-check me-2"></i>Agendar Cita Ahora
-                </a>
-                <a href="#medicos" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
-                    <i class="bi bi-people me-2"></i>Conocer Médicos
-                </a>
+                        <a href="#medicos" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
+                            <i class="bi bi-people me-2"></i>Conocer Médicos
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- Estadísticas -->
     <div class="bg-primary text-white py-5" id="stats-section">
@@ -145,263 +115,248 @@
         </div>
     </div>
 
-    <div class="section-divider">
+    <div class="section-divider"></div>
 
-        <!-- Sección Cómo Funciona -->
-        <div class="how-it-works-section py-5 text-black">
-            <div class="container my-5" style="position: relative; z-index: 1;">
-                <div class="text-center mb-5">
-                    <h2 class="display-4 fw-bold mb-3">¿Cómo Funciona?</h2>
-                    <p class="lead">Tu camino hacia una mejor salud en 4 simples pasos</p>
-                </div>
-
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="step-card text-center h-100">
-                            <div class="step-number">1</div>
-                            <i class="bi bi-person-plus-fill step-icon"></i>
-                            <h4 class="fw-bold mb-3">Regístrate</h4>
-                            <p class="text-muted">Crea tu cuenta en minutos con tus datos básicos y comienza tu
-                                experiencia
-                                LifeCenter</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="step-card text-center h-100">
-                            <div class="step-number">2</div>
-                            <i class="bi bi-calendar-check-fill step-icon"></i>
-                            <h4 class="fw-bold mb-3">Agenda tu Cita</h4>
-                            <p class="text-muted">Elige al especialista, fecha y hora que mejor se adapte a tu agenda
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="step-card text-center h-100">
-                            <div class="step-number">3</div>
-                            <i class="bi bi-hospital-fill step-icon"></i>
-                            <h4 class="fw-bold mb-3">Recibe Atención</h4>
-                            <p class="text-muted">Asiste a tu cita y recibe atención médica de calidad con nuestros
-                                especialistas</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="step-card text-center h-100">
-                            <div class="step-number">4</div>
-                            <i class="bi bi-clipboard2-pulse-fill step-icon"></i>
-                            <h4 class="fw-bold mb-3">Seguimiento</h4>
-                            <p class="text-muted">Accede a tu historial médico y recibe seguimiento personalizado de tu
-                                salud</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Sección Cómo Funciona -->
+    <div class="how-it-works-section py-5 text-black">
+        <div class="container my-5" style="position: relative; z-index: 1;">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">¿Cómo Funciona?</h2>
+                <p class="lead">Tu camino hacia una mejor salud en 4 simples pasos</p>
             </div>
-        </div>
-
-        <!-- Divisor -->
-        <div class="section-divider"></div>
-
-        <div id="medicos" class="medicos-section py-5"
-            style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/img/Fondo_SecMedico.jpg'); background-size: cover; background-position: center;">
-
-            <div class=" container my-5">
-                <div class="text-center">
-                    <h2 class="display-4 fw-bold mb-4 section-title text-white">
-                        Conoce a Nuestros Especialistas</h2>
-                    <p class="lead text-white fw-semibold mt-4 mb-5">
-                        Contamos con un equipo de profesionales altamente capacitados en diversas especialidades
-                        médicas,
-                        dedicados a brindarte la mejor atención para tu salud y bienestar.
-                    </p>
-
-                    <div class="mt-5">
-                        <a th:href="@{/medicos}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
-                            <i class="bi bi-people-fill me-2"></i>Ver Todos Nuestros Médicos
-                        </a>
-                        <p class="text-white mt-3">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Explora nuestro equipo completo con búsqueda y filtros por especialidad
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">1</div>
+                        <i class="bi bi-person-plus-fill step-icon"></i>
+                        <h4 class="fw-bold mb-3">Regístrate</h4>
+                        <p class="text-muted">Crea tu cuenta en minutos con tus datos básicos y comienza tu experiencia
+                            LifeCenter</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">2</div>
+                        <i class="bi bi-calendar-check-fill step-icon"></i>
+                        <h4 class="fw-bold mb-3">Agenda tu Cita</h4>
+                        <p class="text-muted">Elige al especialista, fecha y hora que mejor se adapte a tu agenda</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">3</div>
+                        <i class="bi bi-hospital-fill step-icon"></i>
+                        <h4 class="fw-bold mb-3">Recibe Atención</h4>
+                        <p class="text-muted">Asiste a tu cita y recibe atención médica de calidad con nuestros
+                            especialistas</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">4</div>
+                        <i class="bi bi-clipboard2-pulse-fill step-icon"></i>
+                        <h4 class="fw-bold mb-3">Seguimiento</h4>
+                        <p class="text-muted">Accede a tu historial médico y recibe seguimiento personalizado de tu
+                            salud
                         </p>
                     </div>
-
-                    <div class="row g-4 mb-5 mt-4">
-                        <div class="col-md-4">
-                            <div class="p-4">
-                                <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
-                                <h4 class="mt-3 fw-bold text-white">Equipo Completo</h4>
-                                <p class="text-white">Más de 50 especialistas a tu disposición</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-4">
-                                <i class="bi bi-search text-primary" style="font-size: 3rem;"></i>
-                                <h4 class="mt-3 fw-bold text-white">Búsqueda Fácil</h4>
-                                <p class="text-white">Encuentra al médico ideal por nombre o especialidad</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-4">
-                                <i class="bi bi-award-fill text-primary" style="font-size: 3rem;"></i>
-                                <h4 class="mt-3 fw-bold text-white">Alta Experiencia</h4>
-                                <p class="text-white">Profesionales certificados con años de trayectoria</p>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Servicios -->
-        <div id="servicios" class="services-section py-5 bg-primary">
-            <div class="container py-5">
-                <div class="text-center mb-5">
-                    <h2 class="display-4 fw-bold mb-3 text-white">¿Por Qué Elegirnos?</h2>
-                    <p class="lead text-white">Servicios diseñados para cuidar de ti y tu familia</p>
+    <!-- Divisor -->
+    <div class="section-divider"></div>
+
+    <div id="medicos" class="medicos-section py-5"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/img/Fondo_SecMedico.jpg'); background-size: cover; background-position: center;">
+        <div class="container my-5">
+            <div class="text-center">
+                <h2 class="display-4 fw-bold mb-4 section-title text-white">Conoce a Nuestros Especialistas</h2>
+                <p class="lead text-white fw-semibold mt-4 mb-5">Contamos con un equipo de profesionales altamente
+                    capacitados en diversas especialidades médicas, dedicados a brindarte la mejor atención para tu
+                    salud y
+                    bienestar.</p>
+                <div class="mt-5">
+                    <a th:href="@{/medicos}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
+                        <i class="bi bi-people-fill me-2"></i>Ver Todos Nuestros Médicos
+                    </a>
+                    <p class="text-white mt-3"><i class="bi bi-info-circle me-2"></i>Explora nuestro equipo completo con
+                        búsqueda y filtros por especialidad</p>
                 </div>
-                <div class="row g-4">
+
+                <div class="row g-4 mb-5 mt-4">
                     <div class="col-md-4">
-                        <div class="service-card text-center">
-                            <div class="service-icon-wrapper">
-                                <i class="bi bi-truck display-4 text-white"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Ambulancia 24/7</h4>
-                            <p class="text-muted">Respuesta inmediata en emergencias. Nuestro equipo está listo para
-                                atenderte en cualquier momento del día o la noche.</p>
+                        <div class="p-4">
+                            <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3 fw-bold text-white">Equipo Completo</h4>
+                            <p class="text-white">Más de 50 especialistas a tu disposición</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="service-card text-center">
-                            <div class="service-icon-wrapper">
-                                <i class="bi bi-heart-pulse display-4 text-white"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Chequeos Preventivos</h4>
-                            <p class="text-muted">Programas personalizados de prevención. Detecta a tiempo cualquier
-                                condición y mantén tu salud en óptimas condiciones.</p>
+                        <div class="p-4">
+                            <i class="bi bi-search text-primary" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3 fw-bold text-white">Búsqueda Fácil</h4>
+                            <p class="text-white">Encuentra al médico ideal por nombre o especialidad</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="service-card text-center">
-                            <div class="service-icon-wrapper">
-                                <i class="bi bi-capsule display-4 text-white"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Farmacia Interna</h4>
-                            <p class="text-muted">Todo en un solo lugar. Accede a tus medicamentos de forma rápida y
-                                segura
-                                después de tu consulta.</p>
+                        <div class="p-4">
+                            <i class="bi bi-award-fill text-primary" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3 fw-bold text-white">Alta Experiencia</h4>
+                            <p class="text-white">Profesionales certificados con años de trayectoria</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Testimonios -->
-        <div id="testimonios" class="testimonials-section py-5">
-            <div class="container my-5">
-                <div class="text-center mb-5">
-                    <h2 class="display-4 fw-bold mb-3">Historias que Nos Inspiran</h2>
-                    <p class="lead text-muted">Lo que nuestros pacientes dicen sobre nosotros</p>
+    <!-- Servicios -->
+    <div id="servicios" class="services-section py-5 bg-primary">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3 text-white">¿Por Qué Elegirnos?</h2>
+                <p class="lead text-white">Servicios diseñados para cuidar de ti y tu familia</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon-wrapper">
+                            <i class="bi bi-truck display-4 text-white"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Ambulancia 24/7</h4>
+                        <p class="text-muted">Respuesta inmediata en emergencias. Nuestro equipo está listo para
+                            atenderte
+                            en cualquier momento del día o la noche.</p>
+                    </div>
                 </div>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm border-start border-primary border-4 testimonial-card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                </div>
-                                <p class="card-text fst-italic">"La atención que recibí fue excepcional. Los médicos son
-                                    muy
-                                    profesionales y el personal te hace sentir como en familia. Sin duda, el mejor
-                                    centro
-                                    médico
-                                    de la ciudad."</p>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon-wrapper">
+                            <i class="bi bi-heart-pulse display-4 text-white"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Chequeos Preventivos</h4>
+                        <p class="text-muted">Programas personalizados de prevención. Detecta a tiempo cualquier
+                            condición y
+                            mantén tu salud en óptimas condiciones.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon-wrapper">
+                            <i class="bi bi-capsule display-4 text-white"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Farmacia Interna</h4>
+                        <p class="text-muted">Todo en un solo lugar. Accede a tus medicamentos de forma rápida y segura
+                            después de tu consulta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonios -->
+    <div id="testimonios" class="testimonials-section py-5">
+        <div class="container my-5">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">Historias que Nos Inspiran</h2>
+                <p class="lead text-muted">Lo que nuestros pacientes dicen sobre nosotros</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-start border-primary border-4 testimonial-card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
                             </div>
-                            <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
-                                <img th:src="@{/img/recomendaciones/pacientes/CarlosMendoza.png}" alt="Paciente"
-                                    class="rounded-circle me-3 border border-2 border-primary"
-                                    style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Carlos Mendoza</h6>
-                                    <small class="text-muted">Paciente de Cardiología</small>
-                                </div>
+                            <p class="card-text fst-italic">"La atención que recibí fue excepcional. Los médicos son muy
+                                profesionales y el personal te hace sentir como en familia. Sin duda, el mejor centro
+                                médico
+                                de la ciudad."</p>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
+                            <img th:src="@{/img/recomendaciones/pacientes/CarlosMendoza.png}" alt="Paciente"
+                                class="rounded-circle me-3 border border-2 border-primary"
+                                style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-0 fw-bold">Carlos Mendoza</h6>
+                                <small class="text-muted">Paciente de Cardiología</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm border-start border-primary border-4 testimonial-card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                </div>
-                                <p class="card-text fst-italic">"Agendar mi cita fue súper fácil y rápido. La pediatra
-                                    de mi
-                                    hijo es maravillosa y siempre nos atiende con mucho cariño. ¡Totalmente
-                                    recomendado!"
-                                </p>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-start border-primary border-4 testimonial-card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
                             </div>
-                            <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
-                                <img th:src="@{/img/recomendaciones/pacientes/AnaLucia.png}" alt="Paciente"
-                                    class="rounded-circle me-3 border border-2 border-primary"
-                                    style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Ana Lucía Torres</h6>
-                                    <small class="text-muted">Paciente de Pediatría</small>
-                                </div>
+                            <p class="card-text fst-italic">"Agendar mi cita fue súper fácil y rápido. La pediatra de mi
+                                hijo es maravillosa y siempre nos atiende con mucho cariño. ¡Totalmente recomendado!"
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
+                            <img th:src="@{/img/recomendaciones/pacientes/AnaLucia.png}" alt="Paciente"
+                                class="rounded-circle me-3 border border-2 border-primary"
+                                style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-0 fw-bold">Ana Lucía Torres</h6>
+                                <small class="text-muted">Paciente de Pediatría</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm border-start border-primary border-4">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                </div>
-                                <p class="card-text fst-italic">"Las instalaciones son impecables y el equipamiento es
-                                    de
-                                    última
-                                    generación. Me recuperé mucho más rápido gracias al excelente tratamiento que
-                                    recibí."
-                                </p>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-start border-primary border-4">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
                             </div>
-                            <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
-                                <img th:src="@{/img/recomendaciones/pacientes/JorgeVillanueva.png}" alt="Paciente"
-                                    class="rounded-circle me-3 border border-2 border-primary"
-                                    style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Jorge Villanueva</h6>
-                                    <small class="text-muted">Paciente de Traumatología</small>
-                                </div>
+                            <p class="card-text fst-italic">"Las instalaciones son impecables y el equipamiento es de
+                                última
+                                generación. Me recuperé mucho más rápido gracias al excelente tratamiento que recibí."
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex align-items-center pb-4">
+                            <img th:src="@{/img/recomendaciones/pacientes/JorgeVillanueva.png}" alt="Paciente"
+                                class="rounded-circle me-3 border border-2 border-primary"
+                                style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-0 fw-bold">Jorge Villanueva</h6>
+                                <small class="text-muted">Paciente de Traumatología</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- CTA Final -->
-        <div class="bg-primary text-white py-5">
-            <div class="container text-center py-4">
-                <h2 class="display-5 fw-bold mb-4">¿Listo para Cuidar tu Salud?</h2>
-                <p class="lead mb-4">Únete a miles de pacientes satisfechos que confían en nosotros</p>
-                <a th:href="@{/registro}" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
-                    <i class="bi bi-person-plus me-2"></i>Registrarse Ahora
-                </a>
-            </div>
+    <!-- CTA Final -->
+    <div class="bg-primary text-white py-5">
+        <div class="container text-center py-4">
+            <h2 class="display-5 fw-bold mb-4">¿Listo para Cuidar tu Salud?</h2>
+            <p class="lead mb-4">Únete a miles de pacientes satisfechos que confían en nosotros</p>
+            <a th:href="@{/registro}" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+                <i class="bi bi-person-plus me-2"></i>Registrarse Ahora
+            </a>
         </div>
+    </div>
 
-        <footer class="bg-dark text-white pt-5 pb-3">
+    <footer class="bg-dark text-white pt-5 pb-3">
         <div class="container">
             <div class="row text-center text-md-start">
                 <!-- Sobre LifeCenter -->
@@ -546,11 +501,9 @@
         </div>
     </footer>
 
-
-        <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-        <script th:src="@{/js/animations.js}"></script>
-        <script th:src="@{/js/interactions.js}"></script>
-
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
+    <script th:src="@{/js/interactions.js}"></script>
 </body>
 
 </html>

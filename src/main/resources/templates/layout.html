@@ -80,6 +80,16 @@
                 </div>
             </ul>
             <hr>
+
+            <!-- Botón Volver al Inicio -->
+            <div class="mb-3">
+                <a th:href="@{/}" class="btn d-flex align-items-center text-white p-0 text-decoration-none">
+                    <button type="submit" class="btn d-flex align-items-center text-white p-0">
+                        <i class="bi bi-house-door me-2"></i><strong>Volver al Inicio</strong>
+                    </button>
+                </a>
+            </div>
+
             <div>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="btn btn-dark d-flex align-items-center text-white p-0">
