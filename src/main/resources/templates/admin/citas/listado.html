@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 
-
 <body>
     <section class="admin-citas">
         <div class="header">
-            <h1>Gestión de Citas</h1>
+            <h1>Gestion de Citas</h1>
         </div>
 
         <div class="filters-card">
             <div class="input-group">
                 <input type="text" id="searchInput" class="form-control"
-                    placeholder="Buscar citas por paciente, médico o estado...">
+                    placeholder="Buscar citas por paciente, medico o estado...">
                 <button class="btn btn-outline-secondary" type="button" id="searchButton">
                     <i class="bi bi-search"></i> Buscar
                 </button>
@@ -25,7 +24,7 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Paciente</th>
-                            <th scope="col">Médico</th>
+                            <th scope="col">Medico</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Hora</th>
                             <th scope="col">Estado</th>
@@ -39,29 +38,28 @@
                                 th:text="${cita.paciente != null ? cita.paciente.nombres + ' ' + cita.paciente.apellidos : 'Sin Paciente'}">
                             </td>
                             <td
-                                th:text="${cita.medico != null ? cita.medico.nombres + ' ' + cita.medico.apellidos : 'Sin Médico'}">
+                                th:text="${cita.medico != null ? cita.medico.nombres + ' ' + cita.medico.apellidos : 'Sin Medico'}">
                             </td>
-                            <td
-                                th:text="${cita.fecha != null ? #temporals.format(cita.fecha, 'dd/MM/yyyy') : '-'}">
-                            </td>
+                            <td th:text="${cita.fecha != null ? #temporals.format(cita.fecha, 'dd/MM/yyyy') : '-'}"></td>
                             <td th:text="${cita.hora != null ? cita.hora : '-'}"></td>
                             <td>
-                                <span th:if="${cita.estado != null}" th:class="'badge ' + 
-                                            (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' : 
-                                            (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' : 
-                                            (${cita.estado.name() == 'COMPLETADA'} ? 'bg-success' : 
+                                <span th:if="${cita.estado != null}" th:class="'badge ' +
+                                            (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' :
+                                            (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' :
+                                            (${cita.estado.name() == 'COMPLETADA'} ? 'bg-success' :
                                             'bg-danger')))" th:text="${cita.estado}">
                                 </span>
                                 <span th:if="${cita.estado == null}" class="badge bg-secondary">Desconocido</span>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
-                                    <a th:if="${cita.estado != null and cita.estado.name() != 'CANCELADA' and cita.estado.name() != 'COMPLETADA'}"
-                                        th:href="@{/admin/citas/cancelar/{id}(id=${cita.idCita})}"
-                                        class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Estás seguro de cancelar esta cita?')">
-                                        Cancelar
-                                    </a>
+                                    <form
+                                        th:if="${cita.estado != null and cita.estado.name() != 'CANCELADA' and cita.estado.name() != 'COMPLETADA'}"
+                                        th:action="@{/admin/citas/cancelar/{id}(id=${cita.idCita})}" method="post"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Estas seguro de cancelar esta cita?')">
+                                        <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                                    </form>
                                     <span
                                         th:if="${cita.estado == null or cita.estado.name() == 'CANCELADA' or cita.estado.name() == 'COMPLETADA'}"
                                         class="text-muted">-</span>

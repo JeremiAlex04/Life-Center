@@ -11,5 +11,8 @@
         "sass": "^1.70.0"
     },
     "author": "LifeCenter Team",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "bootstrap": "^5.3.8"
+    }
 }

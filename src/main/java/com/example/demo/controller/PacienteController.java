@@ -10,10 +10,15 @@ import org.springframework.security.crypto.password.PasswordEncoder; // Importar
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.SecureRandom;
 
 @Controller
 @RequestMapping("/admin/pacientes")
 public class PacienteController {
+    private static final String PASSWORD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@$!%*?&";
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @Autowired
     private PacienteService pacienteService;
@@ -37,7 +42,7 @@ public class PacienteController {
     }
 
     @PostMapping("/guardar")
-    public String guardarPaciente(@ModelAttribute("paciente") Paciente paciente) {
+    public String guardarPaciente(@ModelAttribute("paciente") Paciente paciente, RedirectAttributes redirectAttributes) {
         
         if (paciente.getIdPaciente() == null) {
             var usuarioExistente = usuarioRepository.findByUsername(paciente.getDni());
@@ -46,9 +51,12 @@ public class PacienteController {
                 // Si no existe, creamos un usuario por defecto.
                 Usuario usuario = new Usuario();
                 usuario.setUsername(paciente.getDni()); // DNI como username
-                usuario.setPassword(passwordEncoder.encode(paciente.getDni())); // DNI como password
+                String tempPassword = generarPasswordSeguro(12);
+                usuario.setPassword(passwordEncoder.encode(tempPassword));
                 usuario.setRol(Rol.ROLE_PACIENTE);
                 paciente.setUsuario(usuario);
+                redirectAttributes.addFlashAttribute("success",
+                        "Paciente creado. Contrasena temporal: " + tempPassword);
             } else {
                 
                 paciente.setUsuario(usuarioExistente.get());
@@ -73,9 +81,18 @@ public class PacienteController {
         return "admin/pacientes/formulario";
     }
 
-    @GetMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     public String eliminarPaciente(@PathVariable Long id) {
         pacienteService.deleteById(id);
         return "redirect:/admin/pacientes";
+    }
+
+    private String generarPasswordSeguro(int length) {
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int idx = SECURE_RANDOM.nextInt(PASSWORD_ALPHABET.length());
+            password.append(PASSWORD_ALPHABET.charAt(idx));
+        }
+        return password.toString();
     }
 }

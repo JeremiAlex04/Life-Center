@@ -13,14 +13,22 @@ import com.example.demo.model.Paciente;
 import com.example.demo.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
+import java.security.SecureRandom;
 
 @Component
+@Profile("!test")
 public class DataInitializer implements CommandLineRunner {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DataInitializer.class);
+	private static final String PASSWORD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@$!%*?&";
+	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -47,10 +55,12 @@ public class DataInitializer implements CommandLineRunner {
 				.orElse(new Usuario());
 
 		if (admin.getId() == null) {
+			String adminPassword = obtenerPasswordAdminInicial();
 			admin.setUsername("admin");
-			admin.setPassword(passwordEncoder.encode("admin123"));
+			admin.setPassword(passwordEncoder.encode(adminPassword));
 			admin.setRol(Rol.ROLE_ADMIN);
 			usuarioRepository.save(admin);
+			LOGGER.warn("Usuario admin inicial creado. Password temporal: {}", adminPassword);
 		}
 
 		// Inicializar Consultorios (5 por piso en pisos 3 y 4)
@@ -198,13 +208,14 @@ public class DataInitializer implements CommandLineRunner {
 			String apellido = data[2];
 			String dni = data[4];
 			String username = dni;
-			String password = (nombre.substring(0, 1) + apellido.substring(0, 1)).toLowerCase() + "2010";
+			String password = generarPasswordSeguro(12);
 
 			if (medicoRepository.findByNumeroColegiatura(data[4]).isEmpty()) {
 				Usuario usuario = new Usuario();
 				usuario.setUsername(username);
 				usuario.setPassword(passwordEncoder.encode(password));
 				usuario.setRol(Rol.ROLE_MEDICO);
+				LOGGER.info("Credencial temporal medico {}: {}", username, password);
 
 				Medico medico = new Medico();
 				medico.setUsuario(usuario);
@@ -297,10 +308,10 @@ public class DataInitializer implements CommandLineRunner {
 
 				Usuario usuario = new Usuario();
 				usuario.setUsername(dni);
-				String password = (nombre.substring(0, 1) + apellido.substring(0, 1)).toLowerCase()
-						+ LocalDate.parse(data[3]).getYear();
+				String password = generarPasswordSeguro(12);
 				usuario.setPassword(passwordEncoder.encode(password));
 				usuario.setRol(Rol.ROLE_PACIENTE);
+				LOGGER.info("Credencial temporal paciente {}: {}", dni, password);
 
 				Paciente paciente = new Paciente();
 				paciente.setUsuario(usuario);
@@ -337,5 +348,22 @@ public class DataInitializer implements CommandLineRunner {
 				}
 			}
 		}
+	}
+
+	private String obtenerPasswordAdminInicial() {
+		String envPassword = System.getenv("LIFECENTER_ADMIN_PASSWORD");
+		if (envPassword != null && !envPassword.isBlank()) {
+			return envPassword;
+		}
+		return generarPasswordSeguro(14);
+	}
+
+	private String generarPasswordSeguro(int length) {
+		StringBuilder password = new StringBuilder(length);
+		for (int i = 0; i < length; i++) {
+			int idx = SECURE_RANDOM.nextInt(PASSWORD_ALPHABET.length());
+			password.append(PASSWORD_ALPHABET.charAt(idx));
+		}
+		return password.toString();
 	}
 }

@@ -179,3 +179,43 @@ Maneja las peticiones HTTP y decide qué vista mostrar.
 
 ---
 &copy; 2025 LifeCenter. Desarrollado por Jeremi Alexander.
+
+## Deploy en Render (GitHub)
+
+### 1. Preparar y subir a GitHub
+
+```bash
+git add .
+git commit -m "Prepare project for Render deployment"
+git branch -M main
+git remote add origin https://github.com/TU_USUARIO/TU_REPO.git
+git push -u origin main
+```
+
+### 2. Crear base de datos MySQL en Render
+
+- Crea un servicio MySQL en Render.
+- Guarda estos datos: host, port, database, username y password.
+
+### 3. Desplegar con Blueprint (`render.yaml`)
+
+- En Render: `New` -> `Blueprint`.
+- Conecta tu repositorio.
+- Render detectara `render.yaml` y creara el servicio web.
+
+### 4. Configurar variables de entorno del Web Service
+
+Configura en Render:
+
+- `SPRING_DATASOURCE_URL=jdbc:mysql://<MYSQL_HOST>:<MYSQL_PORT>/<MYSQL_DB>?useSSL=false&serverTimezone=UTC`
+- `SPRING_DATASOURCE_USERNAME=<MYSQL_USER>`
+- `SPRING_DATASOURCE_PASSWORD=<MYSQL_PASSWORD>`
+- `SPRING_JPA_HIBERNATE_DDL_AUTO=update`
+- `SPRING_JPA_SHOW_SQL=false`
+- `LIFECENTER_ADMIN_PASSWORD=<PASSWORD_ADMIN_SEGURO>`
+
+### 5. Verificar despliegue
+
+- Revisa logs de build y start.
+- Abre la URL publica del servicio.
+- Si falla conexion a DB, valida host/puerto/credenciales.

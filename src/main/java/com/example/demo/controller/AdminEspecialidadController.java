@@ -63,7 +63,7 @@ public class AdminEspecialidadController {
         return "redirect:/admin/especialidades";
     }
 
-    @GetMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     public String eliminarEspecialidad(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             especialidadService.deleteById(id);

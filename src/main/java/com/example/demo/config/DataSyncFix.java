@@ -4,21 +4,22 @@ import com.example.demo.model.Especialidad;
 import com.example.demo.model.Medico;
 import com.example.demo.repository.EspecialidadRepository;
 import com.example.demo.repository.MedicoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Sincroniza los campos especialidad (String) y especialidadObj (Especialidad)
- * para corregir inconsistencias en los datos existentes.
- */
 @Component
-@Order(2) // Se ejecuta después de DataInitializer
+@Order(2)
+@Profile("!test")
 public class DataSyncFix implements CommandLineRunner {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataSyncFix.class);
 
     @Autowired
     private MedicoRepository medicoRepository;
@@ -27,8 +28,8 @@ public class DataSyncFix implements CommandLineRunner {
     private EspecialidadRepository especialidadRepository;
 
     @Override
-    public void run(String... args) throws Exception {
-        System.out.println("=== Iniciando sincronización de especialidades ===");
+    public void run(String... args) {
+        LOGGER.info("Iniciando sincronizacion de especialidades");
 
         List<Medico> medicos = medicoRepository.findAll();
         int sincronizados = 0;
@@ -36,29 +37,20 @@ public class DataSyncFix implements CommandLineRunner {
         for (Medico medico : medicos) {
             boolean cambio = false;
 
-            // Si tiene especialidadObj, sincronizar el campo String
             if (medico.getEspecialidadObj() != null) {
                 String nombreEspecialidad = medico.getEspecialidadObj().getNombre();
                 if (!nombreEspecialidad.equals(medico.getEspecialidad())) {
-                    System.out.println("Sincronizando médico " + medico.getNombres() + " " + medico.getApellidos() +
-                            ": '" + medico.getEspecialidad() + "' -> '" + nombreEspecialidad + "'");
                     medico.setEspecialidad(nombreEspecialidad);
                     cambio = true;
                 }
-            }
-            // Si solo tiene el campo String, buscar y asignar especialidadObj
-            else if (medico.getEspecialidad() != null && !medico.getEspecialidad().isEmpty()) {
+            } else if (medico.getEspecialidad() != null && !medico.getEspecialidad().isEmpty()) {
                 Optional<Especialidad> especialidadOpt = buscarEspecialidad(medico.getEspecialidad());
                 if (especialidadOpt.isPresent()) {
                     medico.setEspecialidadObj(especialidadOpt.get());
                     medico.setEspecialidad(especialidadOpt.get().getNombre());
-                    System.out.println(
-                            "Asignando especialidadObj a médico " + medico.getNombres() + " " + medico.getApellidos() +
-                                    ": " + especialidadOpt.get().getNombre());
                     cambio = true;
                 } else {
-                    System.out.println("ADVERTENCIA: No se encontró especialidad para '" + medico.getEspecialidad() +
-                            "' del médico " + medico.getNombres() + " " + medico.getApellidos());
+                    LOGGER.warn("No se encontro especialidad para medico {}", medico.getIdMedico());
                 }
             }
 
@@ -68,29 +60,26 @@ public class DataSyncFix implements CommandLineRunner {
             }
         }
 
-        System.out.println("=== Sincronización completada: " + sincronizados + " médicos actualizados ===");
+        LOGGER.info("Sincronizacion completada: {} medicos actualizados", sincronizados);
     }
 
     private Optional<Especialidad> buscarEspecialidad(String nombre) {
-        // Mapeo explícito para correcciones conocidas
         String nombreBusqueda = nombre;
-        if (nombre.equalsIgnoreCase("Endocrinología")) {
+        if (nombre.equalsIgnoreCase("Endocrinologia")) {
             nombreBusqueda = "Medicina General / Medicina Familiar";
-        } else if (nombre.equalsIgnoreCase("Neurología")) {
+        } else if (nombre.equalsIgnoreCase("Neurologia")) {
             nombreBusqueda = "Medicina Interna";
-        } else if (nombre.equalsIgnoreCase("Ginecología")) {
-            nombreBusqueda = "Ginecología y Obstetricia";
-        } else if (nombre.equalsIgnoreCase("Traumatología")) {
-            nombreBusqueda = "Traumatología y Ortopedia";
+        } else if (nombre.equalsIgnoreCase("Ginecologia")) {
+            nombreBusqueda = "Ginecologia y Obstetricia";
+        } else if (nombre.equalsIgnoreCase("Traumatologia")) {
+            nombreBusqueda = "Traumatologia y Ortopedia";
         }
 
-        // Buscar exacto con el nombre corregido
         Optional<Especialidad> especialidad = especialidadRepository.findByNombre(nombreBusqueda);
         if (especialidad.isPresent()) {
             return especialidad;
         }
 
-        // Buscar por coincidencia parcial
         List<Especialidad> todas = especialidadRepository.findAll();
         for (Especialidad esp : todas) {
             if (esp.getNombre().contains(nombreBusqueda) || nombreBusqueda.contains(esp.getNombre())) {

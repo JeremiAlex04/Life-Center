@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 
 @Controller
 @RequestMapping("/admin/medicos")
 public class MedicoController {
+    private static final String PASSWORD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@$!%*?&";
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @Autowired
     private MedicoService medicoService;
@@ -86,18 +89,13 @@ public class MedicoController {
             usuario.setUsername(medico.getDni());
 
             // Generar contraseña: Inicial Nombre + Inicial Apellido + Año Egreso
-            String rawPassword = medico.getDni(); // Default fallback
-            if (medico.getNombres() != null && !medico.getNombres().isEmpty() &&
-                    medico.getApellidos() != null && !medico.getApellidos().isEmpty() &&
-                    medico.getAnioEgreso() != null) {
-                rawPassword = (medico.getNombres().substring(0, 1) + medico.getApellidos().substring(0, 1))
-                        .toLowerCase()
-                        + medico.getAnioEgreso();
-            }
+            String rawPassword = generarPasswordSeguro(12);
 
             usuario.setPassword(passwordEncoder.encode(rawPassword));
             usuario.setRol(Rol.ROLE_MEDICO);
             medico.setUsuario(usuario);
+            redirectAttributes.addFlashAttribute("generatedPassword",
+                    "Credenciales temporales para " + medico.getDni() + ": " + rawPassword);
 
         } else {
             Medico medicoExistente = medicoService.findById(medico.getIdMedico())
@@ -149,9 +147,18 @@ public class MedicoController {
         return "admin/medicos/formulario";
     }
 
-    @GetMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     public String eliminarMedico(@PathVariable Long id) {
         medicoService.deleteById(id);
         return "redirect:/admin/medicos";
+    }
+
+    private String generarPasswordSeguro(int length) {
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int idx = SECURE_RANDOM.nextInt(PASSWORD_ALPHABET.length());
+            password.append(PASSWORD_ALPHABET.charAt(idx));
+        }
+        return password.toString();
     }
 }

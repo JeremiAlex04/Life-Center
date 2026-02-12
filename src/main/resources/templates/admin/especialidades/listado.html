@@ -6,7 +6,7 @@
         <div class="header">
             <h1>
                 <i class="bi bi-heart-pulse-fill text-primary me-2"></i>
-                Gestión de Especialidades
+                Gestion de Especialidades
             </h1>
             <a th:href="@{/admin/especialidades/nuevo}" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>Nueva Especialidad
@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripción</th>
+                            <th>Descripcion</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
@@ -47,11 +47,11 @@
                     <tbody>
                         <tr th:each="esp : ${especialidades}">
                             <td>
-                                <strong th:text="${esp.nombre}">Cardiología</strong>
+                                <strong th:text="${esp.nombre}">Cardiologia</strong>
                             </td>
                             <td>
                                 <span th:text="${#strings.abbreviate(esp.descripcion, 80)}">
-                                    Descripción de la especialidad...
+                                    Descripcion de la especialidad...
                                 </span>
                             </td>
                             <td class="text-center">
@@ -61,19 +61,20 @@
                             <td class="text-center">
                                 <div class="btn-group" role="group">
                                     <a th:href="@{/admin/especialidades/{id}/medicos(id=${esp.idEspecialidad})}"
-                                        class="btn btn-sm btn-info" title="Ver Médicos">
+                                        class="btn btn-sm btn-info" title="Ver Medicos">
                                         <i class="bi bi-people-fill"></i>
                                     </a>
                                     <a th:href="@{/admin/especialidades/editar/{id}(id=${esp.idEspecialidad})}"
                                         class="btn btn-sm btn-warning" title="Editar">
                                         <i class="bi bi-pencil-fill"></i>
                                     </a>
-                                    <a th:href="@{/admin/especialidades/eliminar/{id}(id=${esp.idEspecialidad})}"
-                                        class="btn btn-sm btn-danger"
-                                        onclick="return confirm('¿Está seguro de eliminar esta especialidad?')"
-                                        title="Eliminar">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </a>
+                                    <form th:action="@{/admin/especialidades/eliminar/{id}(id=${esp.idEspecialidad})}"
+                                        method="post" class="d-inline"
+                                        onsubmit="return confirm('Estas seguro de eliminar esta especialidad?')">
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

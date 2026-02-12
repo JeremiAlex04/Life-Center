@@ -5,10 +5,14 @@ import com.example.demo.model.Medico;
 import com.example.demo.service.CitaService;
 import com.example.demo.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,11 +33,9 @@ public class MedicoPortalController {
     @GetMapping("/dashboard")
     public String viewMedicoDashboard(Model model, Authentication authentication) {
         String username = authentication.getName();
-        System.out.println("Attempting to find medico with username: " + username); // For debugging
         Medico medico = medicoService.findByUsername(username);
 
         if (medico != null) {
-            System.out.println("Medico found: " + medico.getNombres()); // For debugging
             List<Cita> citas = citaService.findUpcomingCitasByMedicoId(medico.getIdMedico());
             long citasHoyCount = citaService.countTodayCitasByMedicoId(medico.getIdMedico());
             long citasProximasCount = citaService.countUpcomingCitasByMedicoId(medico.getIdMedico());
@@ -44,34 +46,43 @@ public class MedicoPortalController {
             model.addAttribute("medico", medico);
             return "portal/medico/dashboard";
         } else {
-            System.out.println("Medico not found for username: " + username); // For debugging
             return "redirect:/login?error=medico_not_found";
         }
     }
 
-    @GetMapping("/citas/{id}/cambiar-estado")
-    public String actualizarEstadoCita(@org.springframework.web.bind.annotation.PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestParam com.example.demo.model.EstadoCita estado) {
-        citaService.actualizarEstadoCita(id, estado);
+    @PostMapping("/citas/{id}/estado")
+    public String actualizarEstadoCita(@PathVariable Long id,
+            @RequestParam com.example.demo.model.EstadoCita estado,
+            Authentication authentication) {
+        Medico medico = obtenerMedicoAutenticado(authentication);
+        citaService.actualizarEstadoCitaParaMedico(id, medico.getIdMedico(), estado);
         return "redirect:/medico/dashboard";
     }
 
     @GetMapping("/citas/{id}/atender")
-    public String viewAtenderCita(@org.springframework.web.bind.annotation.PathVariable Long id, Model model) {
+    public String viewAtenderCita(@PathVariable Long id, Model model, Authentication authentication) {
         Cita cita = citaService.findById(id);
         if (cita == null) {
             return "redirect:/medico/dashboard?error=CitaNoEncontrada";
         }
+
+        Medico medico = obtenerMedicoAutenticado(authentication);
+        if (cita.getMedico() == null || !medico.getIdMedico().equals(cita.getMedico().getIdMedico())) {
+            throw new AccessDeniedException("No tiene permisos para atender esta cita");
+        }
+
         model.addAttribute("cita", cita);
         return "portal/medico/atender_cita";
     }
 
-    @org.springframework.web.bind.annotation.PostMapping("/citas/{id}/finalizar")
-    public String finalizarCita(@org.springframework.web.bind.annotation.PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestParam String diagnostico,
-            @org.springframework.web.bind.annotation.RequestParam String tratamiento,
-            @org.springframework.web.bind.annotation.RequestParam String observaciones) {
-        citaService.finalizarCita(id, diagnostico, tratamiento, observaciones);
+    @PostMapping("/citas/{id}/finalizar")
+    public String finalizarCita(@PathVariable Long id,
+            @RequestParam String diagnostico,
+            @RequestParam String tratamiento,
+            @RequestParam String observaciones,
+            Authentication authentication) {
+        Medico medico = obtenerMedicoAutenticado(authentication);
+        citaService.finalizarCitaParaMedico(id, medico.getIdMedico(), diagnostico, tratamiento, observaciones);
         return "redirect:/medico/dashboard";
     }
 
@@ -99,5 +110,14 @@ public class MedicoPortalController {
             model.addAttribute("historial", historial);
         }
         return "portal/medico/historial-fragment :: historial";
+    }
+
+    private Medico obtenerMedicoAutenticado(Authentication authentication) {
+        String username = authentication.getName();
+        Medico medico = medicoService.findByUsername(username);
+        if (medico == null) {
+            throw new AccessDeniedException("Médico autenticado no encontrado");
+        }
+        return medico;
     }
 }

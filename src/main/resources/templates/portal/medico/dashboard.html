@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <div th:replace="~{layout :: layout(title='Dashboard del Médico', content=~{::section})}">
+    <div th:replace="~{layout :: layout(title='Dashboard del Medico', content=~{::section})}">
         <section class="medico-dashboard">
             <div class="row mb-4 welcome-section">
                 <div class="col-md-8">
@@ -15,8 +15,8 @@
                     <div class="card profile-card h-100 border-0">
                         <div class="card-body">
                             <h5 class="card-title mb-3"><i class="bi bi-person-badge me-2"></i>Mi Perfil</h5>
-                            <p class="mb-1"><strong>Especialidad:</strong> <span
-                                    th:text="${medico.especialidad}"></span></p>
+                            <p class="mb-1"><strong>Especialidad:</strong> <span th:text="${medico.especialidad}"></span>
+                            </p>
                             <p class="mb-1"><strong>Turno:</strong> <span th:text="${medico.turno}"></span></p>
                             <p class="mb-0"><strong>Colegiatura:</strong> <span
                                     th:text="${medico.numeroColegiatura}"></span></p>
@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="text-muted text-uppercase mb-1">Total Próximas</h6>
+                                    <h6 class="text-muted text-uppercase mb-1">Total Proximas</h6>
                                     <h2 class="display-4 fw-bold text-info mb-0" th:text="${citasProximasCount}">0</h2>
                                 </div>
                                 <i class="bi bi-calendar-week text-info"></i>
@@ -56,11 +56,11 @@
 
             <div class="card appointments-card">
                 <div class="card-header">
-                    <h2 class="h5 mb-0"><i class="bi bi-calendar-check me-2"></i>Próximas Citas</h2>
+                    <h2 class="h5 mb-0"><i class="bi bi-calendar-check me-2"></i>Proximas Citas</h2>
                 </div>
                 <div class="card-body">
                     <div th:if="${#lists.isEmpty(citas)}" class="empty-state">
-                        <p class="text-center text-muted">No tiene citas próximas programadas.</p>
+                        <p class="text-center text-muted">No tiene citas proximas programadas.</p>
                     </div>
                     <div th:unless="${#lists.isEmpty(citas)}">
                         <table class="table table-hover">
@@ -81,9 +81,9 @@
                                     <td th:text="${cita.paciente.nombres + ' ' + cita.paciente.apellidos}"></td>
                                     <td th:text="${cita.motivo}"></td>
                                     <td>
-                                        <span th:class="'badge ' + 
-                                            (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' : 
-                                            (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' : 
+                                        <span th:class="'badge ' +
+                                            (${cita.estado.name() == 'PENDIENTE'} ? 'bg-warning text-dark' :
+                                            (${cita.estado.name() == 'CONFIRMADA'} ? 'bg-primary' :
                                             (${cita.estado.name() == 'CANCELADA'} ? 'bg-danger' : 'bg-success')))"
                                             th:text="${cita.estado}">
                                         </span>
@@ -91,14 +91,20 @@
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group"
                                             th:if="${cita.estado.name() == 'PENDIENTE'}">
-                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CONFIRMADA')}"
-                                                class="btn btn-outline-primary" title="Confirmar">
-                                                <i class="bi bi-check-lg"></i>
-                                            </a>
-                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CANCELADA')}"
-                                                class="btn btn-outline-danger" title="Cancelar">
-                                                <i class="bi bi-x-lg"></i>
-                                            </a>
+                                            <form th:action="@{/medico/citas/{id}/estado(id=${cita.idCita})}"
+                                                method="post" class="d-inline">
+                                                <input type="hidden" name="estado" value="CONFIRMADA">
+                                                <button type="submit" class="btn btn-outline-primary" title="Confirmar">
+                                                    <i class="bi bi-check-lg"></i>
+                                                </button>
+                                            </form>
+                                            <form th:action="@{/medico/citas/{id}/estado(id=${cita.idCita})}"
+                                                method="post" class="d-inline">
+                                                <input type="hidden" name="estado" value="CANCELADA">
+                                                <button type="submit" class="btn btn-outline-danger" title="Cancelar">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="btn-group btn-group-sm" role="group"
                                             th:if="${cita.estado.name() == 'CONFIRMADA'}">
@@ -106,10 +112,13 @@
                                                 class="btn btn-outline-success" title="Atender">
                                                 <i class="bi bi-clipboard-pulse"></i>
                                             </a>
-                                            <a th:href="@{/medico/citas/{id}/cambiar-estado(id=${cita.idCita}, estado='CANCELADA')}"
-                                                class="btn btn-outline-danger" title="Cancelar">
-                                                <i class="bi bi-x-lg"></i>
-                                            </a>
+                                            <form th:action="@{/medico/citas/{id}/estado(id=${cita.idCita})}"
+                                                method="post" class="d-inline">
+                                                <input type="hidden" name="estado" value="CANCELADA">
+                                                <button type="submit" class="btn btn-outline-danger" title="Cancelar">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

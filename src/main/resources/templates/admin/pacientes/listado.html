@@ -63,8 +63,11 @@
                                     </button>
                                     <a th:href="@{/admin/pacientes/editar/{id}(id=${paciente.idPaciente})}"
                                         class="btn btn-warning btn-sm">Editar</a>
-                                    <a th:href="@{/admin/pacientes/eliminar/{id}(id=${paciente.idPaciente})}"
-                                        class="btn btn-danger btn-sm">Eliminar</a>
+                                    <form th:action="@{/admin/pacientes/eliminar/{id}(id=${paciente.idPaciente})}"
+                                        method="post" class="d-inline"
+                                        onsubmit="return confirm('Estas seguro de eliminar este paciente?')">
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

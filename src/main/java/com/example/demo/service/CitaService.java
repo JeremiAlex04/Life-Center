@@ -8,6 +8,7 @@ import com.example.demo.repository.HorarioMedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -147,6 +148,12 @@ public class CitaService {
         citaRepository.save(cita);
     }
 
+    public void actualizarEstadoCitaParaMedico(Long citaId, Long medicoId, com.example.demo.model.EstadoCita nuevoEstado) {
+        Cita cita = obtenerCitaDelMedico(citaId, medicoId);
+        cita.setEstado(nuevoEstado);
+        citaRepository.save(cita);
+    }
+
     public void finalizarCita(Long citaId, String diagnostico, String tratamiento, String observaciones) {
         Cita cita = citaRepository.findById(citaId)
                 .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada"));
@@ -168,6 +175,26 @@ public class CitaService {
         historialClinicoService.save(historial);
     }
 
+    public void finalizarCitaParaMedico(Long citaId, Long medicoId, String diagnostico, String tratamiento,
+            String observaciones) {
+        Cita cita = obtenerCitaDelMedico(citaId, medicoId);
+
+        cita.setDiagnostico(diagnostico);
+        cita.setTratamiento(tratamiento);
+        cita.setObservaciones(observaciones);
+        cita.setEstado(com.example.demo.model.EstadoCita.COMPLETADA);
+
+        citaRepository.save(cita);
+
+        HistorialClinico historial = new HistorialClinico();
+        historial.setPaciente(cita.getPaciente());
+        historial.setFecha(cita.getFecha());
+        historial.setDiagnostico(diagnostico);
+        historial.setTratamiento(tratamiento);
+        historial.setObservaciones(observaciones);
+        historialClinicoService.save(historial);
+    }
+
     public List<com.example.demo.model.Paciente> findPacientesByMedicoId(Long medicoId) {
         return citaRepository.findPacientesByMedicoId(medicoId);
     }
@@ -178,5 +205,17 @@ public class CitaService {
 
     public long countAllCitas() {
         return citaRepository.count();
+    }
+
+    private Cita obtenerCitaDelMedico(Long citaId, Long medicoId) {
+        Cita cita = citaRepository.findById(citaId)
+                .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada"));
+
+        if (cita.getMedico() == null || cita.getMedico().getIdMedico() == null
+                || !cita.getMedico().getIdMedico().equals(medicoId)) {
+            throw new AccessDeniedException("No tiene permisos para modificar esta cita");
+        }
+
+        return cita;
     }
 }

@@ -6,6 +6,7 @@ import com.example.demo.repository.MedicoRepository;
 import com.example.demo.repository.PacienteRepository;
 import com.example.demo.service.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/citas")
+@PreAuthorize("hasRole('PACIENTE')")
 public class CitaController {
 
     @Autowired
