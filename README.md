@@ -57,7 +57,7 @@ El proyecto está construido utilizando tecnologías robustas y modernas del eco
     *   **Spring Boot 3.x**: Framework para el desarrollo de aplicaciones web.
     *   **Spring Data JPA**: Capa de persistencia y ORM (Hibernate).
     *   **Spring Security**: Gestión de autenticación y autorización.
-    *   **MySQL**: Base de datos relacional.
+    *   **PostgreSQL**: Base de datos relacional.
 
 *   **Frontend**:
     *   **Thymeleaf**: Motor de plantillas para renderizado del lado del servidor.
@@ -97,7 +97,7 @@ src/main/
     ```
 
 2.  **Configurar Base de Datos**:
-    - Asegúrese de tener MySQL ejecutándose.
+    - Asegúrese de tener PostgreSQL ejecutándose.
     - Configure las credenciales en `src/main/resources/application.properties`.
 
 3.  **Ejecutar la aplicación**:
@@ -192,9 +192,9 @@ git remote add origin https://github.com/TU_USUARIO/TU_REPO.git
 git push -u origin main
 ```
 
-### 2. Crear base de datos MySQL en Render
+### 2. Crear base de datos PostgreSQL en Render
 
-- Crea un servicio MySQL en Render.
+- Crea un servicio PostgreSQL en Render.
 - Guarda estos datos: host, port, database, username y password.
 
 ### 3. Desplegar con Blueprint (`render.yaml`)
@@ -207,9 +207,9 @@ git push -u origin main
 
 Configura en Render:
 
-- `SPRING_DATASOURCE_URL=jdbc:mysql://<MYSQL_HOST>:<MYSQL_PORT>/<MYSQL_DB>?useSSL=false&serverTimezone=UTC`
-- `SPRING_DATASOURCE_USERNAME=<MYSQL_USER>`
-- `SPRING_DATASOURCE_PASSWORD=<MYSQL_PASSWORD>`
+- `SPRING_DATASOURCE_URL=jdbc:postgresql://<PG_HOST>:<PG_PORT>/<PG_DB>`
+- `SPRING_DATASOURCE_USERNAME=<PG_USER>`
+- `SPRING_DATASOURCE_PASSWORD=<PG_PASSWORD>`
 - `SPRING_JPA_HIBERNATE_DDL_AUTO=update`
 - `SPRING_JPA_SHOW_SQL=false`
 - `LIFECENTER_ADMIN_PASSWORD=<PASSWORD_ADMIN_SEGURO>`
