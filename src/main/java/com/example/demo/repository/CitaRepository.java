@@ -1,12 +1,12 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Cita;
+import com.example.demo.model.EstadoCita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Long> {
@@ -30,8 +30,10 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
 
         // Buscar citas del mismo médico en la misma fecha para validar solapamiento en
         // Java
-        @Query("SELECT c FROM Cita c WHERE c.medico.idMedico = :medicoId AND c.fecha = :fecha")
-        List<Cita> findCitasParaValidarSolapamiento(@Param("medicoId") Long medicoId, @Param("fecha") LocalDate fecha);
+        @Query("SELECT c FROM Cita c WHERE c.medico.idMedico = :medicoId AND c.fecha = :fecha AND c.estado IN :estados")
+        List<Cita> findCitasParaValidarSolapamiento(@Param("medicoId") Long medicoId,
+                        @Param("fecha") LocalDate fecha,
+                        @Param("estados") List<EstadoCita> estados);
 
         @Query("SELECT c FROM Cita c WHERE c.paciente.idPaciente = :pacienteId")
         List<Cita> buscarPorPacienteId(@Param("pacienteId") Long pacienteId);
