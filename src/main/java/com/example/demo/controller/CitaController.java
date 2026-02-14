@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Cita;
+import com.example.demo.model.Medico;
 import com.example.demo.model.Paciente;
 import com.example.demo.repository.MedicoRepository;
 import com.example.demo.repository.PacienteRepository;
@@ -12,6 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Controller
 @RequestMapping("/citas")
@@ -36,7 +40,12 @@ public class CitaController {
     }
 
     @PostMapping("/guardar")
-    public String guardarCita(@ModelAttribute("cita") Cita cita, Authentication authentication, Model model) {
+    public String guardarCita(@RequestParam("medico") Long medicoId,
+            @RequestParam("fecha") LocalDate fecha,
+            @RequestParam("hora") LocalTime hora,
+            @RequestParam("motivo") String motivo,
+            Authentication authentication,
+            Model model) {
         // Obtenemos el username (DNI) del paciente logueado
         String username = authentication.getName();
 
@@ -44,8 +53,15 @@ public class CitaController {
         Paciente paciente = pacienteRepository.findByDni(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Paciente no encontrado con DNI: " + username));
 
-        // Asignamos el paciente a la cita
+        Medico medico = medicoRepository.findById(medicoId)
+                .orElseThrow(() -> new IllegalArgumentException("Médico no encontrado."));
+
+        Cita cita = new Cita();
         cita.setPaciente(paciente);
+        cita.setMedico(medico);
+        cita.setFecha(fecha);
+        cita.setHora(hora);
+        cita.setMotivo(motivo);
 
         try {
             citaService.save(cita);
